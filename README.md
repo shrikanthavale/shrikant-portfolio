@@ -94,6 +94,49 @@ chore(ci): add lint typecheck and build workflow
 docs(readme): add pull request checklist
 ```
 
+## Release Flow
+
+This repository uses a lightweight, quality-gated workflow:
+
+- Keep `main` protected and always deployable.
+- Create short-lived branches from `main` for each change.
+- Open a pull request for every branch.
+- Merge with **Squash and merge** after CI passes.
+
+Suggested branch naming:
+
+- `feat/short-description`
+- `fix/short-description`
+- `chore/short-description`
+
+Recommended daily flow:
+
+```bash
+git checkout main
+git pull
+git checkout -b feat/your-change
+
+# work, then commit
+git add -A
+git commit -m "feat(scope): short summary"
+git push -u origin feat/your-change
+```
+
+After merge, keep local branches clean:
+
+```bash
+git checkout main
+git pull
+git branch -d feat/your-change
+```
+
+Recommended GitHub repository settings:
+
+- Allow squash merging: enabled
+- Allow merge commits: disabled
+- Allow rebase merging: disabled
+- Automatically delete head branches: enabled
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
