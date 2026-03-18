@@ -10,7 +10,7 @@ export default function BlogPreview() {
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="heading-gradient text-3xl font-bold tracking-tight sm:text-5xl">Blog preview</h2>
-          <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-gray-400">
+          <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg sm:leading-9 dark:text-gray-400">
             Thoughts on backend architecture, scaling systems, and practical engineering patterns.
           </p>
         </div>

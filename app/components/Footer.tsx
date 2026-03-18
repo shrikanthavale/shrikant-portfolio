@@ -13,7 +13,7 @@ export default function Footer() {
             <div className="mt-6 space-y-3 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
               <p>
                 <span className="font-medium text-slate-800 dark:text-slate-200">Email:</span>{' '}
-                <a href="mailto:shrikant.havale@yahoo.com" className="text-sky-700 hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200">shrikant.havale@yahoo.com</a>
+                <a href="mailto:shrikant.havale@yahoo.com" className="text-link-subtle text-sky-700 hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200">shrikant.havale@yahoo.com</a>
               </p>
               <p>
                 <span className="font-medium text-slate-800 dark:text-slate-200">Location:</span> Pune, India
@@ -26,26 +26,26 @@ export default function Footer() {
               <div>
                 <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Work</p>
                 <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
-                  <li><a className="hover:text-slate-900 dark:hover:text-slate-100" href="#projects">Featured projects</a></li>
-                  <li><a className="hover:text-slate-900 dark:hover:text-slate-100" href="#tech">Tech stack</a></li>
-                  <li><Link className="hover:text-slate-900 dark:hover:text-slate-100" href="/projects">All project pages</Link></li>
-                  <li><Link className="hover:text-slate-900 dark:hover:text-slate-100" href="/experience">Experience details</Link></li>
+                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="#projects">Featured projects</a></li>
+                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="#tech">Tech stack</a></li>
+                  <li><Link className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="/projects">All project pages</Link></li>
+                  <li><Link className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="/experience">Experience details</Link></li>
                 </ul>
               </div>
               <div>
                 <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Writing</p>
                 <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
-                  <li><a className="hover:text-slate-900 dark:hover:text-slate-100" href="#blog">Latest posts</a></li>
-                  <li><a className="hover:text-slate-900 dark:hover:text-slate-100" href="#">All archives</a></li>
+                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="#blog">Latest posts</a></li>
+                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="#">All archives</a></li>
                 </ul>
               </div>
               <div>
                 <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Social</p>
                 <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
-                  <li><a className="hover:text-slate-900 dark:hover:text-slate-100" href="https://github.com/shrikanthavale" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                  <li><a className="hover:text-slate-900 dark:hover:text-slate-100" href="https://www.linkedin.com/in/shrikanthavale/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                  <li><a className="hover:text-slate-900 dark:hover:text-slate-100" href="https://stackoverflow.com/users/2931342/shrikant-havale" target="_blank" rel="noopener noreferrer">Stack Overflow</a></li>
-                  <li><a className="hover:text-slate-900 dark:hover:text-slate-100" href="https://www.hackerrank.com/shrikant_havale" target="_blank" rel="noopener noreferrer">HackerRank</a></li>
+                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="https://github.com/shrikanthavale" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="https://www.linkedin.com/in/shrikanthavale/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="https://stackoverflow.com/users/2931342/shrikant-havale" target="_blank" rel="noopener noreferrer">Stack Overflow</a></li>
+                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="https://www.hackerrank.com/shrikant_havale" target="_blank" rel="noopener noreferrer">HackerRank</a></li>
                 </ul>
               </div>
             </div>
