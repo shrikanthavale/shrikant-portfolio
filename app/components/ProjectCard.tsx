@@ -115,7 +115,7 @@ export default function ProjectCard({
           </p>
           <Link
             href={detailsHref}
-            className="inline-flex items-center rounded-md border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-medium text-sky-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:border-sky-800/60 dark:bg-sky-900/20 dark:text-sky-300 dark:hover:border-sky-400 dark:hover:bg-sky-500"
+            className="inline-flex items-center rounded-md border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-medium text-sky-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:bg-sky-500 hover:text-white hover:shadow-md hover:shadow-sky-500/20 dark:border-sky-800/60 dark:bg-sky-900/20 dark:text-sky-300 dark:hover:border-sky-400 dark:hover:bg-sky-500 dark:hover:shadow-sky-500/10"
           >
             {detailsLabel} →
           </Link>
