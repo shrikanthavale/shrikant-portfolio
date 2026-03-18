@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
+    "commitlint": "commitlint --from HEAD~1 --to HEAD --verbose",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "prepare": "husky"
@@ -31,7 +32,11 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
     "@tailwindcss/postcss": "^4",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

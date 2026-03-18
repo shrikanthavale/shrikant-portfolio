@@ -64,6 +64,7 @@ This repository uses Husky + lint-staged.
 
 - On commit, staged JavaScript/TypeScript files are linted with autofix.
 - On commit, staged JSON/Markdown/CSS/YAML files are formatted with Prettier.
+- Commit messages are validated with commitlint (Conventional Commits).
 
 If the hook fails, fix the reported issues and re-run the commit.
 
