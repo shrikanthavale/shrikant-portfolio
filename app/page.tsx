@@ -6,6 +6,8 @@ import BlogPreview from "@/app/components/BlogPreview";
 import Footer from "@/app/components/Footer";
 
 export default function Page() {
+  const intentionalCiFailure: string = 123;
+
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
       <Navbar />
