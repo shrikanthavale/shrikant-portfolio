@@ -31,14 +31,11 @@ export default function ProjectsIndexPage() {
               <ProjectCard
                 key={project.slug}
                 title={project.title}
-                role={project.role}
                 description={project.description}
-                context={project.context}
-                outcomes={project.outcomes}
                 tags={project.tags}
                 detailsHref={`/projects/${project.slug}`}
                 detailsLabel="Open project page"
-                variant="detailed"
+                variant="compact"
               />
             ))}
           </div>
