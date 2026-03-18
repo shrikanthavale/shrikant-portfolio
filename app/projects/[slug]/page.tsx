@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { getProjectBySlug, projects } from "@/app/data/projects";
 import SystemArchitecture from "@/app/components/SystemArchitecture";
 
@@ -45,15 +45,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
+      <SubpageTopBar leftLabel="← All projects" leftHref="/projects" maxWidthClass="max-w-4xl" />
       <article className="mx-auto max-w-4xl px-6 py-20">
-        <Link
-          href="/projects"
-          className="text-sm font-medium text-sky-700 transition hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200"
-        >
-          ← Back to all projects
-        </Link>
-
-        <header className="mt-6 border-b border-slate-200 pb-7 dark:border-slate-800">
+        <header className="border-b border-slate-200 pb-7 dark:border-slate-800">
           <h1 className="heading-gradient text-3xl font-bold tracking-tight sm:text-5xl">{project.title}</h1>
           <p className="mt-4 text-base leading-8 text-slate-600 dark:text-gray-400">{project.description}</p>
           <p className="mt-4 text-sm font-medium text-slate-500 dark:text-slate-400">Role: {project.role}</p>

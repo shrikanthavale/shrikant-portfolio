@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import Link from "next/link";
 import BlogPreviewClient from "@/app/components/BlogPreviewClient";
+import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { getPosts } from "@/app/lib/getPosts";
 
 export default function BlogIndexPage() {
@@ -8,17 +8,7 @@ export default function BlogIndexPage() {
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
-      <section className="border-b border-slate-200 bg-white/90 dark:border-slate-800 dark:bg-slate-950/90">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <Link
-            href="/#blog"
-            className="text-sm font-medium text-sky-700 transition hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200"
-          >
-            ← Back to home
-          </Link>
-          <h1 className="heading-gradient text-xl font-bold sm:text-2xl">All blogs</h1>
-        </div>
-      </section>
+      <SubpageTopBar leftLabel="Blog" rightHref="/#blog" />
 
       <section className="section-ambient border-b border-slate-200 bg-white/80 dark:border-slate-800 dark:bg-slate-900/30">
         <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">

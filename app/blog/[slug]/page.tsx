@@ -1,8 +1,8 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { getPostBySlug, getPostSlugs } from "@/app/lib/getPosts";
 
 type BlogPostPageProps = {
@@ -132,11 +132,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
+      <SubpageTopBar leftLabel="← All blogs" leftHref="/blog" maxWidthClass="max-w-3xl" />
       <article className="mx-auto max-w-3xl px-6 py-20">
-        <Link href="/#blog" className="text-sm font-medium text-sky-700 transition hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200">
-          ← Back to blog
-        </Link>
-        <header className="mt-6 border-b border-slate-200 pb-6 dark:border-slate-800">
+        <header className="border-b border-slate-200 pb-6 dark:border-slate-800">
           <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
             {formatDate(post.date)}
             <span className="px-2 text-slate-400 dark:text-slate-600">•</span>
