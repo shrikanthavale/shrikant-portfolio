@@ -25,7 +25,7 @@ type ProjectCardProps = {
   tags: string[];
   detailsHref?: string;
   detailsLabel?: string;
-  variant?: "compact" | "index" | "detailed";
+  variant?: "compact" | "detailed";
 };
 
 const TECH_BADGE_META: Record<string, { icon: LucideIcon; tone: string }> = {
@@ -58,22 +58,19 @@ export default function ProjectCard({
   variant = "compact",
 }: ProjectCardProps) {
   const isDetailed = variant === "detailed";
-  const isIndex = variant === "index";
 
   return (
     <article className="glass-card glass-card-hover flex h-full flex-col justify-between rounded-2xl p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:border-sky-300 dark:hover:border-sky-700">
       <div>
         <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-sky-700 dark:text-sky-300">
-          {isDetailed ? "Project narrative" : isIndex ? "Project overview" : "Case study"}
+          {isDetailed ? "Project narrative" : "Case study"}
         </p>
         <h3 className="mt-3 text-xl font-bold leading-tight text-slate-900 sm:text-2xl dark:text-white">{title}</h3>
         {role && <p className="mt-3 text-xs font-medium uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{role}</p>}
-        <p className={`mt-4 text-sm leading-7 text-slate-600 dark:text-gray-400 ${isDetailed ? "" : isIndex ? "line-clamp-3" : "line-clamp-4"}`}>
-          {description}
-        </p>
+        <p className={`mt-4 text-sm leading-7 text-slate-600 dark:text-gray-400 ${isDetailed ? "" : "line-clamp-4"}`}>{description}</p>
 
-        {(isDetailed || isIndex) && context && (
-          <p className={`mt-4 text-sm leading-7 text-slate-500 dark:text-slate-400 ${isIndex ? "line-clamp-3" : ""}`}>{context}</p>
+        {isDetailed && context && (
+          <p className="mt-4 text-sm leading-7 text-slate-500 dark:text-slate-400">{context}</p>
         )}
       </div>
 
@@ -111,17 +108,10 @@ export default function ProjectCard({
         </div>
       ) : null}
 
-      {isIndex && outcomes?.length ? (
-        <div className="mt-6 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500" aria-hidden="true" />
-          <span className="line-clamp-2">{outcomes[0]}</span>
-        </div>
-      ) : null}
-
       {detailsHref && (
         <div className="mt-6 flex items-center justify-between gap-3 border-t border-slate-200 pt-5 dark:border-slate-800">
           <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-400 dark:text-slate-500">
-            {isDetailed ? "Open full case study" : isIndex ? "Open project page" : "Open project narrative"}
+            {isDetailed ? "Open full case study" : "Open project narrative"}
           </p>
           <Link
             href={detailsHref}
