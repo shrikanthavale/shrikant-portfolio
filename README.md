@@ -20,6 +20,80 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Development Workflow
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the local quality checks before opening a PR:
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
+
+Optional formatting commands:
+
+```bash
+npm run format:check
+npm run format
+```
+
+## Pre-commit Checks
+
+This repository uses Husky + lint-staged.
+
+- On commit, staged JavaScript/TypeScript files are linted with autofix.
+- On commit, staged JSON/Markdown/CSS/YAML files are formatted with Prettier.
+
+If the hook fails, fix the reported issues and re-run the commit.
+
+## Pull Request Checklist
+
+Before requesting review, confirm:
+
+- The branch builds successfully locally.
+- Lint passes with `npm run lint`.
+- Type checks pass with `npm run typecheck`.
+- Production build passes with `npm run build`.
+- UI changes were tested on desktop and mobile viewport sizes.
+- New behavior includes tests where relevant, or rationale is documented in the PR.
+- No secrets or environment-specific values were committed.
+
+CI runs the same core quality gates (`lint`, `typecheck`, `build`) on push and pull requests.
+
+## Commit Message Convention
+
+Use Conventional Commits for clearer history and easier release notes.
+
+Recommended format:
+
+```text
+type(scope): short summary
+```
+
+Common types:
+
+- `feat`: new feature
+- `fix`: bug fix
+- `docs`: documentation-only change
+- `refactor`: code restructuring without behavior change
+- `test`: adding or updating tests
+- `chore`: maintenance work (tooling, config, dependencies)
+
+Examples:
+
+```text
+feat(blog): add tag-based filtering for preview cards
+fix(theme): avoid setState in effect for mount guard
+chore(ci): add lint typecheck and build workflow
+docs(readme): add pull request checklist
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

@@ -1,4 +1,14 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id],
+footer[id] {
+  scroll-margin-top: 5.5rem;
+}
 
 :root {
   --background: #ffffff;
@@ -22,5 +32,94 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.65;
+}
+
+.heading-gradient {
+  background-image: linear-gradient(
+    92deg,
+    rgb(56 189 248 / 0.9),
+    rgb(96 165 250 / 0.9),
+    rgb(244 114 182 / 0.88)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-ambient {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.section-ambient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(14, 165, 233, 0.08), transparent 42%),
+    radial-gradient(circle at 86% 82%, rgba(59, 130, 246, 0.06), transparent 46%);
+}
+
+:where(.dark) .section-ambient::before {
+  background:
+    radial-gradient(circle at 14% 22%, rgba(56, 189, 248, 0.09), transparent 44%),
+    radial-gradient(circle at 86% 80%, rgba(99, 102, 241, 0.08), transparent 48%);
+}
+
+.section-ambient > * {
+  position: relative;
+  z-index: 1;
+}
+
+.glass-card {
+  border: 1px solid rgb(203 213 225 / 0.9);
+  background: rgb(255 255 255 / 0.62);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.glass-card-hover {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 14px 30px rgb(15 23 42 / 0.12);
+}
+
+:where(.dark) .glass-card {
+  border-color: rgb(55 65 81 / 0.95);
+  background: rgb(31 41 55 / 0.5);
+}
+
+:where(.dark) .glass-card-hover:hover {
+  box-shadow: 0 16px 32px rgb(2 6 23 / 0.42);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-card-hover,
+  .glass-card-hover:hover {
+    transform: none;
+    transition: none;
+  }
+}
+
+.section-ambient-alt::before {
+  background:
+    radial-gradient(circle at 84% 22%, rgba(14, 165, 233, 0.07), transparent 42%),
+    radial-gradient(circle at 14% 80%, rgba(59, 130, 246, 0.05), transparent 46%);
+}
+
+:where(.dark) .section-ambient-alt::before {
+  background:
+    radial-gradient(circle at 84% 24%, rgba(56, 189, 248, 0.08), transparent 44%),
+    radial-gradient(circle at 14% 78%, rgba(99, 102, 241, 0.07), transparent 48%);
 }
