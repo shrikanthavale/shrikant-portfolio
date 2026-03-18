@@ -26,10 +26,10 @@ export default function Projects() {
         </div>
         <div className="mt-8 text-center">
           <Link
-            href="/experience"
-            className="inline-flex items-center text-sm font-medium text-sky-700 transition hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200"
+            href="/projects"
+            className="inline-flex items-center rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-105 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-400/40"
           >
-            View full experience →
+            View all projects →
           </Link>
         </div>
       </div>

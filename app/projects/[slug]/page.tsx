@@ -35,10 +35,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <main className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
       <article className="mx-auto max-w-4xl px-6 py-20">
         <Link
-          href="/#projects"
+          href="/projects"
           className="text-sm font-medium text-sky-700 transition hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200"
         >
-          ← Back to projects
+          ← Back to all projects
         </Link>
 
         <header className="mt-6 border-b border-slate-200 pb-7 dark:border-slate-800">

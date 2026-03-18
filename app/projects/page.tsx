@@ -12,7 +12,7 @@ export default function ProjectsIndexPage() {
           >
             ← Back to home
           </Link>
-          <h1 className="heading-gradient text-xl font-bold sm:text-2xl">Project details</h1>
+          <h1 className="heading-gradient text-xl font-bold sm:text-2xl">All projects</h1>
         </div>
       </section>
 
