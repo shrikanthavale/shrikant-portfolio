@@ -1,24 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shrikant Havale - Portfolio
 
-## Getting Started
+Modern developer portfolio showcasing backend engineering expertise, system design, and real-world projects.
 
-First, run the development server:
+## Tech Stack
+
+- Next.js
+- Tailwind CSS
+- TypeScript
+- Markdown-based blog content
+
+## Features
+
+- Modern responsive UI
+- Dynamic blog system (Markdown-based)
+- Real-world backend case studies
+- System design and architecture showcase
+
+## Structure
+
+- `app/components` -> reusable UI components
+- `app/data` -> blog and content
+- `app/lib` -> utility functions
+
+## Highlights
+
+- Event-driven architecture design
+- Microservices and distributed systems
+- Kafka, Redis, and scalable backend patterns
+
+## Run Locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Development Workflow
 
