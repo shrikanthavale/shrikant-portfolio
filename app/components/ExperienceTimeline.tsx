@@ -98,14 +98,6 @@ const timelineEntries: TimelineEntry[] = [
   },
 ];
 
-const progressClassNames = [
-  "timeline-progress-0",
-  "timeline-progress-25",
-  "timeline-progress-50",
-  "timeline-progress-75",
-  "timeline-progress-100",
-] as const;
-
 const entryKindMeta: Record<
   TimelineEntry["kind"],
   { label: string; icon: LucideIcon; chipClassName: string; markerClassName: string }
@@ -129,6 +121,9 @@ const entryKindMeta: Record<
 export default function ExperienceTimeline() {
   const [activeIndex, setActiveIndex] = useState(0);
   const itemRefs = useRef<Array<HTMLLIElement | null>>([]);
+  const timelineRef = useRef<HTMLDivElement | null>(null);
+  const activeIndexRef = useRef(0);
+  const lastProgressRef = useRef(0);
 
   useEffect(() => {
     let frame = 0;
@@ -137,6 +132,8 @@ export default function ExperienceTimeline() {
       const viewportFocus = window.innerHeight * 0.42;
       let closestIndex = 0;
       let closestDistance = Number.POSITIVE_INFINITY;
+      const itemMidpoints: number[] = [];
+      const itemDistances: number[] = [];
 
       itemRefs.current.forEach((item, index) => {
         if (!item) {
@@ -145,7 +142,9 @@ export default function ExperienceTimeline() {
 
         const rect = item.getBoundingClientRect();
         const itemMidpoint = rect.top + rect.height / 2;
+        itemMidpoints.push(itemMidpoint);
         const distance = Math.abs(itemMidpoint - viewportFocus);
+        itemDistances[index] = distance;
 
         if (distance < closestDistance) {
           closestDistance = distance;
@@ -153,7 +152,30 @@ export default function ExperienceTimeline() {
         }
       });
 
-      setActiveIndex((currentIndex) => (currentIndex === closestIndex ? currentIndex : closestIndex));
+      const currentIndex = activeIndexRef.current;
+      const currentDistance = itemDistances[currentIndex] ?? Number.POSITIVE_INFINITY;
+      const shouldSwitch = currentIndex !== closestIndex && closestDistance + 26 < currentDistance;
+
+      if (shouldSwitch || !Number.isFinite(currentDistance)) {
+        activeIndexRef.current = closestIndex;
+        setActiveIndex(closestIndex);
+      }
+
+      const firstMidpoint = itemMidpoints[0];
+      const lastMidpoint = itemMidpoints[itemMidpoints.length - 1];
+
+      if (typeof firstMidpoint === "number" && typeof lastMidpoint === "number") {
+        const nextProgress =
+          firstMidpoint === lastMidpoint
+            ? 100
+            : Math.min(100, Math.max(0, ((viewportFocus - firstMidpoint) / (lastMidpoint - firstMidpoint)) * 100));
+
+        if (Math.abs(nextProgress - lastProgressRef.current) > 0.2) {
+          timelineRef.current?.style.setProperty("--timeline-progress", `${nextProgress}%`);
+          lastProgressRef.current = nextProgress;
+        }
+      }
+
       frame = 0;
     };
 
@@ -181,7 +203,6 @@ export default function ExperienceTimeline() {
 
   const activeEntry = timelineEntries[activeIndex];
   const activeEntryMeta = entryKindMeta[activeEntry.kind];
-  const progressClassName = progressClassNames[activeIndex] ?? progressClassNames[progressClassNames.length - 1];
   const activeAccentClassName = `timeline-accent-${activeEntry.accent}`;
 
   return (
@@ -200,7 +221,7 @@ export default function ExperienceTimeline() {
           </p>
         </div>
 
-        <div className={`experience-timeline ${progressClassName} ${activeAccentClassName} mt-14 md:mt-18`}>
+        <div ref={timelineRef} className={`experience-timeline ${activeAccentClassName} mt-14 md:mt-18`}>
           <div className={`experience-timeline__sticky-badge ${activeAccentClassName}`} aria-live="polite">
             <span className="experience-timeline__sticky-label">Now reading</span>
             <strong className="experience-timeline__sticky-period">{activeEntry.period}</strong>

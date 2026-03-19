@@ -194,26 +194,6 @@ body {
   --timeline-accent-dark-track-faint: rgb(251 113 133 / 0.04);
 }
 
-.experience-timeline.timeline-progress-0 {
-  --timeline-progress: 0%;
-}
-
-.experience-timeline.timeline-progress-25 {
-  --timeline-progress: 25%;
-}
-
-.experience-timeline.timeline-progress-50 {
-  --timeline-progress: 50%;
-}
-
-.experience-timeline.timeline-progress-75 {
-  --timeline-progress: 75%;
-}
-
-.experience-timeline.timeline-progress-100 {
-  --timeline-progress: 100%;
-}
-
 .experience-timeline__sticky-badge {
   position: sticky;
   top: 5.75rem;

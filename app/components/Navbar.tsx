@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
 import { BriefcaseBusiness, Github, Linkedin } from "lucide-react";
 import Link from "next/link";
@@ -15,6 +16,10 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");
+  const pathname = usePathname();
+  const isExperiencePage = pathname === "/experience";
+  const iconButtonClassName =
+    "inline-flex h-9 w-9 items-center justify-center rounded-md border bg-white/80 text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:bg-sky-500";
 
   useEffect(() => {
     const sectionIds = NAV_ITEMS.map((item) => item.href.slice(1));
@@ -94,9 +99,14 @@ export default function Navbar() {
         <div className="flex items-center gap-2 sm:gap-3">
           <Link
             href="/experience"
-            aria-label="Experience details"
-            title="Experience details"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 bg-white/80 text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:bg-sky-500"
+            aria-label="Experience timeline"
+            aria-current={isExperiencePage ? "page" : undefined}
+            title="Experience timeline"
+            className={`${iconButtonClassName} ${
+              isExperiencePage
+                ? "border-sky-500 bg-sky-500 text-white shadow-sky-500/35 dark:border-sky-400 dark:bg-sky-500"
+                : "border-slate-300 dark:border-slate-700"
+            }`}
           >
             <BriefcaseBusiness className="h-4 w-4" aria-hidden="true" />
           </Link>
@@ -105,7 +115,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 bg-white/80 text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:bg-sky-500"
+            className={`${iconButtonClassName} border-slate-300 dark:border-slate-700`}
           >
             <Github className="h-4 w-4" aria-hidden="true" />
           </a>
@@ -114,7 +124,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 bg-white/80 text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:bg-sky-500"
+            className={`${iconButtonClassName} border-slate-300 dark:border-slate-700`}
           >
             <Linkedin className="h-4 w-4" aria-hidden="true" />
           </a>
