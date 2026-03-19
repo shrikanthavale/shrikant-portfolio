@@ -456,17 +456,15 @@ body {
 }
 
 .experience-timeline__period-chip {
-  grid-column: 1 / -1;
-  justify-self: start;
   display: inline-flex;
   width: fit-content;
   border-radius: 9999px;
   border: 1px solid var(--timeline-accent-border);
   background: var(--timeline-accent-tint);
-  padding: 0.45rem 0.8rem;
-  font-size: 0.72rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--timeline-accent-deep);
 }
