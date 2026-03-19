@@ -27,9 +27,9 @@ const timelineEntries: TimelineEntry[] = [
       "Built strong software engineering foundations and graduated with distinction in the final year.",
     tags: ["Computer Science", "Algorithms", "Programming"],
     highlights: [
-      "Graduated with distinction in the final year.",
-      "Built a strong base in algorithms, programming, and system design.",
-      "Developed an early interest in backend systems and applied problem-solving.",
+      "Graduated with distinction, validating strong academic performance.",
+      "Built strong foundations in algorithms, programming, and system design.",
+      "Developed early backend problem-solving skills through applied coursework.",
     ],
   },
   {
@@ -43,9 +43,9 @@ const timelineEntries: TimelineEntry[] = [
       "Redesigned internal admin tooling to simplify daily operations for customer support teams.",
     tags: ["Java", "Admin Systems", "Support Tooling"],
     highlights: [
-      "Remodeled the admin console to simplify system behavior management.",
-      "Reduced operational complexity and dependence on specialized database workflows.",
-      "Lowered training overhead by improving day-to-day usability for support teams.",
+      "Remodeled the admin console to simplify behavior management workflows.",
+      "Reduced operational complexity by removing dependence on specialized database workflows.",
+      "Improved daily usability, lowering training overhead for support teams.",
     ],
   },
   {
@@ -59,9 +59,9 @@ const timelineEntries: TimelineEntry[] = [
       "Delivered enterprise features and migration workstreams with product and engineering teams.",
     tags: ["Java", "Eclipse RCP", "Oracle", "IBM Db2"],
     highlights: [
-      "Designed and implemented modules within the Eclipse RCP ecosystem.",
-      "Supported data migration from Oracle Database to IBM Db2.",
-      "Worked with product owners and cross-functional teams on release planning.",
+      "Designed Eclipse RCP modules that improved delivery consistency.",
+      "Supported Oracle-to-Db2 migration to preserve data continuity.",
+      "Partnered with product and engineering on release planning to improve coordination.",
     ],
   },
   {
@@ -77,7 +77,7 @@ const timelineEntries: TimelineEntry[] = [
     highlights: [
       "Specialized in communication technologies and application systems.",
       "Strengthened distributed systems thinking through coursework and applied projects.",
-      "Gained international academic exposure in Austria.",
+      "Gained international exposure through graduate study in Austria.",
     ],
   },
   {
@@ -91,9 +91,9 @@ const timelineEntries: TimelineEntry[] = [
       "Built backend services for emergency-response systems where reliability and response time were critical.",
     tags: ["Java", "Spring Boot", "RabbitMQ", "Redis", "Robot Framework"],
     highlights: [
-      "Built backend services for distributed emergency-response workflows.",
-      "Implemented Spring APIs to expose secure backend functionality.",
-      "Used RabbitMQ and Redis for resilient inter-service messaging.",
+      "Built distributed backend services for emergency-response systems.",
+      "Implemented secure Spring APIs for operator-facing capabilities.",
+      "Used RabbitMQ and Redis to improve inter-service reliability.",
     ],
   },
 ];
@@ -103,7 +103,7 @@ const entryKindMeta: Record<
   { label: string; icon: LucideIcon; chipClassName: string; markerClassName: string }
 > = {
   work: {
-    label: "Professional experience",
+    label: "Experience",
     icon: BriefcaseBusiness,
     chipClassName:
       "border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-700/80 dark:bg-sky-900/30 dark:text-sky-200",
@@ -261,19 +261,19 @@ export default function ExperienceTimeline() {
                               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-sky-700 dark:text-sky-300">
                                 {entry.location}
                               </p>
+                              <span
+                                className={`mt-2 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] ${kindMeta.chipClassName}`}
+                              >
+                                <kindMeta.icon className="h-3 w-3" aria-hidden="true" />
+                                {kindMeta.label}
+                              </span>
                               <h3 className="mt-2 text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">{entry.title}</h3>
                             </div>
 
                             <span className="experience-timeline__period-chip">{entry.period}</span>
                           </div>
 
-                          <div className="mt-6 flex flex-wrap items-center gap-2">
-                            <span
-                              className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${kindMeta.chipClassName}`}
-                            >
-                              <kindMeta.icon className="h-3.5 w-3.5" aria-hidden="true" />
-                              {kindMeta.label}
-                            </span>
+                          <div className="mt-5 flex flex-wrap items-center gap-2">
                             <p className="experience-timeline__role text-base font-medium text-slate-600 dark:text-slate-300">{entry.role}</p>
                           </div>
 
