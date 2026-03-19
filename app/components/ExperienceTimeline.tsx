@@ -1,6 +1,6 @@
 "use client";
 
-import { BriefcaseBusiness, GraduationCap, type LucideIcon } from "lucide-react";
+import { BriefcaseBusiness, GraduationCap, MapPin, type LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 type TimelineEntry = {
@@ -41,7 +41,7 @@ const timelineEntries: TimelineEntry[] = [
     stage: "Enterprise Systems",
     location: "Pune, India",
     period: "2008-2012",
-    role: "System Engineer - Customer Care Admin Console",
+    role: "Systems Engineer",
     narrative:
       "Redesigned internal admin tooling to simplify daily operations for customer support teams.",
     tags: ["Java", "Admin Systems", "Support Tooling"],
@@ -58,7 +58,7 @@ const timelineEntries: TimelineEntry[] = [
     stage: "Enterprise Delivery",
     location: "Mumbai, India",
     period: "2012-2013",
-    role: "Consultant - Post-Sales Maintenance Platform",
+    role: "Consultant",
     narrative:
       "Delivered enterprise features and migration workstreams with product and engineering teams.",
     tags: ["Java", "Eclipse RCP", "Oracle", "IBM Db2"],
@@ -92,7 +92,7 @@ const timelineEntries: TimelineEntry[] = [
     stage: "Critical Systems",
     location: "Hagenberg, Austria",
     period: "2015-2018",
-    role: "Software Developer - Emergency Response Systems",
+    role: "Senior Software Developer",
     narrative:
       "Built backend services for emergency-response systems where reliability and response time were critical.",
     tags: ["Java", "Spring Boot", "RabbitMQ", "Redis", "Robot Framework"],
@@ -274,7 +274,8 @@ export default function ExperienceTimeline() {
                                   {entry.stage}
                                 </span>
                               </div>
-                              <p className="mt-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-sky-700 dark:text-sky-300">
+                              <p className="mt-1.5 flex items-center gap-1 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-sky-700 dark:text-sky-300">
+                                <MapPin className="h-3 w-3 shrink-0" aria-hidden="true" />
                                 {entry.location}
                               </p>
                               <span
