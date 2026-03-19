@@ -89,7 +89,7 @@ const timelineEntries: TimelineEntry[] = [
     role: "Software Developer - Emergency Response Systems",
     narrative:
       "Built backend services for emergency-response systems where reliability and response time were critical.",
-    tags: ["Java", "Spring", "RabbitMQ", "Redis"],
+    tags: ["Java", "Spring Boot", "RabbitMQ", "Redis", "Robot Framework"],
     highlights: [
       "Built backend services for distributed emergency-response workflows.",
       "Implemented Spring APIs to expose secure backend functionality.",
@@ -228,7 +228,7 @@ export default function ExperienceTimeline() {
           <ol className="space-y-12 md:space-y-0">
             {timelineEntries.map((entry, index) => {
               const visibleHighlights = entry.highlights.slice(0, 3);
-              const visibleTags = entry.tags.slice(0, 4);
+              const visibleTags = entry.tags.slice(0, 5);
               const hiddenTagCount = entry.tags.length - visibleTags.length;
 
               const stateClass =
