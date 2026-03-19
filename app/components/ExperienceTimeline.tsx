@@ -262,10 +262,6 @@ export default function ExperienceTimeline() {
                       <article className="glass-card experience-timeline__card rounded-[1.9rem] p-6 sm:p-8">
                         <div className="experience-timeline__card-shell">
                           <div className="experience-timeline__brand-row">
-                            <div className="experience-timeline__brand-mark" aria-hidden="true">
-                              <kindMeta.icon className="h-6 w-6 text-slate-700 dark:text-slate-200" />
-                            </div>
-
                             <div className="min-w-0">
                               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-sky-700 dark:text-sky-300">
                                 {entry.location}
