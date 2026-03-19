@@ -455,20 +455,6 @@ body {
   fill: var(--timeline-accent);
 }
 
-.experience-timeline__period-chip {
-  display: inline-flex;
-  width: fit-content;
-  border-radius: 9999px;
-  border: 1px solid var(--timeline-accent-border);
-  background: var(--timeline-accent-tint);
-  padding: 0.3rem 0.7rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--timeline-accent-deep);
-}
-
 .experience-timeline__tag-list {
   display: flex;
   flex-wrap: wrap;
@@ -662,12 +648,6 @@ body {
 
 :where(.dark) .experience-timeline__brand-accent-fill {
   fill: var(--timeline-accent);
-}
-
-:where(.dark) .experience-timeline__period-chip {
-  border-color: var(--timeline-accent-dark-border);
-  background: var(--timeline-accent-dark-surface);
-  color: var(--timeline-accent-dark-text);
 }
 
 :where(.dark) .experience-timeline__tag {

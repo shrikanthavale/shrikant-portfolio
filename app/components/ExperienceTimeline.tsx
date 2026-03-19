@@ -273,7 +273,6 @@ export default function ExperienceTimeline() {
                                 <span className="inline-flex items-center rounded-full border border-slate-300/85 bg-white/75 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-600 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-300">
                                   {entry.stage}
                                 </span>
-                                <span className="experience-timeline__period-chip">{entry.period}</span>
                               </div>
                               <p className="mt-1.5 flex items-center gap-1 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-sky-700 dark:text-sky-300">
                                 <MapPin className="h-3 w-3 shrink-0" aria-hidden="true" />
