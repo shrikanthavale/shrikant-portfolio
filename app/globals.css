@@ -579,7 +579,7 @@ body {
   border-color: var(--timeline-accent-border-strong);
   background: var(--timeline-accent-soft);
   color: var(--timeline-accent-deep);
-  box-shadow: 0 8px 16px var(--timeline-accent-glow);
+  box-shadow: 0 3px 8px var(--timeline-accent-glow);
 }
 
 .experience-timeline__item.is-upcoming .experience-timeline__year,
