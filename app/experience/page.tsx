@@ -1,6 +1,5 @@
 import Link from "next/link";
 import ExperienceTimeline from "@/app/components/ExperienceTimeline";
-import CredentialsStrip from "@/app/components/CredentialsStrip";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 
 export default function ExperiencePage() {
@@ -9,7 +8,6 @@ export default function ExperiencePage() {
       <SubpageTopBar leftLabel="Experience" rightHref="/" />
 
       <ExperienceTimeline />
-      <CredentialsStrip />
 
       <section className="border-t border-slate-200 bg-slate-100/70 dark:border-slate-800 dark:bg-slate-950/80">
         <div className="mx-auto max-w-6xl px-6 py-10 text-center">

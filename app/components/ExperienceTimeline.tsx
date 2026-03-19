@@ -1,84 +1,130 @@
 "use client";
 
+import { BriefcaseBusiness, GraduationCap, type LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-function BrandMark({ company }: { company: string }) {
-  if (company === "Eurofunk Kappacher GmbH") {
-    return (
-      <svg viewBox="0 0 64 64" className="experience-timeline__brand-svg" aria-hidden="true" focusable="false">
-        <rect x="8" y="8" width="48" height="48" rx="16" className="experience-timeline__brand-surface" />
-        <path d="M22 24h20M22 32h14M22 40h20" className="experience-timeline__brand-stroke" />
-        <circle cx="44" cy="32" r="6" className="experience-timeline__brand-accent" />
-      </svg>
-    );
-  }
+type TimelineEntry = {
+  title: string;
+  accent: "cyan" | "amber" | "rose";
+  kind: "work" | "education";
+  location: string;
+  period: string;
+  role: string;
+  narrative: string;
+  tags: string[];
+  highlights: string[];
+};
 
-  if (company === "Capgemini") {
-    return (
-      <svg viewBox="0 0 64 64" className="experience-timeline__brand-svg" aria-hidden="true" focusable="false">
-        <rect x="8" y="8" width="48" height="48" rx="16" className="experience-timeline__brand-surface" />
-        <path d="M21 37c0-7.5 7-13 15-13 5 0 9.5 1.7 12 4.6-1.4 5.8-6.3 11.4-14.4 11.4-5.3 0-9.6-1.5-12.6-3z" className="experience-timeline__brand-accent-fill" />
-        <path d="M20 27c2.7-2.2 7.3-3.8 12.2-3.8 4.9 0 9.1 1.5 11.8 4" className="experience-timeline__brand-stroke" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 64 64" className="experience-timeline__brand-svg" aria-hidden="true" focusable="false">
-      <rect x="8" y="8" width="48" height="48" rx="16" className="experience-timeline__brand-surface" />
-      <path d="M21 22h22v6H21zM21 30h14v14H21zM39 30h4v14h-4z" className="experience-timeline__brand-accent-fill" />
-      <path d="M21 22h22M28 30v14M21 37h14" className="experience-timeline__brand-stroke" />
-    </svg>
-  );
-}
-
-const experiences = [
+const timelineEntries: TimelineEntry[] = [
   {
-    company: "Eurofunk Kappacher GmbH",
-    accent: "cyan",
-    location: "Hagenberg, Austria",
-    period: "2015-2018",
-    role: "Software Developer - Operation Control and Management Systems",
-    narrative: "Built distributed emergency-response capabilities where reliability, response time, and operational clarity mattered at system scale.",
-    technologies: ["Java", "Spring", "RabbitMQ", "Redis", "Robot Framework"],
-    highlights: [
-      "Built backend services for distributed emergency-response workflows.",
-      "Implemented Spring-based APIs to expose secure backend functionality.",
-      "Used RabbitMQ and Redis for resilient inter-service messaging and communication.",
-      "Automated integration tests with Robot Framework, reducing manual testing effort by 50%.",
-    ],
-  },
-  {
-    company: "Capgemini",
-    accent: "amber",
-    location: "Mumbai, India",
-    period: "2012-2013",
-    role: "Consultant - Post Sales Car Maintenance Application",
-    narrative: "Worked on enterprise product delivery with migration-heavy workflows, balancing feature planning, compatibility, and data movement.",
-    technologies: ["Java", "Eclipse RCP", "Oracle", "IBM Db2", "Product Delivery"],
-    highlights: [
-      "Designed and implemented modules compatible with the Eclipse RCP ecosystem.",
-      "Supported data migration from Oracle Database to IBM Db2.",
-      "Worked with product owners and cross-functional teams on feature and design planning.",
-    ],
-  },
-  {
-    company: "Infosys Technologies Limited",
+    title: "BSc in Computer Science",
     accent: "rose",
+    kind: "education",
+    location: "Mumbai, India",
+    period: "2004-2008",
+    role: "Mumbai University",
+    narrative:
+      "Built strong software engineering foundations and graduated with distinction in the final year.",
+    tags: ["Computer Science", "Algorithms", "Programming"],
+    highlights: [
+      "Graduated with distinction in the final year.",
+      "Built a strong base in algorithms, programming, and system design.",
+      "Developed an early interest in backend systems and applied problem-solving.",
+    ],
+  },
+  {
+    title: "Infosys Technologies Limited",
+    accent: "amber",
+    kind: "work",
     location: "Pune, India",
     period: "2008-2012",
-    role: "System Engineer - Admin Console for Customer Care Application",
-    narrative: "Focused on simplifying internal operations by reshaping complex admin tooling into something support teams could use with less friction.",
-    technologies: ["Java", "Admin Systems", "Support Tooling", "UX Simplification"],
+    role: "System Engineer - Customer Care Admin Console",
+    narrative:
+      "Redesigned internal admin tooling to simplify daily operations for customer support teams.",
+    tags: ["Java", "Admin Systems", "Support Tooling"],
     highlights: [
-      "Remodeled an admin console to simplify system behavior management.",
-      "Reduced operational complexity and reliance on specialized database handling skills.",
-      "Lowered training overhead by improving usability for support teams.",
+      "Remodeled the admin console to simplify system behavior management.",
+      "Reduced operational complexity and dependence on specialized database workflows.",
+      "Lowered training overhead by improving day-to-day usability for support teams.",
+    ],
+  },
+  {
+    title: "Capgemini",
+    accent: "cyan",
+    kind: "work",
+    location: "Mumbai, India",
+    period: "2012-2013",
+    role: "Consultant - Post-Sales Maintenance Platform",
+    narrative:
+      "Delivered enterprise features and migration workstreams with product and engineering teams.",
+    tags: ["Java", "Eclipse RCP", "Oracle", "IBM Db2"],
+    highlights: [
+      "Designed and implemented modules within the Eclipse RCP ecosystem.",
+      "Supported data migration from Oracle Database to IBM Db2.",
+      "Worked with product owners and cross-functional teams on release planning.",
+    ],
+  },
+  {
+    title: "MSc in Mobile Computing",
+    accent: "rose",
+    kind: "education",
+    location: "Austria",
+    period: "2013-2015",
+    role: "University of Applied Sciences",
+    narrative:
+      "Expanded into communication technologies and mobile systems with international academic exposure.",
+    tags: ["Mobile Computing", "Communication Tech", "Distributed Systems"],
+    highlights: [
+      "Specialized in communication technologies and application systems.",
+      "Strengthened distributed systems thinking through coursework and applied projects.",
+      "Gained international academic exposure in Austria.",
+    ],
+  },
+  {
+    title: "Eurofunk Kappacher GmbH",
+    accent: "cyan",
+    kind: "work",
+    location: "Hagenberg, Austria",
+    period: "2015-2018",
+    role: "Software Developer - Emergency Response Systems",
+    narrative:
+      "Built backend services for emergency-response systems where reliability and response time were critical.",
+    tags: ["Java", "Spring", "RabbitMQ", "Redis"],
+    highlights: [
+      "Built backend services for distributed emergency-response workflows.",
+      "Implemented Spring APIs to expose secure backend functionality.",
+      "Used RabbitMQ and Redis for resilient inter-service messaging.",
     ],
   },
 ];
 
-const progressClassNames = ["timeline-progress-0", "timeline-progress-50", "timeline-progress-100"];
+const progressClassNames = [
+  "timeline-progress-0",
+  "timeline-progress-25",
+  "timeline-progress-50",
+  "timeline-progress-75",
+  "timeline-progress-100",
+] as const;
+
+const entryKindMeta: Record<
+  TimelineEntry["kind"],
+  { label: string; icon: LucideIcon; chipClassName: string; markerClassName: string }
+> = {
+  work: {
+    label: "Professional experience",
+    icon: BriefcaseBusiness,
+    chipClassName:
+      "border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-700/80 dark:bg-sky-900/30 dark:text-sky-200",
+    markerClassName: "bg-sky-500",
+  },
+  education: {
+    label: "Education",
+    icon: GraduationCap,
+    chipClassName:
+      "border-violet-200 bg-violet-50 text-violet-700 dark:border-violet-700/80 dark:bg-violet-900/30 dark:text-violet-200",
+    markerClassName: "bg-violet-500",
+  },
+};
 
 export default function ExperienceTimeline() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -133,9 +179,10 @@ export default function ExperienceTimeline() {
     };
   }, []);
 
-  const activeExperience = experiences[activeIndex];
+  const activeEntry = timelineEntries[activeIndex];
+  const activeEntryMeta = entryKindMeta[activeEntry.kind];
   const progressClassName = progressClassNames[activeIndex] ?? progressClassNames[progressClassNames.length - 1];
-  const activeAccentClassName = `timeline-accent-${activeExperience.accent}`;
+  const activeAccentClassName = `timeline-accent-${activeEntry.accent}`;
 
   return (
     <section
@@ -144,25 +191,33 @@ export default function ExperienceTimeline() {
     >
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-sky-700 dark:text-sky-300">Career path</p>
-          <h2 className="heading-gradient mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Experience timeline</h2>
+          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-sky-700 dark:text-sky-300">
+            Career and education journey
+          </p>
+          <h2 className="heading-gradient mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Unified timeline</h2>
           <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-gray-400">
-            A more editorial view of the roles, systems, and outcomes across the last few chapters of my engineering work.
+            A single chronological view connecting academic foundations and professional delivery milestones.
           </p>
         </div>
 
         <div className={`experience-timeline ${progressClassName} ${activeAccentClassName} mt-14 md:mt-18`}>
           <div className={`experience-timeline__sticky-badge ${activeAccentClassName}`} aria-live="polite">
             <span className="experience-timeline__sticky-label">Now reading</span>
-            <strong className="experience-timeline__sticky-period">{activeExperience.period}</strong>
-            <span className="experience-timeline__sticky-company">{activeExperience.company}</span>
+            <strong className="experience-timeline__sticky-period">{activeEntry.period}</strong>
+            <span className="experience-timeline__sticky-company">{activeEntry.title}</span>
+            <span
+              className={`mt-2 inline-flex items-center justify-center gap-1 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${activeEntryMeta.chipClassName}`}
+            >
+              <activeEntryMeta.icon className="h-3.5 w-3.5" aria-hidden="true" />
+              {activeEntryMeta.label}
+            </span>
           </div>
 
           <div className="experience-timeline__line" aria-hidden="true" />
           <div className="experience-timeline__line experience-timeline__line--active" aria-hidden="true" />
 
           <ol className="space-y-12 md:space-y-0">
-            {experiences.map((item, index) => {
+            {timelineEntries.map((entry, index) => {
               const stateClass =
                 index === activeIndex
                   ? "is-active"
@@ -170,51 +225,59 @@ export default function ExperienceTimeline() {
                     ? "is-past"
                     : "is-upcoming";
 
+              const kindMeta = entryKindMeta[entry.kind];
+
               return (
                 <li
-                  key={`${item.company}-${item.period}`}
+                  key={`${entry.title}-${entry.period}`}
                   ref={(node) => {
                     itemRefs.current[index] = node;
                   }}
-                  className={`experience-timeline__item timeline-accent-${item.accent} ${stateClass}`}
+                  className={`experience-timeline__item timeline-accent-${entry.accent} ${stateClass}`}
                 >
                   <div className="experience-timeline__grid">
                     <div className={`experience-timeline__content ${index % 2 === 0 ? "md:col-start-1" : "md:col-start-3"}`}>
-                      <article className="glass-card experience-timeline__card rounded-[1.9rem] p-6 sm:p-8 md:sticky md:top-36">
+                      <article className="glass-card experience-timeline__card rounded-[1.9rem] p-6 sm:p-8">
                         <div className="experience-timeline__card-shell">
                           <div className="experience-timeline__brand-row">
                             <div className="experience-timeline__brand-mark" aria-hidden="true">
-                              <BrandMark company={item.company} />
+                              <kindMeta.icon className="h-6 w-6 text-slate-700 dark:text-slate-200" />
                             </div>
 
                             <div className="min-w-0">
                               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-sky-700 dark:text-sky-300">
-                                {item.location}
+                                {entry.location}
                               </p>
-                              <h3 className="mt-2 text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">{item.company}</h3>
+                              <h3 className="mt-2 text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">{entry.title}</h3>
                             </div>
 
-                            <span className="experience-timeline__period-chip">{item.period}</span>
+                            <span className="experience-timeline__period-chip">{entry.period}</span>
                           </div>
 
-                          <p className="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                            {item.role}
-                          </p>
+                          <div className="mt-6 flex flex-wrap items-center gap-2">
+                            <span
+                              className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${kindMeta.chipClassName}`}
+                            >
+                              <kindMeta.icon className="h-3.5 w-3.5" aria-hidden="true" />
+                              {kindMeta.label}
+                            </span>
+                            <p className="experience-timeline__role text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">{entry.role}</p>
+                          </div>
 
-                          <p className="mt-4 text-base leading-7 text-slate-700 dark:text-slate-200">{item.narrative}</p>
+                          <p className="experience-timeline__narrative mt-4 text-base leading-7 text-slate-700 dark:text-slate-200">{entry.narrative}</p>
 
-                          <div className="experience-timeline__tag-list mt-6" aria-label={`${item.company} technologies`}>
-                            {item.technologies.map((technology) => (
-                              <span key={technology} className="experience-timeline__tag">
-                                {technology}
+                          <div className="experience-timeline__tag-list mt-6" aria-label={`${entry.title} areas`}>
+                            {entry.tags.map((tag) => (
+                              <span key={tag} className="experience-timeline__tag">
+                                {tag}
                               </span>
                             ))}
                           </div>
 
-                          <ul className="mt-7 space-y-3 text-sm leading-relaxed text-slate-600 dark:text-gray-300">
-                            {item.highlights.map((point, pointIndex) => (
+                          <ul className="experience-timeline__highlights mt-7 space-y-3 text-sm leading-relaxed text-slate-600 dark:text-gray-300">
+                            {entry.highlights.map((point, pointIndex) => (
                               <li key={point} className={`experience-timeline__highlight experience-timeline__highlight--${pointIndex + 1} flex gap-3`}>
-                                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400" aria-hidden="true" />
+                                <span className={`mt-2 h-2 w-2 shrink-0 rounded-full ${kindMeta.markerClassName}`} aria-hidden="true" />
                                 <span>{point}</span>
                               </li>
                             ))}
@@ -225,9 +288,9 @@ export default function ExperienceTimeline() {
 
                     <div className="experience-timeline__marker-column" aria-hidden="true">
                       <div className="experience-timeline__marker-ring">
-                        <div className="experience-timeline__marker-dot" />
+                        <div className={`experience-timeline__marker-dot ${kindMeta.markerClassName}`} />
                       </div>
-                      <span className="experience-timeline__year">{item.period}</span>
+                      <span className="experience-timeline__year">{entry.period}</span>
                     </div>
                   </div>
                 </li>
