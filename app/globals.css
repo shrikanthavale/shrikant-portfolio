@@ -719,17 +719,17 @@ body {
   }
 
   .experience-timeline__item {
-    min-height: 24rem;
+    min-height: 24.5rem;
     padding: 3rem 0 2.2rem;
   }
 
   .experience-timeline__marker-column {
-    position: relative;
-    top: 1.5rem;
-    left: auto;
-    grid-column: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     flex-direction: column;
-    justify-self: center;
+    justify-self: auto;
     gap: 0.85rem;
   }
 
