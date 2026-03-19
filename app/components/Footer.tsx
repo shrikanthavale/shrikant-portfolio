@@ -28,15 +28,15 @@ export default function Footer() {
                 <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
                   <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="#projects">Featured projects</a></li>
                   <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="#tech">Tech stack</a></li>
-                  <li><Link className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="/projects">All project pages</Link></li>
-                  <li><Link className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="/experience">Experience details</Link></li>
+                  <li><Link className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="/projects">All Projects</Link></li>
+                  <li><Link className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="/journey">Career journey</Link></li>
                 </ul>
               </div>
               <div>
                 <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Writing</p>
                 <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
                   <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="#blog">Latest posts</a></li>
-                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="#">All archives</a></li>
+                  <li><Link className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="/blog">All blogs</Link></li>
                 </ul>
               </div>
               <div>

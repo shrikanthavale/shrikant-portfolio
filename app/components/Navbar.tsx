@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
-import { BriefcaseBusiness, Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, Milestone } from "lucide-react";
 import Link from "next/link";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#hero" },
-  { label: "Tech Stack", href: "#tech" },
   { label: "Projects", href: "#projects" },
+  { label: "Tech Stack", href: "#tech" },
   { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contact" },
 ] as const;
@@ -17,7 +17,7 @@ const NAV_ITEMS = [
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");
   const pathname = usePathname();
-  const isExperiencePage = pathname === "/experience";
+  const isJourneyPage = pathname === "/journey";
   const iconButtonClassName =
     "inline-flex h-9 w-9 items-center justify-center rounded-md border bg-white/80 text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:bg-sky-500";
 
@@ -98,17 +98,17 @@ export default function Navbar() {
         </nav>
         <div className="flex items-center gap-2 sm:gap-3">
           <Link
-            href="/experience"
-            aria-label="Experience timeline"
-            aria-current={isExperiencePage ? "page" : undefined}
-            title="Experience timeline"
+            href="/journey"
+            aria-label="Career journey timeline"
+            aria-current={isJourneyPage ? "page" : undefined}
+            title="Career journey timeline"
             className={`${iconButtonClassName} ${
-              isExperiencePage
+              isJourneyPage
                 ? "border-sky-500 bg-sky-500 text-white shadow-sky-500/35 dark:border-sky-400 dark:bg-sky-500"
                 : "border-slate-300 dark:border-slate-700"
             }`}
           >
-            <BriefcaseBusiness className="h-4 w-4" aria-hidden="true" />
+            <Milestone className="h-4 w-4" aria-hidden="true" />
           </Link>
           <a
             href="https://github.com/shrikanthavale"
