@@ -402,8 +402,10 @@ body {
 .experience-timeline__summary {
   max-width: 62ch;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .experience-timeline__highlights {
@@ -700,6 +702,13 @@ body {
 @media (min-width: 768px) {
   .experience-timeline {
     --timeline-axis-x: 50%;
+  }
+
+  .experience-timeline__summary {
+    display: block;
+    line-clamp: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .experience-timeline__grid {
