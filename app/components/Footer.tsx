@@ -31,6 +31,7 @@ export default function Footer() {
                   <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="#tech">Tech stack</a></li>
                   <li><Link className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="/projects">All Projects</Link></li>
                   <li><Link className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="/journey">Career journey</Link></li>
+                  <li><Link className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="/certifications">Certifications</Link></li>
                 </ul>
               </div>
               <div>
