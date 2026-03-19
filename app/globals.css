@@ -153,7 +153,7 @@ body {
   --timeline-accent-soft: rgb(254 243 199);
   --timeline-accent-tint: rgb(255 251 235 / 0.92);
   --timeline-accent-deep: rgb(120 53 15);
-  --timeline-accent-glow: rgb(245 158 11 / 0.2);
+  --timeline-accent-glow: rgb(245 158 11 / 0.12);
   --timeline-accent-label: rgb(180 83 9);
   --timeline-accent-border: rgb(253 230 138 / 0.88);
   --timeline-accent-border-strong: rgb(245 158 11 / 0.72);
@@ -176,7 +176,7 @@ body {
   --timeline-accent-soft: rgb(255 228 230);
   --timeline-accent-tint: rgb(255 241 242 / 0.9);
   --timeline-accent-deep: rgb(136 19 55);
-  --timeline-accent-glow: rgb(244 63 94 / 0.18);
+  --timeline-accent-glow: rgb(244 63 94 / 0.1);
   --timeline-accent-label: rgb(190 24 93);
   --timeline-accent-border: rgb(253 164 175 / 0.82);
   --timeline-accent-border-strong: rgb(244 63 94 / 0.72);
@@ -288,13 +288,13 @@ body {
 }
 
 .experience-timeline__marker-ring::before {
-  border: 1px dashed var(--timeline-accent-border-strong);
+  border: 1px dashed var(--timeline-accent-border);
 }
 
 .experience-timeline__marker-ring::after {
   inset: -0.85rem;
-  background: radial-gradient(circle, var(--timeline-accent-glow) 0%, transparent 74%);
-  filter: blur(2px);
+  background: radial-gradient(circle, var(--timeline-accent-glow) 0%, transparent 80%);
+  filter: blur(1.5px);
 }
 
 .experience-timeline__marker-dot {
@@ -558,8 +558,8 @@ body {
   border-color: var(--timeline-accent-border-strong);
   background: var(--timeline-accent-soft);
   box-shadow:
-    0 0 0 7px rgb(240 249 255 / 0.9),
-    0 0 16px var(--timeline-accent-glow);
+    0 0 0 5px rgb(240 249 255 / 0.88),
+    0 0 10px var(--timeline-accent-glow);
 }
 
 .experience-timeline__item.is-active .experience-timeline__marker-ring::before,
@@ -689,8 +689,8 @@ body {
   border-color: var(--timeline-accent-dark-border-strong);
   background: var(--timeline-accent-dark-surface-strong);
   box-shadow:
-    0 0 0 7px rgb(2 6 23 / 0.82),
-    0 0 14px var(--timeline-accent-glow);
+    0 0 0 5px rgb(2 6 23 / 0.82),
+    0 0 8px var(--timeline-accent-glow);
 }
 
 :where(.dark) .experience-timeline__item.is-active .experience-timeline__year {

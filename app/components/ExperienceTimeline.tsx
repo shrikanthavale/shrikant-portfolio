@@ -214,9 +214,9 @@ export default function ExperienceTimeline() {
           <p className="text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-sky-700 dark:text-sky-300">
             Career and education journey
           </p>
-          <h2 className="heading-gradient mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Unified timeline</h2>
+          <h2 className="heading-gradient mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Career Journey</h2>
           <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-gray-400">
-            A single chronological view connecting academic foundations and professional delivery milestones.
+            From academic foundations to building real-world systems at scale.
           </p>
         </div>
 
