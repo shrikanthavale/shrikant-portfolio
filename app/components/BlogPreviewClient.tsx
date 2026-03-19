@@ -9,6 +9,34 @@ type BlogPreviewClientProps = {
   posts: Post[];
 };
 
+const TAG_ACCENTS = {
+  cyan: {
+    active: "border-sky-500 bg-sky-500 text-white",
+    inactive:
+      "border-sky-200/90 bg-sky-50/80 text-sky-700 hover:border-sky-400 hover:text-sky-800 dark:border-sky-700/70 dark:bg-sky-900/35 dark:text-sky-200 dark:hover:border-sky-500 dark:hover:text-sky-100",
+  },
+  amber: {
+    active: "border-amber-500 bg-amber-500 text-white",
+    inactive:
+      "border-amber-200/90 bg-amber-50/80 text-amber-700 hover:border-amber-400 hover:text-amber-800 dark:border-amber-700/70 dark:bg-amber-900/35 dark:text-amber-200 dark:hover:border-amber-500 dark:hover:text-amber-100",
+  },
+  rose: {
+    active: "border-rose-500 bg-rose-500 text-white",
+    inactive:
+      "border-rose-200/90 bg-rose-50/80 text-rose-700 hover:border-rose-400 hover:text-rose-800 dark:border-rose-700/70 dark:bg-rose-900/35 dark:text-rose-200 dark:hover:border-rose-500 dark:hover:text-rose-100",
+  },
+} as const;
+
+const ACCENT_ORDER = ["cyan", "amber", "rose"] as const;
+
+function pickAccentKey(seed: string) {
+  let hash = 0;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash = (hash + seed.charCodeAt(index) * (index + 1)) % 997;
+  }
+  return ACCENT_ORDER[hash % ACCENT_ORDER.length];
+}
+
 export default function BlogPreviewClient({ posts }: BlogPreviewClientProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -52,6 +80,7 @@ export default function BlogPreviewClient({ posts }: BlogPreviewClientProps) {
       <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
         {availableTags.map((tag) => {
           const isActive = activeTag === tag;
+          const accent = TAG_ACCENTS[pickAccentKey(tag)];
           return (
             <button
               key={tag}
@@ -59,8 +88,8 @@ export default function BlogPreviewClient({ posts }: BlogPreviewClientProps) {
               onClick={() => handleTagSelect(tag)}
               className={`rounded-full border px-3 py-1.5 text-xs font-medium capitalize transition-all duration-200 ${
                 isActive
-                  ? "border-sky-500 bg-sky-500 text-white"
-                  : "border-slate-300/90 bg-white/70 text-slate-600 hover:border-sky-400 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-300 dark:hover:border-sky-500 dark:hover:text-sky-200"
+                  ? accent.active
+                  : accent.inactive
               }`}
             >
               {tag}

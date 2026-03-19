@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
-import { Github, Linkedin } from "lucide-react";
+import { BriefcaseBusiness, Github, Linkedin } from "lucide-react";
+import Link from "next/link";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#hero" },
@@ -91,6 +92,14 @@ export default function Navbar() {
           })}
         </nav>
         <div className="flex items-center gap-2 sm:gap-3">
+          <Link
+            href="/experience"
+            aria-label="Experience details"
+            title="Experience details"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 bg-white/80 text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:bg-sky-500"
+          >
+            <BriefcaseBusiness className="h-4 w-4" aria-hidden="true" />
+          </Link>
           <a
             href="https://github.com/shrikanthavale"
             target="_blank"
