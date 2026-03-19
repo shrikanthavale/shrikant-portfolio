@@ -267,7 +267,14 @@ export default function ExperienceTimeline() {
                             </div>
 
                             <div className="min-w-0">
-                              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-sky-700 dark:text-sky-300">
+                              <h3 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">{entry.title}</h3>
+                              <div className="mt-1 flex flex-wrap items-center gap-2">
+                                <p className="experience-timeline__role text-base font-medium text-slate-600 dark:text-slate-300">{entry.role}</p>
+                                <span className="inline-flex items-center rounded-full border border-slate-300/85 bg-white/75 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-600 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-300">
+                                  {entry.stage}
+                                </span>
+                              </div>
+                              <p className="mt-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-sky-700 dark:text-sky-300">
                                 {entry.location}
                               </p>
                               <span
@@ -276,20 +283,12 @@ export default function ExperienceTimeline() {
                                 <kindMeta.icon className="h-3 w-3" aria-hidden="true" />
                                 {kindMeta.label}
                               </span>
-                              <h3 className="mt-2 text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">{entry.title}</h3>
                             </div>
 
                             <span className="experience-timeline__period-chip">{entry.period}</span>
                           </div>
 
-                          <div className="mt-5 flex flex-wrap items-center gap-2">
-                            <span className="inline-flex items-center rounded-full border border-slate-300/85 bg-white/75 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-600 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-300">
-                              {entry.stage}
-                            </span>
-                            <p className="experience-timeline__role text-base font-medium text-slate-600 dark:text-slate-300">{entry.role}</p>
-                          </div>
-
-                          <p className="experience-timeline__summary mt-3 text-[0.98rem] font-semibold leading-6 text-slate-800 dark:text-slate-100">{entry.narrative}</p>
+                          <p className="experience-timeline__summary mt-5 text-[0.98rem] font-semibold leading-6 text-slate-800 dark:text-slate-100">{entry.narrative}</p>
 
                           <div className="experience-timeline__tag-list mt-6" aria-label={`${entry.title} areas`}>
                             {visibleTags.map((tag) => (
