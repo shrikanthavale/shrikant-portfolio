@@ -7,6 +7,7 @@ type TimelineEntry = {
   title: string;
   accent: "cyan" | "amber" | "rose";
   kind: "work" | "education";
+  stage: string;
   location: string;
   period: string;
   role: string;
@@ -20,6 +21,7 @@ const timelineEntries: TimelineEntry[] = [
     title: "BSc in Computer Science",
     accent: "rose",
     kind: "education",
+    stage: "Foundation",
     location: "Mumbai, India",
     period: "2004-2008",
     role: "Mumbai University",
@@ -36,6 +38,7 @@ const timelineEntries: TimelineEntry[] = [
     title: "Infosys Technologies Limited",
     accent: "amber",
     kind: "work",
+    stage: "Enterprise Systems",
     location: "Pune, India",
     period: "2008-2012",
     role: "System Engineer - Customer Care Admin Console",
@@ -52,6 +55,7 @@ const timelineEntries: TimelineEntry[] = [
     title: "Capgemini",
     accent: "cyan",
     kind: "work",
+    stage: "Enterprise Delivery",
     location: "Mumbai, India",
     period: "2012-2013",
     role: "Consultant - Post-Sales Maintenance Platform",
@@ -68,6 +72,7 @@ const timelineEntries: TimelineEntry[] = [
     title: "MSc in Mobile Computing",
     accent: "rose",
     kind: "education",
+    stage: "Distributed Focus",
     location: "Austria",
     period: "2013-2015",
     role: "University of Applied Sciences",
@@ -84,6 +89,7 @@ const timelineEntries: TimelineEntry[] = [
     title: "Eurofunk Kappacher GmbH",
     accent: "cyan",
     kind: "work",
+    stage: "Critical Systems",
     location: "Hagenberg, Austria",
     period: "2015-2018",
     role: "Software Developer - Emergency Response Systems",
@@ -218,6 +224,9 @@ export default function ExperienceTimeline() {
           <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-gray-400">
             From academic foundations to building real-world systems at scale.
           </p>
+          <p className="mt-3 text-sm leading-6 text-slate-500 sm:text-base dark:text-slate-400">
+            {"Foundation -> Enterprise systems -> Distributed depth -> Mission-critical delivery."}
+          </p>
         </div>
 
         <div ref={timelineRef} className={`experience-timeline ${activeAccentClassName} mt-12 md:mt-14`}>
@@ -274,6 +283,9 @@ export default function ExperienceTimeline() {
                           </div>
 
                           <div className="mt-5 flex flex-wrap items-center gap-2">
+                            <span className="inline-flex items-center rounded-full border border-slate-300/85 bg-white/75 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-600 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-300">
+                              {entry.stage}
+                            </span>
                             <p className="experience-timeline__role text-base font-medium text-slate-600 dark:text-slate-300">{entry.role}</p>
                           </div>
 
