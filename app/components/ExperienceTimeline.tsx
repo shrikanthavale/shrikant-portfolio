@@ -202,7 +202,6 @@ export default function ExperienceTimeline() {
   }, []);
 
   const activeEntry = timelineEntries[activeIndex];
-  const activeEntryMeta = entryKindMeta[activeEntry.kind];
   const activeAccentClassName = `timeline-accent-${activeEntry.accent}`;
 
   return (
@@ -221,18 +220,7 @@ export default function ExperienceTimeline() {
           </p>
         </div>
 
-        <div ref={timelineRef} className={`experience-timeline ${activeAccentClassName} mt-14 md:mt-18`}>
-          <div className={`experience-timeline__sticky-badge ${activeAccentClassName}`} aria-live="polite">
-            <span className="experience-timeline__sticky-label">Now reading</span>
-            <strong className="experience-timeline__sticky-period">{activeEntry.period}</strong>
-            <span className="experience-timeline__sticky-company">{activeEntry.title}</span>
-            <span
-              className={`mt-2 inline-flex items-center justify-center gap-1 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${activeEntryMeta.chipClassName}`}
-            >
-              <activeEntryMeta.icon className="h-3.5 w-3.5" aria-hidden="true" />
-              {activeEntryMeta.label}
-            </span>
-          </div>
+        <div ref={timelineRef} className={`experience-timeline ${activeAccentClassName} mt-12 md:mt-14`}>
 
           <div className="experience-timeline__line" aria-hidden="true" />
           <div className="experience-timeline__line experience-timeline__line--active" aria-hidden="true" />
