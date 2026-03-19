@@ -73,7 +73,7 @@ const timelineEntries: TimelineEntry[] = [
     accent: "rose",
     kind: "education",
     stage: "Distributed Focus",
-    location: "Austria",
+    location: "Hagenberg, Austria",
     period: "2013-2015",
     role: "University of Applied Sciences",
     narrative:
