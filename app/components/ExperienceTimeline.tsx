@@ -227,6 +227,10 @@ export default function ExperienceTimeline() {
 
           <ol className="space-y-12 md:space-y-0">
             {timelineEntries.map((entry, index) => {
+              const visibleHighlights = entry.highlights.slice(0, 3);
+              const visibleTags = entry.tags.slice(0, 4);
+              const hiddenTagCount = entry.tags.length - visibleTags.length;
+
               const stateClass =
                 index === activeIndex
                   ? "is-active"
@@ -270,21 +274,22 @@ export default function ExperienceTimeline() {
                               <kindMeta.icon className="h-3.5 w-3.5" aria-hidden="true" />
                               {kindMeta.label}
                             </span>
-                            <p className="experience-timeline__role text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">{entry.role}</p>
+                            <p className="experience-timeline__role text-base font-medium text-slate-600 dark:text-slate-300">{entry.role}</p>
                           </div>
 
-                          <p className="experience-timeline__narrative mt-4 text-base leading-7 text-slate-700 dark:text-slate-200">{entry.narrative}</p>
+                          <p className="experience-timeline__summary mt-3 text-[0.98rem] font-semibold leading-6 text-slate-800 dark:text-slate-100">{entry.narrative}</p>
 
                           <div className="experience-timeline__tag-list mt-6" aria-label={`${entry.title} areas`}>
-                            {entry.tags.map((tag) => (
+                            {visibleTags.map((tag) => (
                               <span key={tag} className="experience-timeline__tag">
                                 {tag}
                               </span>
                             ))}
+                            {hiddenTagCount > 0 && <span className="experience-timeline__tag">+{hiddenTagCount}</span>}
                           </div>
 
                           <ul className="experience-timeline__highlights mt-7 space-y-3 text-sm leading-relaxed text-slate-600 dark:text-gray-300">
-                            {entry.highlights.map((point, pointIndex) => (
+                            {visibleHighlights.map((point, pointIndex) => (
                               <li key={point} className={`experience-timeline__highlight experience-timeline__highlight--${pointIndex + 1} flex gap-3`}>
                                 <span className={`mt-2 h-2 w-2 shrink-0 rounded-full ${kindMeta.markerClassName}`} aria-hidden="true" />
                                 <span>{point}</span>

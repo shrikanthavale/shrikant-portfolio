@@ -395,12 +395,15 @@ body {
 }
 
 .experience-timeline__role {
-  line-height: 1.55;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
 }
 
-.experience-timeline__narrative {
-  max-width: 60ch;
-  overflow-wrap: anywhere;
+.experience-timeline__summary {
+  max-width: 62ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .experience-timeline__highlights {
@@ -769,7 +772,7 @@ body {
     max-width: 100%;
   }
 
-  .experience-timeline__item:nth-child(odd) .experience-timeline__narrative {
+  .experience-timeline__item:nth-child(odd) .experience-timeline__summary {
     margin-left: auto;
   }
 
