@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
-import { Github, Linkedin, Milestone } from "lucide-react";
+import { Award, Github, Linkedin, Milestone } from "lucide-react";
 import Link from "next/link";
 
 const NAV_ITEMS = [
@@ -18,6 +18,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");
   const pathname = usePathname();
   const isJourneyPage = pathname === "/journey";
+  const isCertificationsPage = pathname === "/certifications";
   const iconButtonClassName =
     "inline-flex h-9 w-9 items-center justify-center rounded-md border bg-white/80 text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:bg-sky-500";
 
@@ -109,6 +110,19 @@ export default function Navbar() {
             }`}
           >
             <Milestone className="h-4 w-4" aria-hidden="true" />
+          </Link>
+          <Link
+            href="/certifications"
+            aria-label="Technical certifications"
+            aria-current={isCertificationsPage ? "page" : undefined}
+            title="Technical certifications"
+            className={`${iconButtonClassName} ${
+              isCertificationsPage
+                ? "border-sky-500 bg-sky-500 text-white shadow-sky-500/35 dark:border-sky-400 dark:bg-sky-500"
+                : "border-slate-300 dark:border-slate-700"
+            }`}
+          >
+            <Award className="h-4 w-4" aria-hidden="true" />
           </Link>
           <a
             href="https://github.com/shrikanthavale"

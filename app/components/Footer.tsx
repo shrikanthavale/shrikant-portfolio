@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Code2, Github, Linkedin, TerminalSquare } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -42,10 +43,30 @@ export default function Footer() {
               <div>
                 <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Social</p>
                 <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
-                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="https://github.com/shrikanthavale" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="https://www.linkedin.com/in/shrikanthavale/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="https://stackoverflow.com/users/2931342/shrikant-havale" target="_blank" rel="noopener noreferrer">Stack Overflow</a></li>
-                  <li><a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href="https://www.hackerrank.com/shrikant_havale" target="_blank" rel="noopener noreferrer">HackerRank</a></li>
+                  <li>
+                    <a className="inline-flex items-center gap-2 whitespace-nowrap transition-colors hover:text-slate-900 dark:hover:text-slate-100" href="https://github.com/shrikanthavale" target="_blank" rel="noopener noreferrer">
+                      <Github className="h-4 w-4" aria-hidden="true" />
+                      GitHub
+                    </a>
+                  </li>
+                  <li>
+                    <a className="inline-flex items-center gap-2 whitespace-nowrap transition-colors hover:text-slate-900 dark:hover:text-slate-100" href="https://www.linkedin.com/in/shrikanthavale/" target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="h-4 w-4" aria-hidden="true" />
+                      LinkedIn
+                    </a>
+                  </li>
+                  <li>
+                    <a className="inline-flex items-center gap-2 whitespace-nowrap transition-colors hover:text-slate-900 dark:hover:text-slate-100" href="https://stackoverflow.com/users/2931342/shrikant-havale" target="_blank" rel="noopener noreferrer">
+                      <Code2 className="h-4 w-4" aria-hidden="true" />
+                      Stack Overflow
+                    </a>
+                  </li>
+                  <li>
+                    <a className="inline-flex items-center gap-2 whitespace-nowrap transition-colors hover:text-slate-900 dark:hover:text-slate-100" href="https://www.hackerrank.com/shrikant_havale" target="_blank" rel="noopener noreferrer">
+                      <TerminalSquare className="h-4 w-4" aria-hidden="true" />
+                      HackerRank
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
