@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
 import { Award, Github, Linkedin, Milestone } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#hero" },
@@ -72,10 +73,21 @@ export default function Navbar() {
         <a
           href="#hero"
           title="Senior Backend Engineer"
-          className="flex flex-col leading-tight text-slate-900 dark:text-white"
+          className="flex items-center gap-3 leading-tight text-slate-900 dark:text-white"
         >
-          <span className="text-xl font-bold tracking-wide">Shrikant Havale</span>
-          <span className="text-xs font-medium tracking-wide text-slate-500 dark:text-gray-400">Senior Backend Engineer</span>
+          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-sky-500/40">
+            <Image
+              src="/profile.jpg"
+              alt="Shrikant Havale"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          <span className="flex flex-col">
+            <span className="text-xl font-bold tracking-wide">Shrikant Havale</span>
+            <span className="text-xs font-medium tracking-wide text-slate-500 dark:text-gray-400">Senior Backend Engineer</span>
+          </span>
         </a>
         <nav className="hidden items-center gap-4 text-[13px] font-medium text-slate-600 lg:gap-5 lg:text-sm md:flex dark:text-slate-200">
           {NAV_ITEMS.map((item) => {
