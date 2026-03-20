@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 
 type FormState = {
   name: string;
@@ -69,31 +69,45 @@ export default function ContactSection() {
   return (
     <section id="contact" className="section-ambient border-t border-slate-200 bg-white/85 dark:border-slate-800 dark:bg-slate-950/70">
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-sky-700 dark:text-sky-300">Drop me a line</p>
-          <h2 className="heading-gradient mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Let&apos;s build scalable systems together</h2>
-          <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-slate-300">
-            I specialize in backend engineering, distributed systems, and event-driven architecture for resilient and high-scale products.
-          </p>
+        <div className="grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
+          <div>
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-sky-700 dark:text-sky-300">Drop me a line</p>
+            <h2 className="heading-gradient mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Let&apos;s build scalable systems together</h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-slate-300">
+              I specialize in backend engineering, distributed systems, and event-driven architecture for resilient and high-scale products.
+            </p>
 
-          <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
-            <a
-              href="#contact-form"
-              className="inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-sky-500 to-cyan-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-[1.03] hover:shadow-md hover:shadow-sky-400/40 sm:w-auto"
-            >
-              Contact Me
-            </a>
-            <a
-              href="/Havale_Shrikant.pdf"
-              download
-              className="inline-flex w-full items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
-            >
-              Download Resume
-            </a>
+            <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+              <a
+                href="/Havale_Shrikant.pdf"
+                download
+                className="inline-flex w-full items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
+              >
+                Download Resume
+              </a>
+              <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:items-center">
+                <a
+                  href="https://github.com/shrikanthavale"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  className="inline-flex h-10 w-full items-center justify-center rounded-md border border-slate-300 bg-white text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-10"
+                >
+                  <Github className="h-4 w-4" aria-hidden="true" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/shrikanthavale/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="inline-flex h-10 w-full items-center justify-center rounded-md border border-slate-300 bg-white text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-10"
+                >
+                  <Linkedin className="h-4 w-4" aria-hidden="true" />
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
           <div>
             <form
               id="contact-form"
@@ -196,53 +210,6 @@ export default function ContactSection() {
               )}
             </form>
           </div>
-
-          <aside className="glass-card rounded-2xl border border-slate-200 p-6 shadow-sm backdrop-blur-sm dark:border-slate-800">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Contact Information</h3>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-              Open to backend engineering roles and system design opportunities.
-            </p>
-
-            <ul className="mt-5 space-y-3 text-sm">
-              <li>
-                <a
-                  href="mailto:shrikant.havale@yahoo.com"
-                  className="inline-flex items-center gap-2 break-all text-slate-700 transition-colors hover:text-sky-700 dark:text-slate-200 dark:hover:text-sky-300"
-                >
-                  <Mail className="h-4 w-4" aria-hidden="true" />
-                  shrikant.havale@yahoo.com
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/shrikanthavale"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 break-all text-slate-700 transition-colors hover:text-sky-700 dark:text-slate-200 dark:hover:text-sky-300"
-                >
-                  <Github className="h-4 w-4" aria-hidden="true" />
-                  github.com/shrikanthavale
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/in/shrikanthavale/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 break-all text-slate-700 transition-colors hover:text-sky-700 dark:text-slate-200 dark:hover:text-sky-300"
-                >
-                  <Linkedin className="h-4 w-4" aria-hidden="true" />
-                  linkedin.com/in/shrikanthavale
-                </a>
-              </li>
-            </ul>
-          </aside>
-        </div>
-
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/70 p-4 text-center text-sm font-medium text-slate-700 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-200">
-          <span className="rounded-full border border-slate-300 px-2.5 py-1 dark:border-slate-700">9+ years experience</span>
-          <span className="rounded-full border border-slate-300 px-2.5 py-1 dark:border-slate-700">Distributed systems</span>
-          <span className="rounded-full border border-slate-300 px-2.5 py-1 dark:border-slate-700">Event-driven architecture</span>
         </div>
       </div>
     </section>
