@@ -72,9 +72,9 @@ export default function ContactSection() {
         <div className="grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
           <div>
             <p className="text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-sky-700 dark:text-sky-300">Drop me a line</p>
-            <h2 className="heading-gradient mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Let&apos;s build scalable systems together</h2>
+            <h2 className="heading-gradient mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Contact</h2>
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-slate-300">
-              I specialize in backend engineering, distributed systems, and event-driven architecture for resilient and high-scale products.
+              Let&apos;s build scalable systems together. I specialize in backend engineering, distributed systems, and event-driven architecture for resilient and high-scale products.
             </p>
 
             <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
