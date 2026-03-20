@@ -9,6 +9,7 @@ export type Certification = {
   status: CertificationStatus;
   credentialId?: string;
   verifyUrl?: string;
+  featured?: boolean;
 };
 
 // Add your real certifications here. This structure supports filtering and verification links.
@@ -20,6 +21,7 @@ export const certifications: Certification[] = [
     year: 2025,
     domain: "Data Science",
     status: "no-expiry",
+    verifyUrl: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=83A54271ADEC1067BFA1D4F4669D066C9D8B8DB44461DC2D452B105162728140"
   },
   {
     id: "oracle-oci-2025-architect-associate",
@@ -28,6 +30,8 @@ export const certifications: Certification[] = [
     year: 2025,
     domain: "Cloud Architecture",
     status: "active",
+    verifyUrl: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=B2C77411F21386D0E78936A9C91E398118910B765ACDD4C046A950CEBC030315",
+    featured: true,
   },
   {
     id: "oracle-data-platform-2025-foundations",
@@ -36,6 +40,7 @@ export const certifications: Certification[] = [
     year: 2025,
     domain: "Data Platform",
     status: "active",
+    verifyUrl: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=83A54271ADEC1067BFA1D4F4669D066C64D480119B3382B0175DA5FB2277419D",
   },
   {
     id: "oracle-oci-2025-ai-foundations-associate",
@@ -44,6 +49,7 @@ export const certifications: Certification[] = [
     year: 2025,
     domain: "AI",
     status: "active",
+    verifyUrl: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=3793B8CE1A8CF1C371CA1A97B308DF8F18CC27139A44A84B491B3F2873113D0F",
   },
   {
     id: "oracle-mysql-heatwave-implementation-associate-rel1",
@@ -52,6 +58,7 @@ export const certifications: Certification[] = [
     year: 2025,
     domain: "Database",
     status: "no-expiry",
+    verifyUrl: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=5A5F7F104B4D724854132D4F159C3FBFF7075F2C75329980D9768D7F40566F8A",
   },
   {
     id: "github-copilot",
@@ -60,6 +67,8 @@ export const certifications: Certification[] = [
     year: 2025,
     domain: "Developer Productivity",
     status: "active",
+    verifyUrl: "https://www.credly.com/badges/d97861c9-0251-48f5-9eba-c4959ed91058/linked_in_profile",
+    featured: true,
   },
   {
     id: "github-foundations",
@@ -68,6 +77,7 @@ export const certifications: Certification[] = [
     year: 2025,
     domain: "DevOps",
     status: "active",
+    verifyUrl: "https://www.credly.com/badges/7a7dcee1-faa5-4924-b9f1-9bb0f0d01498/linked_in_profile",
   },
   {
     id: "oracle-ai-vector-search-professional",
@@ -76,6 +86,7 @@ export const certifications: Certification[] = [
     year: 2025,
     domain: "AI",
     status: "active",
+    verifyUrl: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=1AAF1FE6DD2A01E0AC7B106AB7E46CABBAEA35B8375E4DDB8AD22817875804F7",
   },
   {
     id: "spring-certified-professional-2024-v2",
@@ -84,6 +95,8 @@ export const certifications: Certification[] = [
     year: 2025,
     domain: "Spring",
     status: "no-expiry",
+    verifyUrl: "https://www.credly.com/badges/b60007ef-3d5b-4f5f-89cf-2f41f5f334cb/linked_in_profile",
+    featured: true,
   },
   {
     id: "oracle-certified-professional-java-se-17",
@@ -92,14 +105,18 @@ export const certifications: Certification[] = [
     year: 2024,
     domain: "Java",
     status: "no-expiry",
+    verifyUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=A9753E231E14699CC709BE54463AAE9904E3B9EAEAFEFFB325086468C43159BE",
+    featured: true,
   },
   {
     id: "oracle-oci-2025-generative-ai-professional",
     title: "Oracle Cloud Infrastructure 2025 Certified Generative AI Professional",
     issuer: "Oracle",
     year: 2025,
+    featured: true,
     domain: "AI",
     status: "active",
+    verifyUrl: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=5C905B7E85DF041AB2DFE5F372F838E6863B29667E1495C973330BC6093CD252",
   },
   {
     id: "sun-certified-programmer-java-se-5",
@@ -108,6 +125,7 @@ export const certifications: Certification[] = [
     year: 2010,
     domain: "Java",
     status: "no-expiry",
+    verifyUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=2614472B621DCA5A7CB917E7FF03F9CE20DCE57A3EE176C4D325731D6505B4D9",
   },
   {
     id: "sun-certified-web-component-developer-java-ee-5",
@@ -116,6 +134,7 @@ export const certifications: Certification[] = [
     year: 2010,
     domain: "Java",
     status: "no-expiry",
+    verifyUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=D8536090085B17A6BBE6C6CEA173E774E9F0B52AD98890676838FE1C35C1A4E8",
   },
   {
     id: "oracle-apex-cloud-developer-professional",
@@ -124,6 +143,7 @@ export const certifications: Certification[] = [
     year: 2025,
     domain: "APEX",
     status: "no-expiry",
+    verifyUrl: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=FECFB159F752D28A9F7FD3AE707AEFDB9B56AED5C7F2A53B21949BC2A3259602",
   },
   {
     id: "oracle-cloud-data-management-2023-foundations",
@@ -132,6 +152,7 @@ export const certifications: Certification[] = [
     year: 2023,
     domain: "Data Management",
     status: "expired",
+    verifyUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=DDB806F51C5CC8DD7F6114F3BC14980FF5EA207A837078751F5447D9C8B1D469",
   },
   {
     id: "oracle-oci-2025-foundations-associate",
@@ -140,6 +161,7 @@ export const certifications: Certification[] = [
     year: 2025,
     domain: "Cloud",
     status: "active",
+    verifyUrl: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=B5CE78A627579D205B0314B9C0E03BFC92E84305534D856476CAEBEB11BE674D",
   },
   {
     id: "cips-information-systems-professional",
@@ -149,6 +171,7 @@ export const certifications: Certification[] = [
     domain: "Professional Certification",
     status: "no-expiry",
     credentialId: "47272027",
+    verifyUrl: "https://www.credential.net/e62fc07b-de9f-4b34-b847-8f8276088e76",
   },
   {
     id: "cips-saskatchewan-membership",
@@ -157,6 +180,7 @@ export const certifications: Certification[] = [
     year: 2021,
     domain: "Professional Membership",
     status: "expired",
+    verifyUrl: "https://www.credential.net/e2e9bc50-54a4-42bb-a478-a6293ad02c99#gs.x05wvh",
   },
   {
     id: "wes-verified-international-academic-qualifications",
@@ -166,6 +190,7 @@ export const certifications: Certification[] = [
     domain: "Academic Verification",
     status: "no-expiry",
     credentialId: "5196176IMM",
+    verifyUrl: "https://www.credly.com/badges/d967e5a6-0403-4262-986f-8e0109efc2db?source=linked_in_profile",
   },
   {
     id: "oracle-1z0-051-database-11g-sql-fundamentals-i",
@@ -175,5 +200,6 @@ export const certifications: Certification[] = [
     domain: "Database",
     status: "no-expiry",
     credentialId: "251176125",
+    verifyUrl: "/sqlfundamental.pdf",
   },
 ];

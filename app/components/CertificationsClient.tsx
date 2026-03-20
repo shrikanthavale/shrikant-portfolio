@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import IssuerIcon from "@/app/components/IssuerIcon";
 import type { Certification } from "@/app/data/certifications";
 
 type CertificationsClientProps = {
@@ -26,7 +27,7 @@ export default function CertificationsClient({ certifications }: CertificationsC
   const [search, setSearch] = useState("");
   const [selectedDomain, setSelectedDomain] = useState("all");
   const [selectedIssuer, setSelectedIssuer] = useState("all");
-  const [selectedStatus, setSelectedStatus] = useState("all");
+  const [selectedFeatured, setSelectedFeatured] = useState("featured");
 
   const domains = useMemo(
     () => ["all", ...Array.from(new Set(certifications.map((item) => item.domain))).sort((a, b) => a.localeCompare(b))],
@@ -51,7 +52,7 @@ export default function CertificationsClient({ certifications }: CertificationsC
           return false;
         }
 
-        if (selectedStatus !== "all" && item.status !== selectedStatus) {
+        if (selectedFeatured === "featured" && !item.featured) {
           return false;
         }
 
@@ -63,13 +64,13 @@ export default function CertificationsClient({ certifications }: CertificationsC
         return haystack.includes(normalizedQuery);
       })
       .sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
-  }, [certifications, search, selectedDomain, selectedIssuer, selectedStatus]);
+  }, [certifications, search, selectedDomain, selectedIssuer, selectedFeatured]);
 
   const resetFilters = () => {
     setSearch("");
     setSelectedDomain("all");
     setSelectedIssuer("all");
-    setSelectedStatus("all");
+    setSelectedFeatured("all");
   };
 
   return (
@@ -117,24 +118,29 @@ export default function CertificationsClient({ certifications }: CertificationsC
           </label>
 
           <label>
-            <span className="sr-only">Filter by status</span>
+            <span className="sr-only">Filter by featured</span>
             <select
-              value={selectedStatus}
-              onChange={(event) => setSelectedStatus(event.target.value)}
+              value={selectedFeatured}
+              onChange={(event) => setSelectedFeatured(event.target.value)}
               className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 outline-none transition-colors focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-sky-400"
             >
-              <option value="all">All status</option>
-              <option value="active">Active</option>
-              <option value="no-expiry">No expiry</option>
-              <option value="expired">Expired</option>
+              <option value="featured">Featured only</option>
+              <option value="all">All certifications</option>
             </select>
           </label>
         </div>
 
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-          <p className="text-sm text-slate-600 dark:text-slate-300">
-            Showing <span className="font-semibold text-slate-900 dark:text-white">{filteredCertifications.length}</span> of {certifications.length} certifications.
-          </p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              Showing <span className="font-semibold text-slate-900 dark:text-white">{filteredCertifications.length}</span> of {certifications.length} certifications.
+            </p>
+            {selectedFeatured === "featured" && (
+              <span className="rounded-full border border-sky-200 bg-sky-50 px-2 py-0.5 text-[11px] font-medium text-sky-700 dark:border-sky-700/70 dark:bg-sky-900/30 dark:text-sky-300">
+                Default filter: Featured only
+              </span>
+            )}
+          </div>
           <button
             type="button"
             onClick={resetFilters}
@@ -148,25 +154,34 @@ export default function CertificationsClient({ certifications }: CertificationsC
       {filteredCertifications.length === 0 ? (
         <div className="mt-8 rounded-2xl border border-dashed border-slate-300 bg-white/70 p-8 text-center dark:border-slate-700 dark:bg-slate-900/60">
           <p className="text-sm font-medium text-slate-700 dark:text-slate-200">No certifications match the selected filters.</p>
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            Add your certifications in app/data/certifications.ts and they will automatically appear here.
-          </p>
         </div>
       ) : (
         <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {filteredCertifications.map((item) => (
             <article
               key={item.id}
-              className="glass-card glass-card-hover flex h-full flex-col justify-between rounded-2xl border border-slate-200 p-5 shadow-sm dark:border-slate-800"
+              className="glass-card glass-card-hover relative flex h-full flex-col justify-between rounded-2xl border border-slate-200 p-5 shadow-sm dark:border-slate-800"
             >
+              {item.featured && (
+                <span
+                  className="absolute right-4 top-4 text-base leading-none text-amber-400"
+                  title="Featured"
+                  aria-label="Featured"
+                >
+                  ★
+                </span>
+              )}
               <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full border border-slate-300 bg-slate-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
-                    {item.domain}
-                  </span>
-                  <span className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] ${statusBadgeClassName[item.status]}`}>
-                    {statusLabel[item.status]}
-                  </span>
+                <div className="flex items-start gap-3">
+                  <IssuerIcon issuer={item.issuer} />
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full border border-slate-300 bg-slate-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                      {item.domain}
+                    </span>
+                    <span className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] ${statusBadgeClassName[item.status]}`}>
+                      {statusLabel[item.status]}
+                    </span>
+                  </div>
                 </div>
 
                 <h2 className="mt-4 text-lg font-bold leading-snug text-slate-900 dark:text-white">{item.title}</h2>
