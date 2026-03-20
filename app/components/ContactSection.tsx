@@ -78,7 +78,16 @@ export default function ContactSection() {
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
           <div className="lg:order-2">
-            <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <div className="mt-6 rounded-xl border border-slate-200 bg-white/60 p-4 dark:border-slate-800 dark:bg-slate-900/40">
+              <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">To help me respond faster, include:</p>
+              <ul className="mt-2 space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                <li>- Project context or role details</li>
+                <li>- Expected timeline</li>
+                <li>- Relevant links or references</li>
+              </ul>
+            </div>
+
+            <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <a
                 href="/Havale_Shrikant.pdf"
                 download
@@ -108,15 +117,6 @@ export default function ContactSection() {
                   <span>LinkedIn</span>
                 </a>
               </div>
-            </div>
-
-            <div className="mt-6 rounded-xl border border-slate-200 bg-white/60 p-4 dark:border-slate-800 dark:bg-slate-900/40">
-              <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">To help me respond faster, include:</p>
-              <ul className="mt-2 space-y-1 text-sm text-slate-600 dark:text-slate-300">
-                <li>- Project context or role details</li>
-                <li>- Expected timeline</li>
-                <li>- Relevant links or references</li>
-              </ul>
             </div>
           </div>
 
