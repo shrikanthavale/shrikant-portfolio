@@ -69,15 +69,30 @@ export default function ContactSection() {
   return (
     <section id="contact" className="section-ambient border-t border-slate-200 bg-white/85 dark:border-slate-800 dark:bg-slate-950/70">
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-        <div className="grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="heading-gradient text-3xl font-bold tracking-tight sm:text-5xl">Contact Me</h2>
+          <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg sm:leading-9 dark:text-gray-400">
+            Let&apos;s build scalable systems together. I specialize in backend engineering, distributed systems, and event-driven architecture for resilient and high-scale products.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
           <div>
             <p className="text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-sky-700 dark:text-sky-300">Drop me a line</p>
-            <h2 className="heading-gradient mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Contact</h2>
-            <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-slate-300">
-              Let&apos;s build scalable systems together. I specialize in backend engineering, distributed systems, and event-driven architecture for resilient and high-scale products.
+            <p className="mt-3 max-w-xl text-sm leading-7 text-slate-600 sm:text-base dark:text-slate-300">
+              Prefer the contact form for project discussions, backend opportunities, and system design conversations.
             </p>
 
-            <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+            <div className="mt-6 rounded-xl border border-slate-200 bg-white/60 p-4 dark:border-slate-800 dark:bg-slate-900/40">
+              <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">To help me respond faster, include:</p>
+              <ul className="mt-2 space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                <li>- Project context or role details</li>
+                <li>- Expected timeline</li>
+                <li>- Relevant links or references</li>
+              </ul>
+            </div>
+
+            <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <a
                 href="/Havale_Shrikant.pdf"
                 download
@@ -91,18 +106,20 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
-                  className="inline-flex h-10 w-full items-center justify-center rounded-md border border-slate-300 bg-white text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-10"
+                  className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
                 >
                   <Github className="h-4 w-4" aria-hidden="true" />
+                  <span>GitHub</span>
                 </a>
                 <a
                   href="https://www.linkedin.com/in/shrikanthavale/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="inline-flex h-10 w-full items-center justify-center rounded-md border border-slate-300 bg-white text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-10"
+                  className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
                 >
                   <Linkedin className="h-4 w-4" aria-hidden="true" />
+                  <span>LinkedIn</span>
                 </a>
               </div>
             </div>
