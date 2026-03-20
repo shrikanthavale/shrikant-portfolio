@@ -63,7 +63,7 @@ export async function POST(request: Request) {
 
   const name = clamp(payload.name ?? "", 80);
   const email = clamp(payload.email ?? "", 120);
-  const subject = clamp(payload.subject ?? "", 140);
+  const subject = clamp(payload.subject ?? "", 140) || "Website contact message";
   const message = clamp(payload.message ?? "", 3000);
   const website = clamp(payload.website ?? "", 200);
   const turnstileToken = clamp(payload.turnstileToken ?? "", 5000);
@@ -73,8 +73,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Message sent." }, { status: 200 });
   }
 
-  if (!name || !email || !subject || !message) {
-    return NextResponse.json({ message: "All fields are required." }, { status: 400 });
+  if (!name || !email || !message) {
+    return NextResponse.json({ message: "Name, email, and message are required." }, { status: 400 });
   }
 
   if (!isEmail(email)) {
