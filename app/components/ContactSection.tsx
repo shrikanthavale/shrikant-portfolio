@@ -76,17 +76,17 @@ export default function ContactSection() {
             I specialize in backend engineering, distributed systems, and event-driven architecture for resilient and high-scale products.
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <a
               href="#contact-form"
-              className="inline-flex items-center rounded-md bg-gradient-to-r from-sky-500 to-cyan-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-[1.03] hover:shadow-md hover:shadow-sky-400/40"
+              className="inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-sky-500 to-cyan-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-[1.03] hover:shadow-md hover:shadow-sky-400/40 sm:w-auto"
             >
               Contact Me
             </a>
             <a
               href="/Havale_Shrikant.pdf"
               download
-              className="inline-flex items-center rounded-md border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300"
+              className="inline-flex w-full items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
             >
               Download Resume
             </a>
@@ -160,7 +160,7 @@ export default function ContactSection() {
                 )}
               </div>
 
-              <div className="mt-5 flex items-center gap-3">
+              <div className="mt-5 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-3">
                 <button
                   type="submit"
                   disabled={status === "submitting"}
@@ -207,7 +207,7 @@ export default function ContactSection() {
               <li>
                 <a
                   href="mailto:shrikant.havale@yahoo.com"
-                  className="inline-flex items-center gap-2 text-slate-700 transition-colors hover:text-sky-700 dark:text-slate-200 dark:hover:text-sky-300"
+                  className="inline-flex items-center gap-2 break-all text-slate-700 transition-colors hover:text-sky-700 dark:text-slate-200 dark:hover:text-sky-300"
                 >
                   <Mail className="h-4 w-4" aria-hidden="true" />
                   shrikant.havale@yahoo.com
@@ -218,7 +218,7 @@ export default function ContactSection() {
                   href="https://github.com/shrikanthavale"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-slate-700 transition-colors hover:text-sky-700 dark:text-slate-200 dark:hover:text-sky-300"
+                  className="inline-flex items-center gap-2 break-all text-slate-700 transition-colors hover:text-sky-700 dark:text-slate-200 dark:hover:text-sky-300"
                 >
                   <Github className="h-4 w-4" aria-hidden="true" />
                   github.com/shrikanthavale
@@ -229,7 +229,7 @@ export default function ContactSection() {
                   href="https://www.linkedin.com/in/shrikanthavale/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-slate-700 transition-colors hover:text-sky-700 dark:text-slate-200 dark:hover:text-sky-300"
+                  className="inline-flex items-center gap-2 break-all text-slate-700 transition-colors hover:text-sky-700 dark:text-slate-200 dark:hover:text-sky-300"
                 >
                   <Linkedin className="h-4 w-4" aria-hidden="true" />
                   linkedin.com/in/shrikanthavale
@@ -239,8 +239,10 @@ export default function ContactSection() {
           </aside>
         </div>
 
-        <div className="mt-8 rounded-xl border border-slate-200 bg-white/70 p-4 text-center text-sm font-medium text-slate-700 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-200">
-          9+ years experience • Distributed systems • Event-driven architecture
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/70 p-4 text-center text-sm font-medium text-slate-700 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-200">
+          <span className="rounded-full border border-slate-300 px-2.5 py-1 dark:border-slate-700">9+ years experience</span>
+          <span className="rounded-full border border-slate-300 px-2.5 py-1 dark:border-slate-700">Distributed systems</span>
+          <span className="rounded-full border border-slate-300 px-2.5 py-1 dark:border-slate-700">Event-driven architecture</span>
         </div>
       </div>
     </section>
