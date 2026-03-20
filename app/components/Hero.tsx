@@ -1,10 +1,4 @@
 export default function Hero() {
-  const links = {
-    github: "https://github.com/shrikanthavale",
-    linkedin: "https://www.linkedin.com/in/shrikanthavale/",
-    resume: "/Havale_Shrikant.pdf",
-  };
-
   return (
     <section id="hero" className="section-ambient border-b border-slate-200 dark:border-slate-800">
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-20 sm:gap-10 sm:py-24 lg:flex-row lg:items-center lg:justify-between">
@@ -23,35 +17,16 @@ export default function Hero() {
           </p>
           <div className="mt-7 flex flex-wrap gap-3 sm:mt-8">
             <a
-              href={links.github}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-sky-400 dark:hover:bg-sky-500"
-            >
-              GitHub
-            </a>
-            <a
-              href={links.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-sky-400 dark:hover:bg-sky-500"
-            >
-              LinkedIn
-            </a>
-            <a
-              href={links.resume}
-              download
+              href="#projects"
               className="inline-flex items-center justify-center rounded-md bg-sky-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-md shadow-sky-500/35 transition-all duration-200 hover:scale-105 hover:bg-sky-400 hover:shadow-lg hover:shadow-sky-400/45"
             >
-              Download Resume
+              View Projects
             </a>
-          </div>
-          <div className="mt-4 flex flex-wrap gap-4 text-sm">
-            <a className="font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white" href="#projects">
-              View projects
-            </a>
-            <a className="font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white" href="#contact">
-              Contact me
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-sky-400 dark:hover:bg-sky-500"
+            >
+              Contact Me
             </a>
           </div>
         </div>
