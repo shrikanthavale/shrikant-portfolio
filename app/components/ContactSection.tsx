@@ -70,33 +70,19 @@ export default function ContactSection() {
     <section id="contact" className="section-ambient border-t border-slate-200 bg-white/85 dark:border-slate-800 dark:bg-slate-950/70">
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="heading-gradient text-3xl font-bold tracking-tight sm:text-5xl">Contact Me</h2>
+          <h2 className="heading-gradient text-3xl font-bold tracking-tight sm:text-5xl">Let&apos;s build scalable systems together</h2>
           <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg sm:leading-9 dark:text-gray-400">
-            Let&apos;s build scalable systems together. I specialize in backend engineering, distributed systems, and event-driven architecture for resilient and high-scale products.
+            I design resilient backend systems, distributed architectures, and high-throughput event-driven platforms.
           </p>
         </div>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
           <div>
-            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-sky-700 dark:text-sky-300">Drop me a line</p>
-            <p className="mt-3 max-w-xl text-sm leading-7 text-slate-600 sm:text-base dark:text-slate-300">
-              Prefer the contact form for project discussions, backend opportunities, and system design conversations.
-            </p>
-
-            <div className="mt-6 rounded-xl border border-slate-200 bg-white/60 p-4 dark:border-slate-800 dark:bg-slate-900/40">
-              <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">To help me respond faster, include:</p>
-              <ul className="mt-2 space-y-1 text-sm text-slate-600 dark:text-slate-300">
-                <li>- Project context or role details</li>
-                <li>- Expected timeline</li>
-                <li>- Relevant links or references</li>
-              </ul>
-            </div>
-
-            <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <a
                 href="/Havale_Shrikant.pdf"
                 download
-                className="inline-flex w-full items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-sky-500 to-cyan-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-[1.03] hover:shadow-md hover:shadow-sky-400/40 sm:w-auto"
               >
                 Download Resume
               </a>
@@ -123,13 +109,22 @@ export default function ContactSection() {
                 </a>
               </div>
             </div>
+
+            <div className="mt-6 rounded-xl border border-slate-200 bg-white/60 p-4 dark:border-slate-800 dark:bg-slate-900/40">
+              <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">To help me respond faster, include:</p>
+              <ul className="mt-2 space-y-1 text-sm text-slate-600 dark:text-slate-300">
+                <li>- Project context or role details</li>
+                <li>- Expected timeline</li>
+                <li>- Relevant links or references</li>
+              </ul>
+            </div>
           </div>
 
-          <div>
+          <div className="lg:border-l lg:border-slate-200/70 lg:pl-10 dark:lg:border-slate-800/80">
             <form
               id="contact-form"
               onSubmit={onSubmit}
-              className="glass-card rounded-2xl border border-slate-200 p-6 shadow-sm backdrop-blur-sm dark:border-slate-800"
+              className="glass-card rounded-2xl border border-slate-200 p-6 shadow-sm shadow-sky-950/10 backdrop-blur-sm dark:border-slate-800"
             >
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="sm:col-span-1">
@@ -139,7 +134,7 @@ export default function ContactSection() {
                     maxLength={80}
                     value={form.name}
                     onChange={(event) => updateField("name", event.target.value)}
-                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 outline-none transition-colors focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-sky-400"
+                    className="h-11 w-full rounded-md border border-slate-300 bg-white px-3 text-sm text-slate-700 outline-none ring-0 transition-all duration-200 focus:border-sky-500 focus:shadow-[0_0_0_4px_rgba(14,165,233,0.12)] dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-sky-400 dark:focus:shadow-[0_0_0_4px_rgba(56,189,248,0.12)]"
                   />
                 </label>
 
@@ -151,7 +146,7 @@ export default function ContactSection() {
                     maxLength={120}
                     value={form.email}
                     onChange={(event) => updateField("email", event.target.value)}
-                    className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 outline-none transition-colors focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-sky-400"
+                    className="h-11 w-full rounded-md border border-slate-300 bg-white px-3 text-sm text-slate-700 outline-none ring-0 transition-all duration-200 focus:border-sky-500 focus:shadow-[0_0_0_4px_rgba(14,165,233,0.12)] dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-sky-400 dark:focus:shadow-[0_0_0_4px_rgba(56,189,248,0.12)]"
                   />
                 </label>
 
@@ -161,9 +156,10 @@ export default function ContactSection() {
                     required
                     rows={6}
                     maxLength={3000}
+                    placeholder="Tell me a bit about the project, role, or problem you want to discuss."
                     value={form.message}
                     onChange={(event) => updateField("message", event.target.value)}
-                    className="w-full resize-y rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 outline-none transition-colors focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-sky-400"
+                    className="min-h-40 w-full resize-y rounded-md border border-slate-300 bg-white px-3 py-3 text-sm text-slate-700 outline-none ring-0 transition-all duration-200 placeholder:text-slate-400 focus:border-sky-500 focus:shadow-[0_0_0_4px_rgba(14,165,233,0.12)] dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:shadow-[0_0_0_4px_rgba(56,189,248,0.12)]"
                   />
                 </label>
 
@@ -206,7 +202,7 @@ export default function ContactSection() {
                       Sending...
                     </>
                   ) : (
-                    "Submit"
+                    "Send message"
                   )}
                 </button>
                 <p className="text-xs text-slate-500 dark:text-slate-400">Usually responds within 24 hours</p>
