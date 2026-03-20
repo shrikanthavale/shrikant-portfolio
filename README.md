@@ -35,6 +35,27 @@ npm install
 npm run dev
 ```
 
+## Contact Form Setup (Resend)
+
+The contact section posts to `POST /api/contact` and sends email using Resend.
+
+Create a `.env.local` file with:
+
+```bash
+RESEND_API_KEY=your_resend_api_key
+CONTACT_TO_EMAIL=you@example.com
+CONTACT_FROM_EMAIL=Portfolio Contact <onboarding@resend.dev>
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_turnstile_site_key
+TURNSTILE_SECRET_KEY=your_turnstile_secret_key
+```
+
+Notes:
+
+- `CONTACT_FROM_EMAIL` can use `onboarding@resend.dev` for testing.
+- For production, configure your own verified sending domain in Resend and update `CONTACT_FROM_EMAIL`.
+- The route includes basic anti-spam protection (honeypot + simple rate limiting).
+- Turnstile is optional. If both Turnstile keys are set, widget + server verification are enforced.
+
 ## Development Workflow
 
 Install dependencies:
