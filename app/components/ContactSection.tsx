@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Turnstile from "@marsidev/react-turnstile";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 type FormState = {
   name: string;
@@ -145,7 +145,7 @@ export default function ContactSection() {
                 <div className="sm:col-span-2">
                   <Turnstile
                     siteKey={turnstileSiteKey}
-                    onSuccess={(token) => updateField("turnstileToken", token)}
+                    onSuccess={(token: string) => updateField("turnstileToken", token)}
                     onExpire={() => updateField("turnstileToken", "")}
                     onError={() => updateField("turnstileToken", "")}
                     options={{ theme: "auto", size: "normal" }}
