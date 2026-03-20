@@ -77,7 +77,7 @@ export default function ContactSection() {
         </div>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
-          <div>
+          <div className="lg:order-2">
             <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <a
                 href="/Havale_Shrikant.pdf"
@@ -120,7 +120,7 @@ export default function ContactSection() {
             </div>
           </div>
 
-          <div className="lg:border-l lg:border-slate-200/70 lg:pl-10 dark:lg:border-slate-800/80">
+          <div className="lg:order-1 lg:border-r lg:border-slate-200/70 lg:pr-10 dark:lg:border-slate-800/80">
             <form
               id="contact-form"
               onSubmit={onSubmit}
