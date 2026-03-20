@@ -5,23 +5,8 @@ export default function Footer() {
   return (
     <footer id="contact" className="section-ambient section-ambient-alt border-t border-slate-200 bg-slate-100 dark:border-gray-800 dark:bg-slate-950">
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-        <div className="grid gap-10 lg:grid-cols-3">
+        <div>
           <div>
-            <h3 className="heading-gradient text-xl font-bold sm:text-2xl">Get in touch</h3>
-            <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-gray-400">
-              I&apos;m available for contract work and senior backend roles. Send a message and I&apos;ll respond within one business day.
-            </p>
-            <div className="mt-6 space-y-3 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
-              <p>
-                <span className="font-medium text-slate-800 dark:text-slate-200">Email:</span>{' '}
-                <a href="mailto:shrikant.havale@yahoo.com" className="text-link-subtle text-sky-700 hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200">shrikant.havale@yahoo.com</a>
-              </p>
-              <p>
-                <span className="font-medium text-slate-800 dark:text-slate-200">Location:</span> Pune, India
-              </p>
-            </div>
-          </div>
-          <div className="lg:col-span-2">
             <h3 className="heading-gradient text-xl font-bold sm:text-2xl">Quick links</h3>
             <div className="mt-6 grid grid-cols-2 gap-8 sm:grid-cols-3">
               <div>
