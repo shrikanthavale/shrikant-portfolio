@@ -76,6 +76,35 @@ Notes:
 - The route includes basic anti-spam protection (honeypot + simple rate limiting).
 - Turnstile is optional. If both Turnstile keys are set, widget + server verification are enforced.
 
+## Deployment SMTP Health Check
+
+This repository includes a protected endpoint that sends a deployment health email
+through the same SMTP/Resend path used by the contact form:
+
+- `POST /api/ops/deploy-health`
+
+The endpoint requires an auth header:
+
+- `x-deploy-health-token: <DEPLOY_HEALTH_TOKEN>`
+
+Set this secret in Vercel environment variables:
+
+```bash
+DEPLOY_HEALTH_TOKEN=long_random_token_value
+```
+
+GitHub Actions workflow `.github/workflows/deploy-smtp-health.yml` calls this endpoint
+after successful `main` CI runs.
+
+Add these GitHub repository secrets:
+
+```bash
+DEPLOY_HEALTH_URL=https://your-domain.com/api/ops/deploy-health
+DEPLOY_HEALTH_TOKEN=the_same_token_as_vercel
+```
+
+If the health check email cannot be sent, the workflow fails.
+
 ## Development Workflow
 
 Install dependencies:
