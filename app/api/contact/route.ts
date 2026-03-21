@@ -60,7 +60,14 @@ type OutboundEmailPayload = {
   email: string;
   subject: string;
   message: string;
+  deliverySubject: string;
 };
+
+function buildDeliverySubject(subject: string) {
+  const timestamp = new Date().toISOString().replace(/[-:]/g, "").replace("T", "-").slice(0, 14);
+  const shortId = Math.random().toString(36).slice(2, 8).toUpperCase();
+  return `[Portfolio ${timestamp}-${shortId}] ${subject}`;
+}
 
 function buildEmailContent({ name, email, subject, message }: OutboundEmailPayload) {
   const safeName = escapeHtml(name);
@@ -119,7 +126,7 @@ async function sendViaSmtp(payload: OutboundEmailPayload) {
   await transporter.sendMail({
     from: fromEmail,
     to: toEmail,
-    subject: `[Portfolio] ${payload.subject}`,
+    subject: payload.deliverySubject,
     replyTo: payload.email,
     text: emailText,
     html: emailHtml,
@@ -148,7 +155,7 @@ async function sendViaResend(payload: OutboundEmailPayload) {
     body: JSON.stringify({
       from: fromEmail,
       to: [toEmail],
-      subject: `[Portfolio] ${payload.subject}`,
+      subject: payload.deliverySubject,
       reply_to: payload.email,
       text: emailText,
       html: emailHtml,
@@ -218,7 +225,8 @@ export async function POST(request: Request) {
     }
   }
 
-  const emailPayload: OutboundEmailPayload = { name, email, subject, message };
+  const deliverySubject = buildDeliverySubject(subject);
+  const emailPayload: OutboundEmailPayload = { name, email, subject, message, deliverySubject };
 
   try {
     const smtpResult = await sendViaSmtp(emailPayload);
