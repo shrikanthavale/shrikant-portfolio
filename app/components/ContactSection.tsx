@@ -84,7 +84,7 @@ export default function ContactSection() {
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
           <div className="lg:order-2">
             <div className="mt-6 rounded-xl border border-slate-200 bg-white/60 p-4 dark:border-slate-800 dark:bg-slate-900/40">
-              <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">To help me respond faster, include:</p>
+              <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">Please include:</p>
               <ul className="mt-2 space-y-1 text-sm text-slate-600 dark:text-slate-300">
                 <li>- Project context or role details</li>
                 <li>- Expected timeline</li>
