@@ -76,29 +76,6 @@ Notes:
 - The route includes basic anti-spam protection (honeypot + simple rate limiting).
 - Turnstile is optional. If both Turnstile keys are set, widget + server verification are enforced.
 
-### Quick Local SMTP Test Endpoint
-
-To verify email setup quickly on localhost (without using the contact form), this project includes:
-
-- `POST /api/contact/test`
-
-It is development-only and returns `403` outside local development.
-
-Example using PowerShell:
-
-```powershell
-Invoke-RestMethod -Method Post -Uri "http://localhost:3000/api/contact/test"
-```
-
-Expected success response:
-
-```json
-{
-  "message": "Test email sent via SMTP.",
-  "provider": "smtp"
-}
-```
-
 ## Development Workflow
 
 Install dependencies:
