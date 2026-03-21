@@ -25,8 +25,13 @@ export default function ContactSection() {
   const [form, setForm] = useState<FormState>(initialState);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
+  const canSubmit = status !== "submitting" && (!turnstileSiteKey || Boolean(form.turnstileToken));
 
   const updateField = (field: keyof FormState, value: string) => {
+    if (status !== "idle") {
+      setStatus("idle");
+      setStatusMessage("");
+    }
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -190,7 +195,7 @@ export default function ContactSection() {
               <div className="mt-5 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-3">
                 <button
                   type="submit"
-                  disabled={status === "submitting"}
+                  disabled={!canSubmit}
                   className="inline-flex items-center rounded-md bg-gradient-to-r from-sky-500 to-cyan-500 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-[1.03] hover:shadow-md hover:shadow-sky-400/40 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {status === "submitting" ? (
@@ -210,12 +215,14 @@ export default function ContactSection() {
 
               {status !== "idle" && (
                 <p
-                  className={`mt-3 text-sm ${
+                  role="status"
+                  aria-live="polite"
+                  className={`mt-3 rounded-md border px-3 py-2 text-sm ${
                     status === "success"
-                      ? "text-emerald-700 dark:text-emerald-300"
+                      ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/70 dark:bg-emerald-900/20 dark:text-emerald-300"
                       : status === "error"
-                        ? "text-rose-700 dark:text-rose-300"
-                        : "text-slate-500 dark:text-slate-400"
+                        ? "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-900/70 dark:bg-rose-900/20 dark:text-rose-300"
+                        : "border-slate-200 bg-slate-50 text-slate-500 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400"
                   }`}
                 >
                   {statusMessage}

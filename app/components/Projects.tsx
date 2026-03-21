@@ -18,6 +18,7 @@ export default function Projects() {
               key={project.title}
               title={project.title}
               description={project.description}
+              outcomes={project.outcomes}
               tags={project.tags}
               detailsHref={`/projects/${project.slug}`}
               detailsLabel="View project page"

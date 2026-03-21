@@ -35,26 +35,69 @@ npm install
 npm run dev
 ```
 
-## Contact Form Setup (Resend)
+## Contact Form Setup (Hostinger SMTP or Resend)
 
-The contact section posts to `POST /api/contact` and sends email using Resend.
+The contact section posts to `POST /api/contact`.
+
+The API now supports two providers:
+
+- SMTP (recommended if you already have Hostinger email settings)
+- Resend (fallback)
+
+If SMTP variables are present, SMTP is used first.
+If SMTP is not configured, it falls back to Resend.
 
 Create a `.env.local` file with:
 
 ```bash
-RESEND_API_KEY=your_resend_api_key
 CONTACT_TO_EMAIL=you@example.com
-CONTACT_FROM_EMAIL=Portfolio Contact <onboarding@resend.dev>
+# Hostinger SMTP (used first if configured)
+SMTP_HOST=smtp.hostinger.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your_email@yourdomain.com
+SMTP_PASS=your_email_password
+CONTACT_FROM_EMAIL=Portfolio Contact <your_email@yourdomain.com>
+
+# Optional fallback: Resend
+RESEND_API_KEY=your_resend_api_key
+
+# Optional anti-spam
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_turnstile_site_key
 TURNSTILE_SECRET_KEY=your_turnstile_secret_key
 ```
 
 Notes:
 
-- `CONTACT_FROM_EMAIL` can use `onboarding@resend.dev` for testing.
-- For production, configure your own verified sending domain in Resend and update `CONTACT_FROM_EMAIL`.
+- Yes, you can test this on localhost. SMTP will send real emails from your Hostinger mailbox even in local development.
+- For Hostinger, `SMTP_PORT=587` with `SMTP_SECURE=false` is the common setup (STARTTLS).
+- Some Hostinger plans may require app passwords or mailbox-specific passwords.
+- If you use Resend fallback for testing, `CONTACT_FROM_EMAIL` can be `onboarding@resend.dev`.
 - The route includes basic anti-spam protection (honeypot + simple rate limiting).
 - Turnstile is optional. If both Turnstile keys are set, widget + server verification are enforced.
+
+### Quick Local SMTP Test Endpoint
+
+To verify email setup quickly on localhost (without using the contact form), this project includes:
+
+- `POST /api/contact/test`
+
+It is development-only and returns `403` outside local development.
+
+Example using PowerShell:
+
+```powershell
+Invoke-RestMethod -Method Post -Uri "http://localhost:3000/api/contact/test"
+```
+
+Expected success response:
+
+```json
+{
+  "message": "Test email sent via SMTP.",
+  "provider": "smtp"
+}
+```
 
 ## Development Workflow
 

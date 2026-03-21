@@ -17,18 +17,21 @@ export default function Hero() {
           </p>
           <div className="mt-7 flex flex-wrap gap-3 sm:mt-8">
             <a
+              href="#contact-form"
+              className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-sky-500 to-cyan-500 px-5 py-3 text-sm font-semibold text-white shadow-md shadow-sky-500/35 transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-sky-400/45"
+            >
+              Hire Me
+            </a>
+            <a
               href="#projects"
-              className="inline-flex items-center justify-center rounded-md bg-sky-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-md shadow-sky-500/35 transition-all duration-200 hover:scale-105 hover:bg-sky-400 hover:shadow-lg hover:shadow-sky-400/45"
+              className="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-sky-400 dark:hover:bg-sky-500"
             >
               View Projects
             </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-sky-400 dark:hover:bg-sky-500"
-            >
-              Contact Me
-            </a>
           </div>
+          <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
+            Open to senior backend roles and high-impact Java platform work.
+          </p>
         </div>
 
         <div className="glass-card glass-card-hover relative w-full max-w-md rounded-2xl p-6 shadow-lg sm:p-8">

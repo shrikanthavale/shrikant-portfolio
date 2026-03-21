@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 type ContactPayload = {
   name?: string;
@@ -19,6 +20,15 @@ function isEmail(value: string) {
 
 function clamp(value: string, max: number) {
   return value.trim().slice(0, max);
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 function getClientKey(request: Request) {
@@ -43,6 +53,109 @@ function isRateLimited(key: string) {
   recent.push(now);
   requestBuckets.set(key, recent);
   return false;
+}
+
+type OutboundEmailPayload = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
+
+function buildEmailContent({ name, email, subject, message }: OutboundEmailPayload) {
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeSubject = escapeHtml(subject);
+  const safeMessage = escapeHtml(message).replace(/\n/g, "<br />");
+
+  const emailText = [
+    "New portfolio contact form submission",
+    "",
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Subject: ${subject}`,
+    "",
+    "Message:",
+    message,
+  ].join("\n");
+
+  const emailHtml = `
+    <h2>New portfolio contact form submission</h2>
+    <p><strong>Name:</strong> ${safeName}</p>
+    <p><strong>Email:</strong> ${safeEmail}</p>
+    <p><strong>Subject:</strong> ${safeSubject}</p>
+    <p><strong>Message:</strong></p>
+    <p>${safeMessage}</p>
+  `;
+
+  return { emailText, emailHtml };
+}
+
+async function sendViaSmtp(payload: OutboundEmailPayload) {
+  const smtpHost = process.env.SMTP_HOST;
+  const smtpPort = Number(process.env.SMTP_PORT || "587");
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS;
+  const smtpSecure = process.env.SMTP_SECURE === "true";
+  const toEmail = process.env.CONTACT_TO_EMAIL;
+  const fromEmail = process.env.CONTACT_FROM_EMAIL || smtpUser;
+
+  if (!smtpHost || !smtpUser || !smtpPass || !toEmail || !fromEmail) {
+    return { attempted: false, ok: false } as const;
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: smtpHost,
+    port: smtpPort,
+    secure: smtpSecure,
+    auth: {
+      user: smtpUser,
+      pass: smtpPass,
+    },
+  });
+
+  const { emailText, emailHtml } = buildEmailContent(payload);
+
+  await transporter.sendMail({
+    from: fromEmail,
+    to: toEmail,
+    subject: `[Portfolio] ${payload.subject}`,
+    replyTo: payload.email,
+    text: emailText,
+    html: emailHtml,
+  });
+
+  return { attempted: true, ok: true } as const;
+}
+
+async function sendViaResend(payload: OutboundEmailPayload) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const toEmail = process.env.CONTACT_TO_EMAIL;
+  const fromEmail = process.env.CONTACT_FROM_EMAIL || "Portfolio Contact <onboarding@resend.dev>";
+
+  if (!apiKey || !toEmail) {
+    return { attempted: false, ok: false } as const;
+  }
+
+  const { emailText, emailHtml } = buildEmailContent(payload);
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: fromEmail,
+      to: [toEmail],
+      subject: `[Portfolio] ${payload.subject}`,
+      reply_to: payload.email,
+      text: emailText,
+      html: emailHtml,
+    }),
+  });
+
+  return { attempted: true, ok: response.ok } as const;
 }
 
 export async function POST(request: Request) {
@@ -105,59 +218,35 @@ export async function POST(request: Request) {
     }
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.CONTACT_TO_EMAIL;
-  const fromEmail = process.env.CONTACT_FROM_EMAIL || "Portfolio Contact <onboarding@resend.dev>";
+  const emailPayload: OutboundEmailPayload = { name, email, subject, message };
 
-  if (!apiKey || !toEmail) {
+  try {
+    const smtpResult = await sendViaSmtp(emailPayload);
+    if (smtpResult.attempted && smtpResult.ok) {
+      return NextResponse.json({ message: "Message sent successfully." }, { status: 200 });
+    }
+
+    const resendResult = await sendViaResend(emailPayload);
+    if (resendResult.attempted && resendResult.ok) {
+      return NextResponse.json({ message: "Message sent successfully." }, { status: 200 });
+    }
+
+    if (!smtpResult.attempted && !resendResult.attempted) {
+      return NextResponse.json(
+        { message: "Contact form is not configured yet. Please try again later." },
+        { status: 500 },
+      );
+    }
+
     return NextResponse.json(
-      { message: "Contact form is not configured yet. Please try again later." },
-      { status: 500 },
+      { message: "Unable to send your message right now. Please try again shortly." },
+      { status: 502 },
     );
-  }
-
-  const emailText = [
-    "New portfolio contact form submission",
-    "",
-    `Name: ${name}`,
-    `Email: ${email}`,
-    `Subject: ${subject}`,
-    "",
-    "Message:",
-    message,
-  ].join("\n");
-
-  const emailHtml = `
-    <h2>New portfolio contact form submission</h2>
-    <p><strong>Name:</strong> ${name}</p>
-    <p><strong>Email:</strong> ${email}</p>
-    <p><strong>Subject:</strong> ${subject}</p>
-    <p><strong>Message:</strong></p>
-    <p>${message.replace(/\n/g, "<br />")}</p>
-  `;
-
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: fromEmail,
-      to: [toEmail],
-      subject: `[Portfolio] ${subject}`,
-      reply_to: email,
-      text: emailText,
-      html: emailHtml,
-    }),
-  });
-
-  if (!response.ok) {
+  } catch {
     return NextResponse.json(
       { message: "Unable to send your message right now. Please try again shortly." },
       { status: 502 },
     );
   }
 
-  return NextResponse.json({ message: "Message sent successfully." }, { status: 200 });
 }
