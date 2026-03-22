@@ -102,8 +102,8 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         <ThemeProvider>{children}</ThemeProvider>
-        <Analytics nonce={nonce} />
-        <SpeedInsights nonce={nonce} />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

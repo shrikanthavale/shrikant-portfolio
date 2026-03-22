@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   // Generate a unique nonce for this request using Web Crypto API (Edge compatible)
   const array = new Uint8Array(16);
-  self.crypto.getRandomValues(array);
+  globalThis.crypto.getRandomValues(array);
   const nonce = Array.from(array, b => b.toString(16).padStart(2, '0')).join('');
   const response = NextResponse.next();
   // Replace <nonce> in CSP header if present
