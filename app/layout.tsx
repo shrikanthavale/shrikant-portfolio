@@ -96,8 +96,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         <ThemeProvider>{children}</ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
+        <Analytics nonce={nonce} />
+        <SpeedInsights nonce={nonce} />
       </body>
     </html>
   );
