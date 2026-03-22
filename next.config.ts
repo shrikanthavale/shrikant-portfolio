@@ -19,8 +19,8 @@ const securityHeaders = [
   },
   // Content Security Policy
   // - default-src 'self': all resources must come from our origin by default
-  // - script-src 'self' 'unsafe-inline': Next.js requires unsafe-inline for hydration
-  // - style-src 'self' 'unsafe-inline': Tailwind inline styles require this
+  // - script-src 'self' 'nonce-<nonce>': Next.js supports nonce-based CSP for hydration
+  // - style-src 'self' 'nonce-<nonce>': Tailwind inline styles can use nonce
   // - img-src 'self' data: blob:: allow our images plus data URIs
   // - font-src 'self': Next.js self-hosts Google Fonts at build time
   // - connect-src 'self': fetch/XHR only to our own origin
@@ -29,16 +29,16 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
-      "style-src 'self' 'unsafe-inline'",
+      "script-src 'self' 'nonce-<nonce>' https://challenges.cloudflare.com",
+      "style-src 'self' 'nonce-<nonce>'",
       "img-src 'self' data: blob:",
       "font-src 'self'",
-      "connect-src 'self'",
+      "connect-src 'self' https://vitals.vercel-insights.com https://va.vercel-scripts.com",
       "frame-ancestors 'self'",
       "frame-src 'self' https://challenges.cloudflare.com",
       "base-uri 'self'",
       "form-action 'self'",
-    ].join("; "),
+    ].join("; "), // <nonce> will be replaced per request in middleware
   },
 ];
 
