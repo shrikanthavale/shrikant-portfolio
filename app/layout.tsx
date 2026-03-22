@@ -68,7 +68,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+import { headers } from 'next/headers';
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -86,6 +88,9 @@ export default function RootLayout({
     ],
   };
 
+  // Read the nonce from the x-nonce header (set by middleware)
+  const nonce = (await headers()).get('x-nonce') || undefined;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -93,6 +98,7 @@ export default function RootLayout({
       >
         <script
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
         <ThemeProvider>{children}</ThemeProvider>
