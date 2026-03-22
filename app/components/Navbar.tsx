@@ -80,6 +80,7 @@ export default function Navbar() {
               src="/profile.jpg"
               alt="Shrikant Havale"
               fill
+              sizes="(max-width: 768px) 100vw, 48px"
               className="object-cover"
               priority
             />
