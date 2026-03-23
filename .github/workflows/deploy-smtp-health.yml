@@ -22,18 +22,6 @@ jobs:
       - name: Wait for Vercel deployment
         run: sleep 60
 
-      - name: Debug - check redirect
-        env:
-          DEPLOY_HEALTH_URL: ${{ secrets.DEPLOY_HEALTH_URL }}
-          DEPLOY_HEALTH_TOKEN: ${{ secrets.DEPLOY_HEALTH_TOKEN }}
-        run: |
-          curl -sS -D - --max-time 30 \
-            -X POST "$DEPLOY_HEALTH_URL" \
-            -H "Content-Type: application/json" \
-            -H "x-deploy-health-token: $DEPLOY_HEALTH_TOKEN" \
-            -d '{"test": true}' \
-            -o /dev/null
-
       - name: Trigger deployment SMTP health endpoint
         env:
           DEPLOY_HEALTH_URL: ${{ secrets.DEPLOY_HEALTH_URL }}
