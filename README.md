@@ -223,6 +223,17 @@ Recommended GitHub repository settings:
 - Allow rebase merging: disabled
 - Automatically delete head branches: enabled
 
+## SonarCloud Quality Gate
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
+
+This project uses [SonarCloud](https://sonarcloud.io/) for static code analysis and quality gates. See the [sonar-project.properties](./sonar-project.properties) for configuration.
+
+- SonarCloud runs on every push and pull request to `main`.
+- See the [SonarCloud dashboard](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio) for code quality, coverage, and maintainability.
+
+---
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
