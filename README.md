@@ -225,7 +225,15 @@ Recommended GitHub repository settings:
 
 ## SonarCloud Quality Gate
 
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
 
 This project uses [SonarCloud](https://sonarcloud.io/) for static code analysis and quality gates. See the [sonar-project.properties](./sonar-project.properties) for configuration.
 
