@@ -239,7 +239,6 @@ This project uses [SonarCloud](https://sonarcloud.io/) for static code analysis 
 
 - SonarCloud runs on every push and pull request to `main`.
 - See the [SonarCloud dashboard](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio) for code quality, coverage, and maintainability.
-  Trigger
 
 ---
 
