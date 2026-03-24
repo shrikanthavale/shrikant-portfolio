@@ -9,25 +9,29 @@ on:
 
 jobs:
   sonarcloud:
-    if: ${{ secrets.SONAR_TOKEN != '' }}
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
+        env:
+          HUSKY: 0
 
       - name: Build
         run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://www.shrikant-havale.in
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: 0x4AAAAAACuM6a5m4pOFPbwT
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v5
