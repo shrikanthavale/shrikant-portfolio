@@ -3,8 +3,7 @@ import { getPosts } from "@/app/lib/getPosts";
 import { projects } from "@/app/data/projects";
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.shrikant-havale.in";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
