@@ -1,12 +1,11 @@
 import React from "react";
-import { notFound } from "next/navigation";
+import {notFound} from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-// @ts-expect-error: remark-slug has no types but works fine
-import remarkSlug from "remark-slug";
+import rehypeSlug from "rehype-slug";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
-import { getPostBySlug, getPostSlugs } from "@/app/lib/getPosts";
-import type { Metadata } from "next";
+import {getPostBySlug, getPostSlugs} from "@/app/lib/getPosts";
+import type {Metadata} from "next";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -41,7 +40,7 @@ function stripMarkdownInline(value: string): string {
   // Safe: bounded character classes, no nested quantifiers
   let result = value;
   result = result.replaceAll(/`[^`]{1,200}`/g, "");           // inline code
-  result = result.replaceAll(/\[([^\]]{1,200})\]\([^)]{0,500}\)/g, "$1"); // links
+  result = result.replaceAll(/\[([^\]]{1,200})]\([^)]{0,500}\)/g, "$1"); // links
   result = result.replaceAll(/[*_~]+/g, "");                   // bold/italic
   result = result.replaceAll(/<[^>]{0,200}>/g, "");            // html tags
   return result.trim();
@@ -239,7 +238,8 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
           )}
           <div className="text-base leading-relaxed text-slate-700 dark:text-slate-200">
             <ReactMarkdown
-              remarkPlugins={[remarkGfm, remarkSlug]}
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeSlug]}
               components={{
                 p: MarkdownP,
                 ul: MarkdownUl,
