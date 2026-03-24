@@ -73,6 +73,32 @@ export const projects: Project[] = [
       "Enabled faster feedback loops for backend delivery teams through repeatable automated validation.",
     ],
   },
+  {
+    slug: "portfolio-development",
+    title: "Personal Portfolio Development",
+    description:
+      "Designed and built a modern, responsive portfolio website using Next.js, TypeScript, and Tailwind CSS to showcase projects, certifications, and professional journey.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    role: "Full Stack Developer & Designer",
+    context:
+      "Created a personal portfolio to highlight technical skills, project experience, and certifications, focusing on performance, accessibility, and maintainability.",
+    architecture: [
+      "Next.js App Router for hybrid SSR/SSG and routing.",
+      "TypeScript for type safety and maintainability.",
+      "Tailwind CSS for utility-first, responsive styling.",
+      "Custom React components for modular UI.",
+      "Dynamic content loading for blog and project data.",
+      "Vercel for CI/CD, preview deployments, and global edge delivery.",
+      "Contact form API route with email integration.",
+      "SEO optimization with sitemap and robots.txt generation.",
+      "Dark/light theme support with context provider.",
+    ],
+    outcomes: [
+      "Improved professional visibility and personal branding.",
+      "Enabled easy updates and content management for new projects and blogs.",
+      "Achieved high Lighthouse scores for performance and accessibility.",
+    ],
+  },
 ];
 
 export function getProjectBySlug(slug: string): Project | null {

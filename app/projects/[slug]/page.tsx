@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { getProjectBySlug, projects } from "@/app/data/projects";
 import SystemArchitecture from "@/app/components/SystemArchitecture";
+import PortfolioArchitecture from "@/app/components/PortfolioArchitecture";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -35,13 +36,49 @@ export function generateMetadata({ params }: ProjectPageProps) {
   });
 }
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
+export default async function ProjectPage({ params }: Readonly<ProjectPageProps>) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   const shouldShowArchitectureDiagram = slug === "emergency-operations-control-platform";
+  const shouldShowPortfolioArchitecture = slug === "portfolio-development";
   const architectureLabels = architectureLabelsBySlug[slug] ?? [];
 
   if (!project) notFound();
+
+  // Extracted architecture content for clarity
+  let architectureContent: React.ReactNode;
+  if (shouldShowArchitectureDiagram) {
+    architectureContent = (
+      <>
+        <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
+          The delivery model centered on four architectural concerns. The diagram below shows how those concerns connected in the runtime flow.
+        </p>
+        <div className="mt-5 grid gap-3">
+          {project.architecture.map((item, index) => (
+            <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-900/70">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sky-700 dark:text-sky-300">
+                {architectureLabels[index] ?? `Architecture focus ${index + 1}`}
+              </p>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-gray-400">{item}</p>
+            </div>
+          ))}
+        </div>
+      </>
+    );
+  } else if (shouldShowPortfolioArchitecture) {
+    architectureContent = <PortfolioArchitecture />;
+  } else {
+    architectureContent = (
+      <ul className="mt-4 space-y-2 text-sm leading-7 text-slate-600 dark:text-gray-400">
+        {project.architecture.map((item) => (
+          <li key={item} className="flex gap-2">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500" aria-hidden="true" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
@@ -84,34 +121,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <section className="glass-card mt-6 rounded-2xl p-6">
           <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Architecture and implementation highlights</h2>
-          {shouldShowArchitectureDiagram ? (
-            <>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
-                The delivery model centered on four architectural concerns. The diagram below shows how those concerns connected in the runtime flow.
-              </p>
-
-              <div className="mt-5 grid gap-3">
-                {project.architecture.map((item, index) => (
-                  <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-900/70">
-                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sky-700 dark:text-sky-300">
-                      {architectureLabels[index] ?? `Architecture focus ${index + 1}`}
-                    </p>
-                    <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-gray-400">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </>
-          ) : (
-            <ul className="mt-4 space-y-2 text-sm leading-7 text-slate-600 dark:text-gray-400">
-              {project.architecture.map((item) => (
-                <li key={item} className="flex gap-2">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500" aria-hidden="true" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-
+          {architectureContent}
           {shouldShowArchitectureDiagram && <SystemArchitecture embedded />}
         </section>
       </article>

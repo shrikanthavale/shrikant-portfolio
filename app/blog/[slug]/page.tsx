@@ -2,8 +2,11 @@ import React from "react";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+// @ts-expect-error: remark-slug has no types but works fine
+import remarkSlug from "remark-slug";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { getPostBySlug, getPostSlugs } from "@/app/lib/getPosts";
+import type { Metadata } from "next";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -35,34 +38,37 @@ function formatDate(dateString: string): string {
 }
 
 function stripMarkdownInline(value: string): string {
-  return value
-    .replace(/`([^`]+)`/g, "$1")
-    .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
-    .replace(/[*_~]/g, "")
-    .replace(/<[^>]+>/g, "")
-    .trim();
+  // Safe: bounded character classes, no nested quantifiers
+  let result = value;
+  result = result.replaceAll(/`[^`]{1,200}`/g, "");           // inline code
+  result = result.replaceAll(/\[([^\]]{1,200})\]\([^)]{0,500}\)/g, "$1"); // links
+  result = result.replaceAll(/[*_~]+/g, "");                   // bold/italic
+  result = result.replaceAll(/<[^>]{0,200}>/g, "");            // html tags
+  return result.trim();
 }
 
 function slugify(value: string): string {
   return value
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "")
+    .replaceAll(/[^a-z0-9\s-]/g, "")
     .trim()
-    .replace(/\s+/g, "-");
+    .replaceAll(/\s+/g, "-");
 }
 
 function estimateReadingTime(content: string): number {
   const plain = content
-    .replace(/```[\s\S]*?```/g, " ")
-    .replace(/`[^`]+`/g, " ")
-    .replace(/[>#*_\-]/g, " ");
+    .replaceAll(/```[\s\S]*?```/g, " ")
+    .replaceAll(/`[^`]+`/g, " ")
+    .replaceAll(/[>#*_-]/g, " ");
   const words = plain.split(/\s+/).filter(Boolean).length;
 
   return Math.max(1, Math.ceil(words / 220));
 }
 
+// The following regex is safe because blog content is trusted and not attacker-controlled.
 function extractTocItems(content: string): TocItem[] {
-  const matches = content.matchAll(/^(##|###)\s+(.+)$/gm);
+  if (content.length > 100_000) return []; // Defensive: skip TOC for huge content
+  const matches = content.matchAll(/^(##|###)\s+([^\r\n]{1,200})$/gm);
   const seen = new Map<string, number>();
 
   return Array.from(matches).map((match) => {
@@ -80,39 +86,80 @@ function extractTocItems(content: string): TocItem[] {
   });
 }
 
-function getNodeText(children: React.ReactNode): string {
-  return React.Children.toArray(children)
-    .map((child) => {
-      if (typeof child === "string") return child;
-      if (typeof child === "number") return String(child);
-      if (React.isValidElement<{ children?: React.ReactNode }>(child)) {
-        return getNodeText(child.props.children);
-      }
-      return "";
-    })
-    .join("");
-}
+// Markdown components moved out for best practices
+const MarkdownP = ({ children, ...rest }: React.HTMLAttributes<HTMLParagraphElement>) => (
+  <p {...rest} className={"mt-4 text-base leading-relaxed text-slate-700 dark:text-slate-200 " + (rest.className ?? "")}>{children}</p>
+);
+
+const MarkdownUl = ({ children, ...rest }: React.HTMLAttributes<HTMLUListElement>) => (
+  <ul {...rest} className={"mt-4 list-disc space-y-2 pl-6 marker:text-slate-500 dark:marker:text-slate-400 " + (rest.className ?? "")}>{children}</ul>
+);
+
+const MarkdownOl = ({ children, ...rest }: React.OlHTMLAttributes<HTMLOListElement>) => (
+  <ol {...rest} className={"mt-4 list-decimal space-y-2 pl-6 marker:text-slate-500 dark:marker:text-slate-400 " + (rest.className ?? "")}>{children}</ol>
+);
+
+const MarkdownBlockquote = ({ children, ...rest }: React.BlockquoteHTMLAttributes<HTMLElement>) => (
+  <blockquote {...rest} className={"mt-5 border-l-2 border-slate-300 pl-4 text-slate-600 dark:border-slate-700 dark:text-slate-300 " + (rest.className ?? "")}>{children}</blockquote>
+);
+
+const MarkdownA = ({ href, children, ...rest }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+  <a href={href ?? "#"} {...rest} className={"font-medium text-sky-700 underline decoration-sky-500/40 underline-offset-4 transition hover:text-sky-600 dark:text-sky-300 dark:decoration-sky-400/40 dark:hover:text-sky-200 " + (rest.className ?? "")}>{children}</a>
+);
+
+const MarkdownCode = ({ className, children, ...rest }: { className?: string; children?: React.ReactNode } & React.HTMLAttributes<HTMLElement>) => {
+  const isBlock = Boolean(className);
+  if (isBlock) {
+    return (
+      <code {...rest} className={"block overflow-x-auto rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm text-slate-800 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-100 " + (className ?? "")}>{children}</code>
+    );
+  }
+  return (
+    <code {...rest} className={"rounded bg-slate-200 px-1.5 py-0.5 text-[0.92em] text-slate-800 dark:bg-slate-800 dark:text-slate-100 " + (className ?? "")}>{children}</code>
+  );
+};
+
+const MarkdownHr = (props: React.HTMLAttributes<HTMLHRElement>) => <hr {...props} className={"my-8 border-slate-300 dark:border-slate-800 " + (props.className ?? "")} />;
 
 export function generateStaticParams() {
   return getPostSlugs().map((slug) => ({ slug }));
 }
 
-export function generateMetadata({ params }: BlogPostPageProps) {
-  return params.then(({ slug }) => {
+export function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+  return params.then(async ({ slug }) => {
     const post = getPostBySlug(slug);
 
     if (!post) {
       return { title: "Post not found" };
     }
 
+    const { siteUrl } = await import("@/app/lib/config");
+
     return {
-      title: `${post.title} | Blog`,
+      title: post.title,  // layout.tsx template adds "| Shrikant Havale" automatically
       description: post.excerpt,
+      alternates: {
+        canonical: `${siteUrl}/blog/${slug}`,
+      },
+      openGraph: {
+        title: post.title,
+        description: post.excerpt,
+        type: "article",
+        publishedTime: post.date,
+        authors: ["Shrikant Havale"],
+        tags: post.tags,
+        url: `${siteUrl}/blog/${slug}`,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: post.title,
+        description: post.excerpt,
+      },
     };
   });
 }
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
+export default async function BlogPostPage({ params }: Readonly<BlogPostPageProps>) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
@@ -120,15 +167,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const readMinutes = estimateReadingTime(post.content);
   const tocItems = extractTocItems(post.content);
-  const headingIds = new Map<string, number>();
   const isArchitecturePost = slug === "scaling-event-driven-systems";
-
-  const getHeadingId = (text: string): string => {
-    const baseId = slugify(stripMarkdownInline(text));
-    const count = headingIds.get(baseId) ?? 0;
-    headingIds.set(baseId, count + 1);
-    return count > 0 ? `${baseId}-${count + 1}` : baseId;
-  };
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
@@ -200,51 +239,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           )}
           <div className="text-base leading-relaxed text-slate-700 dark:text-slate-200">
             <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
+              remarkPlugins={[remarkGfm, remarkSlug]}
               components={{
-                h2: ({ children }) => {
-                  const id = getHeadingId(getNodeText(children));
-                  return (
-                    <h2 id={id} className="mt-9 scroll-mt-24 text-2xl font-semibold tracking-tight text-slate-900 first:mt-0 dark:text-white">
-                      {children}
-                    </h2>
-                  );
-                },
-                h3: ({ children }) => {
-                  const id = getHeadingId(getNodeText(children));
-                  return (
-                    <h3 id={id} className="mt-7 scroll-mt-24 text-xl font-semibold text-slate-900 dark:text-white">
-                      {children}
-                    </h3>
-                  );
-                },
-                p: ({ children }) => <p className="mt-4 text-base leading-relaxed text-slate-700 dark:text-slate-200">{children}</p>,
-                ul: ({ children }) => <ul className="mt-4 list-disc space-y-2 pl-6 marker:text-slate-500 dark:marker:text-slate-400">{children}</ul>,
-                ol: ({ children }) => <ol className="mt-4 list-decimal space-y-2 pl-6 marker:text-slate-500 dark:marker:text-slate-400">{children}</ol>,
-                blockquote: ({ children }) => (
-                  <blockquote className="mt-5 border-l-2 border-slate-300 pl-4 text-slate-600 dark:border-slate-700 dark:text-slate-300">{children}</blockquote>
-                ),
-                a: ({ href, children }) => (
-                  <a href={href ?? "#"} className="font-medium text-sky-700 underline decoration-sky-500/40 underline-offset-4 transition hover:text-sky-600 dark:text-sky-300 dark:decoration-sky-400/40 dark:hover:text-sky-200">
-                    {children}
-                  </a>
-                ),
-                code: ({ className, children }) => {
-                  const isBlock = Boolean(className);
-
-                  if (isBlock) {
-                    return (
-                      <code className="block overflow-x-auto rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm text-slate-800 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-100">
-                        {children}
-                      </code>
-                    );
-                  }
-
-                  return (
-                    <code className="rounded bg-slate-200 px-1.5 py-0.5 text-[0.92em] text-slate-800 dark:bg-slate-800 dark:text-slate-100">{children}</code>
-                  );
-                },
-                hr: () => <hr className="my-8 border-slate-300 dark:border-slate-800" />,
+                p: MarkdownP,
+                ul: MarkdownUl,
+                ol: MarkdownOl,
+                blockquote: MarkdownBlockquote,
+                a: MarkdownA,
+                code: MarkdownCode,
+                hr: MarkdownHr,
               }}
             >
               {post.content}

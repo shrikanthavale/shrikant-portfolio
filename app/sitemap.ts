@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 import { getPosts } from "@/app/lib/getPosts";
 import { projects } from "@/app/data/projects";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.shrikant-havale.in";
+
+import { siteUrl } from "@/app/lib/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -42,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const projectRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
-    url: `${siteUrl}/projects/${project.slug}`,
+     url: `${siteUrl}/projects/${project.slug}`,
     lastModified: now,
     changeFrequency: "monthly",
     priority: 0.75,

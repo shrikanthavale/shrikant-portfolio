@@ -2,6 +2,15 @@ import ProjectCard from "./ProjectCard";
 import Link from "next/link";
 import { projects } from "@/app/data/projects";
 
+const featuredSlugs = [
+  "portfolio-development",
+  "emergency-operations-control-platform",
+  "admin-console-modernization",
+];
+const featuredProjects = featuredSlugs
+  .map((slug) => projects.find((p) => p.slug === slug))
+  .filter(Boolean);
+
 export default function Projects() {
   return (
     <section id="projects" className="section-ambient border-t border-slate-200 bg-white dark:border-gray-800 dark:bg-slate-900/30">
@@ -13,14 +22,14 @@ export default function Projects() {
           </p>
         </div>
         <div className="mt-12 grid gap-6 md:gap-7 lg:grid-cols-3">
-          {projects.map((project) => (
+          {featuredProjects.map((project) => (
             <ProjectCard
-              key={project.title}
-              title={project.title}
-              description={project.description}
-              outcomes={project.outcomes}
-              tags={project.tags}
-              detailsHref={`/projects/${project.slug}`}
+              key={project!.title}
+              title={project!.title}
+              description={project!.description}
+              outcomes={project!.outcomes}
+              tags={project!.tags}
+              detailsHref={`/projects/${project!.slug}`}
               detailsLabel="View project page"
               variant="compact"
             />

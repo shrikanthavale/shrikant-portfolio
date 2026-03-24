@@ -5,9 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import ThemeProvider from "@/app/components/ThemeProvider";
 import "./globals.css";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+import { siteUrl, siteName, siteAuthor } from "@/app/lib/config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,20 +34,20 @@ export const metadata: Metadata = {
     "Distributed Systems",
     "Portfolio",
   ],
-  authors: [{ name: "Shrikant Havale", url: siteUrl }],
+  authors: [{ name: siteAuthor, url: siteUrl }],
   creator: "Shrikant Havale",
-  publisher: "Shrikant Havale",
+  publisher: siteAuthor,
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteUrl,
+     url: siteUrl,
     title: "Shrikant Havale | Senior Backend Engineer",
     description:
       "Portfolio showcasing Java backend engineering work in resilient microservices, distributed systems, and technical architecture.",
-    siteName: "Shrikant Havale Portfolio",
+     siteName: siteName,
     images: [
       {
         url: "/profile.jpg",
@@ -60,11 +58,21 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Shrikant Havale | Senior Backend Engineer",
     description:
       "Portfolio showcasing Java backend engineering work in resilient microservices, distributed systems, and technical architecture.",
     images: ["/profile.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -77,12 +85,18 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Shrikant Havale",
-    url: siteUrl,
-    image: `${siteUrl}/profile.jpg`,
+     url: siteUrl,
+     image: `${siteUrl}/profile.jpg`,
     jobTitle: "Senior Backend Engineer",
+    worksFor: {
+      "@type": "Organization",
+      name: "Eurofunk Kappacher Gmbh"
+    },
+    knowsAbout: ["Java", "Spring Boot", "Microservices", "Kafka", "Redis", "Distributed Systems"],
     sameAs: [
       "https://github.com/shrikanthavale",
       "https://www.linkedin.com/in/shrikanthavale/",
+      "https://stackoverflow.com/users/2931342/shrikant-havale",  // ← add SO and HackerRank
     ],
   };
 
