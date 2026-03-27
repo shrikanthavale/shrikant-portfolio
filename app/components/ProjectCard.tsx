@@ -60,7 +60,7 @@ const ACCENT_ORDER = ["cyan", "amber", "rose"] as const;
 function pickAccentKey(seed: string) {
   let hash = 0;
   for (let index = 0; index < seed.length; index += 1) {
-    hash = (hash + seed.charCodeAt(index) * (index + 1)) % 997;
+    hash = (hash + (seed.codePointAt(index) ?? 0) * (index + 1)) % 997;
   }
   return ACCENT_ORDER[hash % ACCENT_ORDER.length];
 }
@@ -93,7 +93,7 @@ export default function ProjectCard({
   detailsHref,
   detailsLabel = "View project details",
   variant = "compact",
-}: ProjectCardProps) {
+}: Readonly<ProjectCardProps>) {
   const isDetailed = variant === "detailed";
   const accentKey = pickAccentKey(title);
   const accent = CARD_ACCENTS[accentKey];
