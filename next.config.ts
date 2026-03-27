@@ -23,7 +23,7 @@ const securityHeaders = [
   // - style-src 'self' 'unsafe-inline': Tailwind inline styles require this
   // - img-src 'self' data: blob:: allow our images plus data URIs
   // - font-src 'self': Next.js self-hosts Google Fonts at build time
-  // - connect-src 'self': fetch/XHR only to our own origin
+  // - connect-src 'self' + Vercel Analytics: fetch/XHR to our origin and Vercel's analytics endpoints
   // - frame-ancestors 'self': deny framing from other origins
   {
     key: "Content-Security-Policy",
@@ -33,7 +33,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "font-src 'self'",
-      "connect-src 'self'",
+      "connect-src 'self' https://vitals.vercel-insights.com https://va.vercel-scripts.com",
       "frame-ancestors 'self'",
       "frame-src 'self' https://challenges.cloudflare.com",
       "base-uri 'self'",
