@@ -26,6 +26,7 @@ export default function ProjectsIndexPage() {
                 detailsHref={`/projects/${project.slug}`}
                 detailsLabel="Open project page"
                 variant="compact"
+                preface={project.preface}
               />
             ))}
           </div>

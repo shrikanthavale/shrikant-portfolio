@@ -1,60 +1,65 @@
-import React from "react";
-
 export default function PortfolioArchitecture() {
   return (
-    <div className="w-full flex flex-col items-center">
-      <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Reference architecture</h3>
-      <p className="mb-4 text-sm text-slate-600 dark:text-gray-400 max-w-xl text-center">
-        Modern portfolio architecture using Next.js App Router, TypeScript, Tailwind CSS, modular React components, dynamic content, and Vercel deployment.
-      </p>
-      <div className="relative flex flex-col items-center w-full max-w-2xl">
-        {/* Hosting/Deployment */}
-        <div className="flex flex-col items-center mb-4">
-          <div className="rounded-xl border border-sky-300 bg-sky-50 px-4 py-2 text-center text-sky-900 dark:border-sky-700/70 dark:bg-sky-500/10 dark:text-sky-100 shadow-sm">
-            <div className="font-bold">Vercel</div>
-            <div className="text-xs opacity-80">CI/CD, Edge Delivery</div>
-          </div>
-          <div className="h-4 w-0.5 bg-slate-300 dark:bg-slate-700" />
-        </div>
-        {/* App Layer */}
-        <div className="flex flex-row items-center justify-center gap-6 mb-4">
-          <div className="rounded-xl border border-indigo-300 bg-indigo-50 px-4 py-2 text-center text-indigo-900 dark:border-indigo-700/70 dark:bg-indigo-500/10 dark:text-indigo-100 shadow-sm">
-            <div className="font-bold">Next.js App Router</div>
-            <div className="text-xs opacity-80">SSR/SSG, Routing</div>
-          </div>
-          <div className="rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-2 text-center text-emerald-900 dark:border-emerald-700/70 dark:bg-emerald-500/10 dark:text-emerald-100 shadow-sm">
-            <div className="font-bold">TypeScript</div>
-            <div className="text-xs opacity-80">Type Safety</div>
-          </div>
-          <div className="rounded-xl border border-pink-300 bg-pink-50 px-4 py-2 text-center text-pink-900 dark:border-pink-700/70 dark:bg-pink-500/10 dark:text-pink-100 shadow-sm">
-            <div className="font-bold">Tailwind CSS</div>
-            <div className="text-xs opacity-80">Utility Styling</div>
+    <div className="w-full">
+      <div className="flex flex-col items-center gap-0">
+        {/* Top: Hosting */}
+        <div className="flex justify-center">
+          <div className="min-w-[160px] rounded-xl border border-sky-300 bg-sky-50 px-5 py-2.5 text-center shadow-sm dark:border-sky-700/70 dark:bg-sky-500/10">
+            <p className="text-sm font-bold text-sky-900 dark:text-sky-100">Vercel</p>
+            <p className="text-xs opacity-75 text-sky-800 dark:text-sky-200">Hosting &amp; Deployment</p>
           </div>
         </div>
-        {/* UI/Content Layer */}
-        <div className="flex flex-row items-center justify-center gap-6 mb-4">
-          <div className="rounded-xl border border-slate-300 bg-slate-50 px-4 py-2 text-center text-slate-900 dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-100 shadow-sm">
-            <div className="font-bold">Custom React Components</div>
-            <div className="text-xs opacity-80">Modular UI</div>
+
+        <div className="h-5 w-px bg-slate-300 dark:bg-slate-700" />
+
+        {/* Row 2: Core stack */}
+        <div className="flex flex-wrap justify-center gap-3">
+          <div className="min-w-[130px] rounded-xl border border-indigo-300 bg-indigo-50 px-4 py-2.5 text-center shadow-sm dark:border-indigo-700/70 dark:bg-indigo-500/10">
+            <p className="text-sm font-bold text-indigo-900 dark:text-indigo-100">Next.js 16</p>
+            <p className="text-xs opacity-75 text-indigo-800 dark:text-indigo-200">App Router, SSR</p>
           </div>
-          <div className="rounded-xl border border-yellow-300 bg-yellow-50 px-4 py-2 text-center text-yellow-900 dark:border-yellow-700/70 dark:bg-yellow-500/10 dark:text-yellow-100 shadow-sm">
-            <div className="font-bold">Dynamic Content</div>
-            <div className="text-xs opacity-80">Blog, Projects, Data</div>
+          <div className="min-w-[130px] rounded-xl border border-blue-300 bg-blue-50 px-4 py-2.5 text-center shadow-sm dark:border-blue-700/70 dark:bg-blue-500/10">
+            <p className="text-sm font-bold text-blue-900 dark:text-blue-100">TypeScript</p>
+            <p className="text-xs opacity-75 text-blue-800 dark:text-blue-200">Type Safety</p>
+          </div>
+          <div className="min-w-[130px] rounded-xl border border-cyan-300 bg-cyan-50 px-4 py-2.5 text-center shadow-sm dark:border-cyan-700/70 dark:bg-cyan-500/10">
+            <p className="text-sm font-bold text-cyan-900 dark:text-cyan-100">Tailwind CSS v4</p>
+            <p className="text-xs opacity-75 text-cyan-800 dark:text-cyan-200">Utility Styling</p>
           </div>
         </div>
-        {/* API/Integration Layer */}
-        <div className="flex flex-row items-center justify-center gap-6 mb-4">
-          <div className="rounded-xl border border-cyan-300 bg-cyan-50 px-4 py-2 text-center text-cyan-900 dark:border-cyan-700/70 dark:bg-cyan-500/10 dark:text-cyan-100 shadow-sm">
-            <div className="font-bold">API Routes</div>
-            <div className="text-xs opacity-80">Contact, Email</div>
+
+        <div className="h-5 w-px bg-slate-300 dark:bg-slate-700" />
+
+        {/* Row 3: DevOps & Quality */}
+        <div className="flex flex-wrap justify-center gap-3">
+          <div className="min-w-[130px] rounded-xl border border-violet-300 bg-violet-50 px-4 py-2.5 text-center shadow-sm dark:border-violet-700/70 dark:bg-violet-500/10">
+            <p className="text-sm font-bold text-violet-900 dark:text-violet-100">GitHub Actions</p>
+            <p className="text-xs opacity-75 text-violet-800 dark:text-violet-200">CI/CD Pipeline</p>
           </div>
-          <div className="rounded-xl border border-gray-300 bg-gray-50 px-4 py-2 text-center text-gray-900 dark:border-gray-700/70 dark:bg-gray-500/10 dark:text-gray-100 shadow-sm">
-            <div className="font-bold">SEO & Theming</div>
-            <div className="text-xs opacity-80">Sitemap, robots.txt, Dark/Light</div>
+          <div className="min-w-[130px] rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-2.5 text-center shadow-sm dark:border-emerald-700/70 dark:bg-emerald-500/10">
+            <p className="text-sm font-bold text-emerald-900 dark:text-emerald-100">SonarCloud</p>
+            <p className="text-xs opacity-75 text-emerald-800 dark:text-emerald-200">Quality Gates</p>
+          </div>
+          <div className="min-w-[130px] rounded-xl border border-orange-300 bg-orange-50 px-4 py-2.5 text-center shadow-sm dark:border-orange-700/70 dark:bg-orange-500/10">
+            <p className="text-sm font-bold text-orange-900 dark:text-orange-100">Dependabot</p>
+            <p className="text-xs opacity-75 text-orange-800 dark:text-orange-200">Dependency Security</p>
+          </div>
+        </div>
+
+        <div className="h-5 w-px bg-slate-300 dark:bg-slate-700" />
+
+        {/* Bottom: Security & Comms */}
+        <div className="flex flex-wrap justify-center gap-3">
+          <div className="min-w-[160px] rounded-xl border border-amber-300 bg-amber-50 px-4 py-2.5 text-center shadow-sm dark:border-amber-700/70 dark:bg-amber-500/10">
+            <p className="text-sm font-bold text-amber-900 dark:text-amber-100">Cloudflare Turnstile</p>
+            <p className="text-xs opacity-75 text-amber-800 dark:text-amber-200">Anti-spam</p>
+          </div>
+          <div className="min-w-[160px] rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800/70">
+            <p className="text-sm font-bold text-slate-900 dark:text-slate-100">Nodemailer / Resend</p>
+            <p className="text-xs opacity-75 text-slate-600 dark:text-slate-300">Contact &amp; Health Email</p>
           </div>
         </div>
       </div>
     </div>
   );
 }
-

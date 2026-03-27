@@ -3,9 +3,9 @@ import Link from "next/link";
 import { projects } from "@/app/data/projects";
 
 const featuredSlugs = [
-  "secure-code-execution-engine", // flagship backend system (first card)
+  "portfolio-development",
+  "secure-code-execution-engine",
   "emergency-operations-control-platform",
-  "admin-console-modernization",
 ];
 const featuredProjects = featuredSlugs
   .map((slug) => projects.find((p) => p.slug === slug))
@@ -32,6 +32,7 @@ export default function Projects() {
               detailsHref={`/projects/${project!.slug}`}
               detailsLabel="View project page"
               variant="compact"
+              preface={project!.preface}
             />
           ))}
         </div>

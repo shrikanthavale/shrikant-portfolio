@@ -1,16 +1,23 @@
 import {
   BarChart3,
+  BrainCircuit,
   Coffee,
   Cpu,
   Database,
+  FileCode2,
   Layers3,
   FileText,
   Gauge,
   GitBranch,
+  Globe,
   HardDrive,
   Leaf,
+  Paintbrush,
+  Play,
   Radio,
   ServerCog,
+  ShieldCheck,
+  Triangle,
   Workflow,
   type LucideIcon,
 } from "lucide-react";
@@ -26,6 +33,7 @@ type ProjectCardProps = {
   detailsHref?: string;
   detailsLabel?: string;
   variant?: "compact" | "detailed";
+  preface?: string;
 };
 
 const CARD_ACCENTS = {
@@ -81,6 +89,13 @@ const TECH_BADGE_META: Record<string, { icon: LucideIcon; tone: string }> = {
   Db2: { icon: ServerCog, tone: "border-blue-300 bg-blue-50 text-blue-700 dark:border-blue-700/50 dark:bg-blue-500/10 dark:text-blue-100" },
   "Robot Framework": { icon: Workflow, tone: "border-teal-300 bg-teal-50 text-teal-700 dark:border-teal-700/50 dark:bg-teal-500/10 dark:text-teal-100" },
   Microservices: { icon: Cpu, tone: "border-slate-300 bg-slate-100 text-slate-700 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-100" },
+  "Next.js": { icon: Globe, tone: "border-zinc-500 bg-zinc-100 text-zinc-800 dark:border-zinc-500 dark:bg-zinc-800/80 dark:text-zinc-100" },
+  TypeScript: { icon: FileCode2, tone: "border-blue-300 bg-blue-50 text-blue-700 dark:border-blue-700/50 dark:bg-blue-500/10 dark:text-blue-100" },
+  "Tailwind CSS": { icon: Paintbrush, tone: "border-teal-300 bg-teal-50 text-teal-700 dark:border-teal-700/50 dark:bg-teal-500/10 dark:text-teal-100" },
+  "GitHub Actions": { icon: Play, tone: "border-slate-300 bg-slate-100 text-slate-600 dark:border-slate-600 dark:bg-slate-800/80 dark:text-slate-300" },
+  SonarCloud: { icon: ShieldCheck, tone: "border-orange-300 bg-orange-50 text-orange-700 dark:border-orange-700/50 dark:bg-orange-500/10 dark:text-orange-100" },
+  Vercel: { icon: Triangle, tone: "border-zinc-500 bg-zinc-100 text-zinc-800 dark:border-zinc-500 dark:bg-zinc-800/80 dark:text-zinc-100" },
+  "Claude Code": { icon: BrainCircuit, tone: "border-violet-300 bg-violet-50 text-violet-700 dark:border-violet-700/50 dark:bg-violet-500/10 dark:text-violet-100" },
 };
 
 export default function ProjectCard({
@@ -93,16 +108,18 @@ export default function ProjectCard({
   detailsHref,
   detailsLabel = "View project details",
   variant = "compact",
+  preface,
 }: Readonly<ProjectCardProps>) {
   const isDetailed = variant === "detailed";
   const accentKey = pickAccentKey(title);
   const accent = CARD_ACCENTS[accentKey];
+  const prefaceLabel = preface ?? (isDetailed ? "Project narrative" : "Case study");
 
   return (
     <article className={`glass-card glass-card-hover flex h-full flex-col justify-between rounded-2xl p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 ${accent.cardHover}`}>
       <div>
         <p className={`text-[11px] font-semibold uppercase tracking-[0.16em] ${accent.preface}`}>
-          {isDetailed ? "Project narrative" : "Case study"}
+          {prefaceLabel}
         </p>
         <h3 className="mt-3 text-xl font-bold leading-tight text-slate-900 sm:text-2xl dark:text-white">{title}</h3>
         {role && <p className="mt-3 text-xs font-medium uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{role}</p>}

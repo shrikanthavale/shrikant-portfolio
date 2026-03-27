@@ -7,9 +7,32 @@ export type Project = {
   context: string;
   architecture: string[];
   outcomes: string[];
+  preface?: string;
 };
 
 export const projects: Project[] = [
+  {
+    slug: "secure-code-execution-engine",
+    title: "Designing a Secure Code Execution Engine for Programming Assessments",
+    description:
+      "Built a system to automatically evaluate programming assignments by safely executing untrusted code in isolated virtual machines, integrated with Moodle.",
+    tags: ["Java", "REST API", "VirtualBox", "Moodle", "System Design"],
+    role: "Lead Backend Engineer, secure code execution and assessment automation",
+    context:
+      "Developed a backend system for programming assessments that required secure, scalable execution of untrusted student code, with seamless integration into Moodle LMS workflows.",
+    architecture: [
+      "Isolated code execution using VirtualBox VMs to sandbox untrusted code.",
+      "REST API for assignment submission, result retrieval, and integration with Moodle.",
+      "Automated VM provisioning and teardown for scalable, parallel evaluation.",
+      "Centralized logging and result aggregation for auditability and feedback.",
+      "Security controls to prevent code breakout and resource abuse.",
+    ],
+    outcomes: [
+      "Demonstrated secure execution of untrusted code and scalable evaluation architecture.",
+      "Enabled automated grading and feedback for programming assignments.",
+      "Reduced manual grading effort and improved assessment turnaround time.",
+    ],
+  },
   {
     slug: "emergency-operations-control-platform",
     title: "Emergency Operations Control Platform",
@@ -75,28 +98,25 @@ export const projects: Project[] = [
   },
   {
     slug: "portfolio-development",
-    title: "Personal Portfolio Development",
+    title: "Personal Portfolio Platform",
+    preface: "Side project",
     description:
-      "Designed and built a modern, responsive portfolio website using Next.js, TypeScript, and Tailwind CSS to showcase projects, certifications, and professional journey.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
-    role: "Full Stack Developer & Designer",
+      "Production-grade portfolio with CI/CD pipelines, static analysis, security hardening, and automated deployment verification.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "GitHub Actions", "SonarCloud", "Vercel", "Claude Code"],
+    role: "Designer and Engineer",
     context:
-      "Created a personal portfolio to highlight technical skills, project experience, and certifications, focusing on performance, accessibility, and maintainability.",
+      "Personal project to build a consulting-focused portfolio applying the same production engineering standards used in enterprise backend systems.",
     architecture: [
-      "Next.js App Router for hybrid SSR/SSG and routing.",
-      "TypeScript for type safety and maintainability.",
-      "Tailwind CSS for utility-first, responsive styling.",
-      "Custom React components for modular UI.",
-      "Dynamic content loading for blog and project data.",
-      "Vercel for CI/CD, preview deployments, and global edge delivery.",
-      "Contact form API route with email integration.",
-      "SEO optimization with sitemap and robots.txt generation.",
-      "Dark/light theme support with context provider.",
+      "GitHub Actions CI pipeline with commit validation, lint, typecheck and build gates",
+      "SonarCloud static analysis with quality gates blocking poor code from merging",
+      "CSP security headers, HSTS, Turnstile anti-spam on contact form",
+      "Automated deployment health check via SMTP verification after each Vercel deploy",
+      "AI-assisted development workflow using Claude Code with WebStorm JetBrains plugin",
     ],
     outcomes: [
-      "Improved professional visibility and personal branding.",
-      "Enabled easy updates and content management for new projects and blogs.",
-      "Achieved high Lighthouse scores for performance and accessibility.",
+      "Zero critical security vulnerabilities via SonarCloud quality gates",
+      "Automated post-deployment SMTP health check on every release",
+      "Dependabot automated dependency vulnerability scanning",
     ],
   },
 ];
