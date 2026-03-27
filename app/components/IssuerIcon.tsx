@@ -3,7 +3,7 @@ import type { IconType } from "react-icons";
 
 function OracleIcon() {
   return (
-    <svg role="img" viewBox="0 0 24 24" width={20} height={20} fill="#F80000" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 24 24" width={20} height={20} fill="#F80000" xmlns="http://www.w3.org/2000/svg">
       <title>Oracle</title>
       <path d="M16.412 4.412a7.589 7.589 0 0 1 0 15.176H7.59a7.589 7.589 0 0 1 0-15.176zm-.59 2.356H8.178a5.233 5.233 0 0 0 0 10.464h7.644a5.233 5.233 0 0 0 0-10.464z" />
     </svg>

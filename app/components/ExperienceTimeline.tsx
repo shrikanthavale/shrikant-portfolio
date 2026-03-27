@@ -361,12 +361,14 @@ export default function ExperienceTimeline() {
               const visibleTags = entry.tags.slice(0, 5);
               const hiddenTagCount = entry.tags.length - visibleTags.length;
 
-              const stateClass =
-                index === activeIndex
-                  ? "is-active"
-                  : index < activeIndex
-                    ? "is-past"
-                    : "is-upcoming";
+              let stateClass: string;
+              if (index === activeIndex) {
+                stateClass = "is-active";
+              } else if (index < activeIndex) {
+                stateClass = "is-past";
+              } else {
+                stateClass = "is-upcoming";
+              }
 
               const kindMeta = entryKindMeta[entry.kind];
 

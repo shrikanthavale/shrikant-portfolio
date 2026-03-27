@@ -71,6 +71,13 @@ export default function ContactSection() {
     }
   };
 
+  const statusClass =
+    status === "success"
+      ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/70 dark:bg-emerald-900/20 dark:text-emerald-300"
+      : status === "error"
+        ? "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-900/70 dark:bg-rose-900/20 dark:text-rose-300"
+        : "border-slate-200 bg-slate-50 text-slate-500 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400";
+
   return (
     <section id="contact" className="section-ambient border-t border-slate-200 bg-white/85 dark:border-slate-800 dark:bg-slate-950/70">
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
@@ -170,7 +177,7 @@ export default function ContactSection() {
 
                 {/* Honeypot field for basic bot filtering */}
                 <label className="hidden" aria-hidden="true">
-                  Website
+                  Website{" "}
                   <input
                     tabIndex={-1}
                     autoComplete="off"
@@ -217,13 +224,7 @@ export default function ContactSection() {
                 <p
                   role="status"
                   aria-live="polite"
-                  className={`mt-3 rounded-md border px-3 py-2 text-sm ${
-                    status === "success"
-                      ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/70 dark:bg-emerald-900/20 dark:text-emerald-300"
-                      : status === "error"
-                        ? "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-900/70 dark:bg-rose-900/20 dark:text-rose-300"
-                        : "border-slate-200 bg-slate-50 text-slate-500 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400"
-                  }`}
+                  className={`mt-3 rounded-md border px-3 py-2 text-sm ${statusClass}`}
                 >
                   {statusMessage}
                 </p>

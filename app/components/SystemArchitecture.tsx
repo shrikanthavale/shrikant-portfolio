@@ -9,14 +9,13 @@ function ArchitectureCard({
   description: string;
   tone?: "default" | "event" | "cache" | "storage";
 }) {
+  const toneClasses: Record<string, string> = {
+    event: "border-indigo-300 bg-indigo-50 text-indigo-900 dark:border-indigo-700/70 dark:bg-indigo-500/10 dark:text-indigo-100",
+    cache: "border-emerald-300 bg-emerald-50 text-emerald-900 dark:border-emerald-700/70 dark:bg-emerald-500/10 dark:text-emerald-100",
+    storage: "border-cyan-300 bg-cyan-50 text-cyan-900 dark:border-cyan-700/70 dark:bg-cyan-500/10 dark:text-cyan-100",
+  };
   const toneClass =
-    tone === "event"
-      ? "border-indigo-300 bg-indigo-50 text-indigo-900 dark:border-indigo-700/70 dark:bg-indigo-500/10 dark:text-indigo-100"
-      : tone === "cache"
-        ? "border-emerald-300 bg-emerald-50 text-emerald-900 dark:border-emerald-700/70 dark:bg-emerald-500/10 dark:text-emerald-100"
-        : tone === "storage"
-          ? "border-cyan-300 bg-cyan-50 text-cyan-900 dark:border-cyan-700/70 dark:bg-cyan-500/10 dark:text-cyan-100"
-        : "border-slate-300 bg-slate-50 text-slate-900 dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-100";
+    toneClasses[tone] ?? "border-slate-300 bg-slate-50 text-slate-900 dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-100";
 
   return (
     <div className={`min-w-[132px] rounded-xl border px-3.5 py-2.5 text-center shadow-sm sm:min-w-[148px] ${toneClass}`}>

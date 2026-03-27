@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 
 export type Post = {
   title: string;
@@ -22,7 +22,7 @@ function parseFrontMatter(fileContents: string): Record<string, string> {
   frontMatter.split(/\r?\n/).forEach((line) => {
     const [key, ...rest] = line.split(":");
     if (!key || rest.length === 0) return;
-    meta[key.trim()] = rest.join(":").trim().replace(/^\"|\"$/g, "");
+    meta[key.trim()] = rest.join(":").trim().replace(/^"|"$/g, "");
   });
 
   return meta;
