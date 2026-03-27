@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type SyntheticEvent } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-import { Github, Linkedin } from "lucide-react";
+import { SiGithub } from "react-icons/si";
+import { FiLinkedin } from "react-icons/fi";
 
 type FormState = {
   name: string;
@@ -35,7 +36,7 @@ export default function ContactSection() {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (turnstileSiteKey && !form.turnstileToken) {
@@ -71,12 +72,15 @@ export default function ContactSection() {
     }
   };
 
+  const statusClassMap: Partial<Record<typeof status, string>> = {
+    success:
+      "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/70 dark:bg-emerald-900/20 dark:text-emerald-300",
+    error:
+      "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-900/70 dark:bg-rose-900/20 dark:text-rose-300",
+  };
   const statusClass =
-    status === "success"
-      ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/70 dark:bg-emerald-900/20 dark:text-emerald-300"
-      : status === "error"
-        ? "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-900/70 dark:bg-rose-900/20 dark:text-rose-300"
-        : "border-slate-200 bg-slate-50 text-slate-500 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400";
+    statusClassMap[status] ??
+    "border-slate-200 bg-slate-50 text-slate-500 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400";
 
   return (
     <section id="contact" className="section-ambient border-t border-slate-200 bg-white/85 dark:border-slate-800 dark:bg-slate-950/70">
@@ -115,7 +119,7 @@ export default function ContactSection() {
                   aria-label="GitHub"
                   className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
                 >
-                  <Github className="h-4 w-4" aria-hidden="true" />
+                  <SiGithub className="h-4 w-4" aria-hidden="true" />
                   <span>GitHub</span>
                 </a>
                 <a
@@ -125,7 +129,7 @@ export default function ContactSection() {
                   aria-label="LinkedIn"
                   className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
                 >
-                  <Linkedin className="h-4 w-4" aria-hidden="true" />
+                  <FiLinkedin className="h-4 w-4" aria-hidden="true" />
                   <span>LinkedIn</span>
                 </a>
               </div>

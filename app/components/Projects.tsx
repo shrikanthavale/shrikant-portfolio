@@ -3,7 +3,7 @@ import Link from "next/link";
 import { projects } from "@/app/data/projects";
 
 const featuredSlugs = [
-  "portfolio-development",
+  "secure-code-execution-engine", // flagship backend system (first card)
   "emergency-operations-control-platform",
   "admin-console-modernization",
 ];

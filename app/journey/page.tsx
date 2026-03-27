@@ -1,4 +1,3 @@
-import Link from "next/link";
 import ExperienceTimeline from "@/app/components/ExperienceTimeline";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 

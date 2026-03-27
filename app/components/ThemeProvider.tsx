@@ -7,7 +7,7 @@ type ThemeProviderProps = {
   children: ReactNode;
 };
 
-export default function ThemeProvider({ children }: ThemeProviderProps) {
+export default function ThemeProvider({ children }: Readonly<ThemeProviderProps>) {
   return (
     <NextThemesProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       {children}

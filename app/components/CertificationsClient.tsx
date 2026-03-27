@@ -23,7 +23,7 @@ const statusBadgeClassName: Record<Certification["status"], string> = {
     "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-700/80 dark:bg-amber-900/30 dark:text-amber-300",
 };
 
-export default function CertificationsClient({ certifications }: CertificationsClientProps) {
+export default function CertificationsClient({ certifications }: Readonly<CertificationsClientProps>) {
   const [search, setSearch] = useState("");
   const [selectedDomain, setSelectedDomain] = useState("all");
   const [selectedIssuer, setSelectedIssuer] = useState("all");

@@ -20,15 +20,15 @@ export type SendPortfolioEmailResult = {
 
 function escapeHtml(value: string) {
   return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 function buildDeliverySubject(subject: string) {
-  const timestamp = new Date().toISOString().replace(/[-:]/g, "").replace("T", "-").slice(0, 14);
+  const timestamp = new Date().toISOString().replaceAll(/[-:]/g, "").replaceAll("T", "-").slice(0, 14);
   const shortId = Math.random().toString(36).slice(2, 8).toUpperCase();
   return `[Portfolio ${timestamp}-${shortId}] ${subject}`;
 }
@@ -37,7 +37,7 @@ function buildEmailContent({ name, email, subject, message }: PortfolioEmailPayl
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
   const safeSubject = escapeHtml(subject);
-  const safeMessage = escapeHtml(message).replace(/\n/g, "<br />");
+  const safeMessage = escapeHtml(message).replaceAll("\n", "<br />");
 
   const emailText = [
     "New portfolio message",

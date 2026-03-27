@@ -15,14 +15,14 @@ export type Post = {
 const postsDir = path.join(process.cwd(), "app", "data", "posts");
 
 function parseFrontMatter(fileContents: string): Record<string, string> {
-  const match = fileContents.match(/---\s*([\s\S]*?)---/);
+  const match = /---\s*([\s\S]*?)---/.exec(fileContents);
   const frontMatter = match ? match[1] : "";
 
   const meta: Record<string, string> = {};
   frontMatter.split(/\r?\n/).forEach((line) => {
     const [key, ...rest] = line.split(":");
     if (!key || rest.length === 0) return;
-    meta[key.trim()] = rest.join(":").trim().replace(/^"|"$/g, "");
+    meta[key.trim()] = rest.join(":").trim().replaceAll(/^"|"$/g, "");
   });
 
   return meta;

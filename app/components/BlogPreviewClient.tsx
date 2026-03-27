@@ -15,7 +15,7 @@ const FILTER_CHIP_STYLES = {
     "border-slate-300/90 bg-slate-100/80 text-slate-700 hover:border-slate-400 hover:text-slate-900 dark:border-slate-700/80 dark:bg-slate-900/50 dark:text-slate-200 dark:hover:border-slate-500 dark:hover:text-white",
 } as const;
 
-export default function BlogPreviewClient({ posts }: BlogPreviewClientProps) {
+export default function BlogPreviewClient({ posts }: Readonly<BlogPreviewClientProps>) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

@@ -4,11 +4,11 @@ function ArchitectureCard({
   label,
   description,
   tone = "default",
-}: {
+}: Readonly<{
   label: string;
   description: string;
   tone?: "default" | "event" | "cache" | "storage";
-}) {
+}>) {
   const toneClasses: Record<string, string> = {
     event: "border-indigo-300 bg-indigo-50 text-indigo-900 dark:border-indigo-700/70 dark:bg-indigo-500/10 dark:text-indigo-100",
     cache: "border-emerald-300 bg-emerald-50 text-emerald-900 dark:border-emerald-700/70 dark:bg-emerald-500/10 dark:text-emerald-100",
@@ -29,7 +29,7 @@ type SystemArchitectureProps = {
   embedded?: boolean;
 };
 
-export default function SystemArchitecture({ embedded = false }: SystemArchitectureProps) {
+export default function SystemArchitecture({ embedded = false }: Readonly<SystemArchitectureProps>) {
   if (embedded) {
     return (
       <div className="mt-6 border-t border-slate-200 pt-6 dark:border-slate-800">

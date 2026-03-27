@@ -18,7 +18,7 @@ const issuerIconMap: Record<string, IconEntry> = {
   Broadcom: { Icon: SiSpring, color: "#6DB33F" },
 };
 
-export default function IssuerIcon({ issuer }: { issuer: string }) {
+export default function IssuerIcon({ issuer }: Readonly<{ issuer: string }>) {
   const entry = issuerIconMap[issuer];
 
   if (entry) {

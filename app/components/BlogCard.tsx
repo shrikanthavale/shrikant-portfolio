@@ -15,7 +15,7 @@ const BLOG_STYLES = {
     "border-slate-300 bg-white text-slate-700 hover:border-sky-500 hover:bg-sky-500 hover:text-white hover:shadow-sky-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:bg-sky-500 dark:hover:shadow-sky-500/10",
 } as const;
 
-export default function BlogCard({ post, variant = "compact" }: BlogCardProps) {
+export default function BlogCard({ post, variant = "compact" }: Readonly<BlogCardProps>) {
   const isDetailed = variant === "detailed";
 
   return (

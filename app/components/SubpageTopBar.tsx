@@ -15,7 +15,7 @@ export default function SubpageTopBar({
   rightLabel = "Home",
   rightHref = "/",
   maxWidthClass = "max-w-6xl",
-}: SubpageTopBarProps) {
+}: Readonly<SubpageTopBarProps>) {
   const rightLink = (
     <Link href={rightHref} className="text-link-subtle caret-transparent text-sm font-medium text-slate-500 hover:text-sky-600 dark:text-slate-400 dark:hover:text-sky-200">
       {rightLabel}

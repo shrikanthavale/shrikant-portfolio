@@ -289,7 +289,7 @@ export default function ExperienceTimeline() {
       }
 
       const firstMidpoint = itemMidpoints[0];
-      const lastMidpoint = itemMidpoints[itemMidpoints.length - 1];
+      const lastMidpoint = itemMidpoints.at(-1);
 
       if (typeof firstMidpoint === "number" && typeof lastMidpoint === "number") {
         const nextProgress =
@@ -311,7 +311,7 @@ export default function ExperienceTimeline() {
         return;
       }
 
-      frame = window.requestAnimationFrame(updateActiveItem);
+      frame = globalThis.requestAnimationFrame(updateActiveItem);
     };
 
     requestUpdate();
@@ -320,7 +320,7 @@ export default function ExperienceTimeline() {
 
     return () => {
       if (frame !== 0) {
-        window.cancelAnimationFrame(frame);
+        globalThis.cancelAnimationFrame(frame);
       }
 
       window.removeEventListener("scroll", requestUpdate);

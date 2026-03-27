@@ -19,7 +19,7 @@ const statusLabel = {
 
 const featuredCertifications = certifications.filter((item) => item.featured);
 
-export default function FeaturedCertifications({ showLink = true }: { showLink?: boolean }) {
+export default function FeaturedCertifications({ showLink = true }: Readonly<{ showLink?: boolean }>) {
   return (
     <section className="section-ambient border-t border-slate-200 bg-white dark:border-gray-800 dark:bg-slate-900/30">
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
