@@ -15,7 +15,11 @@
       "Bash(where gh:*)",
       "Bash(winget list:*)",
       "WebFetch(domain:api.github.com)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(claude mcp:*)",
+      "mcp__sonarqube__search_my_sonarqube_projects",
+      "mcp__sonarqube__get_duplications",
+      "Bash(cd:*)"
     ]
   }
 }
