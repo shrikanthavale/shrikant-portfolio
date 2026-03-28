@@ -118,6 +118,14 @@ const MarkdownCode = ({ className, children, ...rest }: { className?: string; ch
   );
 };
 
+const MarkdownH2 = ({ children, ...rest }: React.HTMLAttributes<HTMLHeadingElement>) => (
+  <h2 {...rest} className={"mt-10 scroll-mt-24 text-xl font-semibold text-slate-900 dark:text-white " + (rest.className ?? "")}>{children}</h2>
+);
+
+const MarkdownH3 = ({ children, ...rest }: React.HTMLAttributes<HTMLHeadingElement>) => (
+  <h3 {...rest} className={"mt-7 scroll-mt-24 text-base font-semibold text-slate-800 dark:text-slate-100 " + (rest.className ?? "")}>{children}</h3>
+);
+
 const MarkdownHr = (props: React.HTMLAttributes<HTMLHRElement>) => <hr {...props} className={"my-8 border-slate-300 dark:border-slate-800 " + (props.className ?? "")} />;
 
 export function generateStaticParams() {
@@ -241,6 +249,8 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeSlug]}
               components={{
+                h2: MarkdownH2,
+                h3: MarkdownH3,
                 p: MarkdownP,
                 ul: MarkdownUl,
                 ol: MarkdownOl,

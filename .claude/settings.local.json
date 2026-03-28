@@ -7,7 +7,8 @@
       "Bash(node:*)",
       "Bash(pdftotext 'D:/Developer/Shrikant-Portfolio/shrikant-portfolio/public/Master Thesis.pdf' -)",
       "Bash(pdftotext \"D:/Developer/Shrikant-Portfolio/shrikant-portfolio/public/Master Thesis.pdf\" /tmp/thesis.txt)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(npm install:*)"
     ]
   }
 }

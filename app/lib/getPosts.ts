@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import matter from "gray-matter";
 
 export type Post = {
   title: string;
@@ -14,45 +15,26 @@ export type Post = {
 
 const postsDir = path.join(process.cwd(), "app", "data", "posts");
 
-function parseFrontMatter(fileContents: string): Record<string, string> {
-  const match = /---\s*([\s\S]*?)---/.exec(fileContents);
-  const frontMatter = match ? match[1] : "";
-
-  const meta: Record<string, string> = {};
-  frontMatter.split(/\r?\n/).forEach((line) => {
-    const [key, ...rest] = line.split(":");
-    if (!key || rest.length === 0) return;
-    meta[key.trim()] = rest.join(":").trim().replaceAll(/^"|"$/g, "");
-  });
-
-  return meta;
-}
-
-function extractBody(fileContents: string): string {
-  return fileContents.replace(/^---[\s\S]*?---\s*/m, "").trim();
-}
-
 function toPost(fileName: string): Post {
   const filePath = path.join(postsDir, fileName);
-  const fileContents = fs.readFileSync(filePath, "utf8");
-  const meta = parseFrontMatter(fileContents);
-  const content = extractBody(fileContents);
+  const fileContent = fs.readFileSync(filePath, "utf-8");
+  const { content, data } = matter(fileContent);
   const slug = fileName.replace(/\.mdx?$/, "");
   const fallbackExcerpt = content.slice(0, 140).trim();
-  const tags = (meta.tags ?? "")
+  const tags = (data.tags ?? "")
     .split(",")
-    .map((tag) => tag.trim())
+    .map((tag: string) => tag.trim())
     .filter(Boolean);
 
   return {
-    title: meta.title ?? "Untitled",
-    excerpt: meta.excerpt ?? fallbackExcerpt,
-    date: meta.date ?? "",
+    title: data.title ?? "Untitled",
+    excerpt: data.excerpt ?? fallbackExcerpt,
+    date: data.date ?? "",
     slug,
     href: `/blog/${slug}`,
     content,
     tags: tags.length > 0 ? tags : undefined,
-    source: meta.source ? meta.source.trim() : undefined,
+    source: data.source ? String(data.source).trim() : undefined,
   };
 }
 
