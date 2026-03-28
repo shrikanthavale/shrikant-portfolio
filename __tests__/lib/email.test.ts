@@ -28,9 +28,9 @@ beforeEach(() => {
   jest.clearAllMocks();
 
   // Make createTransport return a transporter stub with a sendMail spy.
-  jest.mocked(nodemailer.createTransport).mockReturnValue({ sendMail: mockSendMail } as ReturnType<
-    typeof nodemailer.createTransport
-  >);
+  jest.mocked(nodemailer.createTransport).mockReturnValue(
+    { sendMail: mockSendMail } as unknown as ReturnType<typeof nodemailer.createTransport>,
+  );
   mockSendMail.mockResolvedValue({ messageId: "test-id" });
 
   // Remove all mail-related env vars before each test.
