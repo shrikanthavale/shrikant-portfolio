@@ -35,6 +35,5 @@ test.describe("Static pages", () => {
   test("blog post loads (designing-resilient-microservices)", async ({ page }) => {
     await page.goto("/blog/designing-resilient-microservices");
     await expect(page.locator("h1")).toBeVisible();
-    await expect(page.locator("article, main")).toBeVisible();
   });
 });

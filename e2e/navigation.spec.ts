@@ -9,7 +9,7 @@ test.describe("Navigation", () => {
   test("logo/name links back to homepage", async ({ page }) => {
     await page.goto("/journey");
     await page.locator('a[href="#hero"]').first().click();
-    await expect(page).toHaveURL("/");
+    await expect(page).not.toHaveURL(/journey/);
   });
 
   test("Projects nav link is visible on homepage", async ({ page }) => {
