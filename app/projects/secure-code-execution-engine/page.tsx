@@ -1,17 +1,34 @@
+import type { Metadata } from "next";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { projects } from "@/app/data/projects";
 import { notFound } from "next/navigation";
+import { siteUrl } from "@/app/lib/config";
 import ThesisArchitecture from "@/app/components/ThesisArchitecture";
 import ProjectTabs, { type ProjectTab, TechStackContent } from "@/app/components/ProjectTabs";
 import { TECH_BADGE_META } from "@/app/components/ProjectCard";
 import { Cpu } from "lucide-react";
 
-export function generateMetadata() {
+export function generateMetadata(): Metadata {
   const project = projects.find((p) => p.slug === "secure-code-execution-engine");
   if (!project) return { title: "Project not found" };
+  const slug = "secure-code-execution-engine";
   return {
     title: project.title,
     description: project.description,
+    alternates: { canonical: `${siteUrl}/projects/${slug}` },
+    openGraph: {
+      type: "article",
+      title: `${project.title} | Shrikant Havale`,
+      description: project.description,
+      url: `${siteUrl}/projects/${slug}`,
+      images: [{ url: "/profile.jpg", width: 500, height: 500, alt: "Shrikant Havale" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Shrikant Havale`,
+      description: project.description,
+      images: ["/profile.jpg"],
+    },
   };
 }
 

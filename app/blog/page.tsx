@@ -4,10 +4,26 @@ import BlogPreviewClient from "@/app/components/BlogPreviewClient";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { getPosts } from "@/app/lib/getPosts";
 
+const description =
+  "Articles on backend engineering — Java microservices, distributed systems, resiliency patterns, observability, and event-driven architecture.";
+
 export const metadata: Metadata = {
   title: "Blog",
-  description:
-    "Articles on backend engineering — Java microservices, distributed systems, resiliency patterns, observability, and event-driven architecture.",
+  description,
+  alternates: { canonical: "https://www.shrikant-havale.in/blog" },
+  openGraph: {
+    type: "website",
+    title: "Blog | Shrikant Havale",
+    description,
+    url: "https://www.shrikant-havale.in/blog",
+    images: [{ url: "/profile.jpg", width: 500, height: 500, alt: "Shrikant Havale" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog | Shrikant Havale",
+    description,
+    images: ["/profile.jpg"],
+  },
 };
 
 export default function BlogIndexPage() {

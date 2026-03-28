@@ -156,11 +156,13 @@ export function generateMetadata({ params }: BlogPostPageProps): Promise<Metadat
         authors: ["Shrikant Havale"],
         tags: post.tags,
         url: `${siteUrl}/blog/${slug}`,
+        images: [{ url: "/profile.jpg", width: 500, height: 500, alt: "Shrikant Havale" }],
       },
       twitter: {
         card: "summary_large_image",
         title: post.title,
         description: post.excerpt,
+        images: ["/profile.jpg"],
       },
     };
   });

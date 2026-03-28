@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { getProjectBySlug, projects } from "@/app/data/projects";
+import { siteUrl } from "@/app/lib/config";
 import SystemArchitecture from "@/app/components/SystemArchitecture";
 import PortfolioArchitecture from "@/app/components/PortfolioArchitecture";
 import ProjectTabs, { type ProjectTab, TechStackContent } from "@/app/components/ProjectTabs";
@@ -24,13 +26,27 @@ export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
 }
 
-export function generateMetadata({ params }: ProjectPageProps) {
+export function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   return params.then(({ slug }) => {
     const project = getProjectBySlug(slug);
     if (!project) return { title: "Project not found" };
     return {
       title: project.title,
       description: project.description,
+      alternates: { canonical: `${siteUrl}/projects/${slug}` },
+      openGraph: {
+        type: "article",
+        title: `${project.title} | Shrikant Havale`,
+        description: project.description,
+        url: `${siteUrl}/projects/${slug}`,
+        images: [{ url: "/profile.jpg", width: 500, height: 500, alt: "Shrikant Havale" }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${project.title} | Shrikant Havale`,
+        description: project.description,
+        images: ["/profile.jpg"],
+      },
     };
   });
 }

@@ -3,10 +3,26 @@ import ProjectCard from "@/app/components/ProjectCard";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { projects } from "@/app/data/projects";
 
+const description =
+  "Backend engineering projects by Shrikant Havale — microservices, distributed systems, event-driven architecture, and real-world system design.";
+
 export const metadata: Metadata = {
   title: "Projects",
-  description:
-    "Backend engineering projects by Shrikant Havale — microservices, distributed systems, event-driven architecture, and real-world system design.",
+  description,
+  alternates: { canonical: "https://www.shrikant-havale.in/projects" },
+  openGraph: {
+    type: "website",
+    title: "Projects | Shrikant Havale",
+    description,
+    url: "https://www.shrikant-havale.in/projects",
+    images: [{ url: "/profile.jpg", width: 500, height: 500, alt: "Shrikant Havale" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Projects | Shrikant Havale",
+    description,
+    images: ["/profile.jpg"],
+  },
 };
 
 export default function ProjectsIndexPage() {

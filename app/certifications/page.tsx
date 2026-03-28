@@ -3,10 +3,26 @@ import CertificationsClient from "@/app/components/CertificationsClient";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { certifications } from "@/app/data/certifications";
 
+const description =
+  "Technical certifications earned by Shrikant Havale across cloud platforms, backend engineering, and distributed systems.";
+
 export const metadata: Metadata = {
   title: "Certifications",
-  description:
-    "Technical certifications earned by Shrikant Havale across cloud platforms, backend engineering, and distributed systems.",
+  description,
+  alternates: { canonical: "https://www.shrikant-havale.in/certifications" },
+  openGraph: {
+    type: "website",
+    title: "Certifications | Shrikant Havale",
+    description,
+    url: "https://www.shrikant-havale.in/certifications",
+    images: [{ url: "/profile.jpg", width: 500, height: 500, alt: "Shrikant Havale" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Certifications | Shrikant Havale",
+    description,
+    images: ["/profile.jpg"],
+  },
 };
 
 export default function CertificationsPage() {
