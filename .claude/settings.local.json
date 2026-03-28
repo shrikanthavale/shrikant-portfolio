@@ -25,7 +25,9 @@
       "mcp__github__get_me",
       "mcp__github__search_pull_requests",
       "mcp__github__list_commits",
-      "mcp__github__get_commit"
+      "mcp__github__get_commit",
+      "WebFetch(domain:cdn.simpleicons.org)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }

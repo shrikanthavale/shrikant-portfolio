@@ -3,9 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
-import { Award, Milestone } from "lucide-react";
-import { SiGithub } from "react-icons/si";
-import { FiLinkedin } from "react-icons/fi";
+import { Award, Github, Linkedin, Milestone } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -146,7 +144,7 @@ export default function Navbar() {
             aria-label="GitHub"
             className={`${iconButtonClassName} border-slate-300 dark:border-slate-700`}
           >
-            <SiGithub className="h-4 w-4" aria-hidden="true" />
+            <Github className="h-4 w-4" aria-hidden="true" />
           </a>
           <a
             href="https://www.linkedin.com/in/shrikanthavale/"
@@ -155,7 +153,7 @@ export default function Navbar() {
             aria-label="LinkedIn"
             className={`${iconButtonClassName} border-slate-300 dark:border-slate-700`}
           >
-            <FiLinkedin className="h-4 w-4" aria-hidden="true" />
+            <Linkedin className="h-4 w-4" aria-hidden="true" />
           </a>
           <ThemeToggle />
           <a

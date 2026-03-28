@@ -1,7 +1,5 @@
 import Link from "next/link";
-import { Code2, TerminalSquare } from "lucide-react";
-import { SiGithub } from "react-icons/si";
-import { FiLinkedin } from "react-icons/fi";
+import { Code2, Github, Linkedin, TerminalSquare } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -33,13 +31,13 @@ export default function Footer() {
                 <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
                   <li>
                     <a className="inline-flex items-center gap-2 whitespace-nowrap transition-colors hover:text-slate-900 dark:hover:text-slate-100" href="https://github.com/shrikanthavale" target="_blank" rel="noopener noreferrer">
-                      <SiGithub className="h-4 w-4" aria-hidden="true" />
+                      <Github className="h-4 w-4" aria-hidden="true" />
                       GitHub
                     </a>
                   </li>
                   <li>
                     <a className="inline-flex items-center gap-2 whitespace-nowrap transition-colors hover:text-slate-900 dark:hover:text-slate-100" href="https://www.linkedin.com/in/shrikanthavale/" target="_blank" rel="noopener noreferrer">
-                      <FiLinkedin className="h-4 w-4" aria-hidden="true" />
+                      <Linkedin className="h-4 w-4" aria-hidden="true" />
                       LinkedIn
                     </a>
                   </li>

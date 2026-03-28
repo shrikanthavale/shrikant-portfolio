@@ -2,8 +2,7 @@
 
 import { useState, type SyntheticEvent } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-import { SiGithub } from "react-icons/si";
-import { FiLinkedin } from "react-icons/fi";
+import { Github, Linkedin } from "lucide-react";
 
 type FormState = {
   name: string;
@@ -119,7 +118,7 @@ export default function ContactSection() {
                   aria-label="GitHub"
                   className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
                 >
-                  <SiGithub className="h-4 w-4" aria-hidden="true" />
+                  <Github className="h-4 w-4" aria-hidden="true" />
                   <span>GitHub</span>
                 </a>
                 <a
@@ -129,7 +128,7 @@ export default function ContactSection() {
                   aria-label="LinkedIn"
                   className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
                 >
-                  <FiLinkedin className="h-4 w-4" aria-hidden="true" />
+                  <Linkedin className="h-4 w-4" aria-hidden="true" />
                   <span>LinkedIn</span>
                 </a>
               </div>
