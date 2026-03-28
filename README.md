@@ -223,6 +223,13 @@ Recommended GitHub repository settings:
 - Allow rebase merging: disabled
 - Automatically delete head branches: enabled
 
+## Lighthouse Scores
+
+[![Performance](https://img.shields.io/badge/Performance-100-brightgreen)](https://www.shrikant-havale.in)
+[![Accessibility](https://img.shields.io/badge/Accessibility-96-brightgreen)](https://www.shrikant-havale.in)
+[![Best Practices](https://img.shields.io/badge/Best%20Practices-100-brightgreen)](https://www.shrikant-havale.in)
+[![SEO](https://img.shields.io/badge/SEO-100-brightgreen)](https://www.shrikant-havale.in)
+
 ## SonarCloud Quality Gate
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
