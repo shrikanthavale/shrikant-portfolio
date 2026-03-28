@@ -160,7 +160,7 @@ export default function Navbar() {
           <ThemeToggle />
           <a
             href="#contact"
-            className="rounded-md bg-sky-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-105 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-400/40 sm:px-4 sm:py-2 sm:text-sm dark:bg-sky-500 dark:hover:bg-sky-400"
+            className="rounded-md bg-sky-700 px-3 py-1.5 text-xs font-medium text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-105 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-400/40 sm:px-4 sm:py-2 sm:text-sm dark:bg-sky-500 dark:hover:bg-sky-400"
           >
             Let&apos;s talk
           </a>
