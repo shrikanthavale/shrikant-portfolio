@@ -1,21 +1,18 @@
 import React from "react";
-import {notFound} from "next/navigation";
+import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
+import Link from "next/link";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
-import {getPostBySlug, getPostSlugs} from "@/app/lib/getPosts";
-import type {Metadata} from "next";
+import BlogToc from "@/app/components/BlogToc";
+import type { TocItem } from "@/app/components/BlogToc";
+import { getPostBySlug, getPostSlugs, getPosts } from "@/app/lib/getPosts";
+import type { Metadata } from "next";
 import { siteUrl } from "@/app/lib/config";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
-};
-
-type TocItem = {
-  id: string;
-  text: string;
-  level: 2 | 3;
 };
 
 const architectureNotes = [
@@ -40,10 +37,10 @@ function formatDate(dateString: string): string {
 function stripMarkdownInline(value: string): string {
   // Safe: bounded character classes, no nested quantifiers
   let result = value;
-  result = result.replaceAll(/`[^`]{1,200}`/g, "");           // inline code
-  result = result.replaceAll(/\[([^\]]{1,200})]\([^)]{0,500}\)/g, "$1"); // links
-  result = result.replaceAll(/[*_~]+/g, "");                   // bold/italic
-  result = result.replaceAll(/<[^>]{0,200}>/g, "");            // html tags
+  result = result.replaceAll(/`[^`]{1,200}`/g, "");
+  result = result.replaceAll(/\[([^\]]{1,200})]\([^)]{0,500}\)/g, "$1");
+  result = result.replaceAll(/[*_~]+/g, "");
+  result = result.replaceAll(/<[^>]{0,200}>/g, "");
   return result.trim();
 }
 
@@ -67,7 +64,7 @@ function estimateReadingTime(content: string): number {
 
 // The following regex is safe because blog content is trusted and not attacker-controlled.
 function extractTocItems(content: string): TocItem[] {
-  if (content.length > 100_000) return []; // Defensive: skip TOC for huge content
+  if (content.length > 100_000) return [];
   const matches = content.matchAll(/^(##|###)\s+([^\r\n]{1,200})$/gm);
   const seen = new Map<string, number>();
 
@@ -86,48 +83,173 @@ function extractTocItems(content: string): TocItem[] {
   });
 }
 
-// Markdown components moved out for best practices
-const MarkdownP = ({ children, ...rest }: React.HTMLAttributes<HTMLParagraphElement>) => (
-  <p {...rest} className={"mt-4 text-base leading-relaxed text-slate-700 dark:text-slate-200 " + (rest.className ?? "")}>{children}</p>
+// ─── Markdown components ──────────────────────────────────────────────────────
+
+const MarkdownPre: React.FC<React.HTMLAttributes<HTMLPreElement>> = ({ children }) => (
+  <>{children}</>
 );
 
-const MarkdownUl = ({ children, ...rest }: React.HTMLAttributes<HTMLUListElement>) => (
-  <ul {...rest} className={"mt-4 list-disc space-y-2 pl-6 marker:text-slate-500 dark:marker:text-slate-400 " + (rest.className ?? "")}>{children}</ul>
-);
-
-const MarkdownOl = ({ children, ...rest }: React.OlHTMLAttributes<HTMLOListElement>) => (
-  <ol {...rest} className={"mt-4 list-decimal space-y-2 pl-6 marker:text-slate-500 dark:marker:text-slate-400 " + (rest.className ?? "")}>{children}</ol>
-);
-
-const MarkdownBlockquote = ({ children, ...rest }: React.BlockquoteHTMLAttributes<HTMLElement>) => (
-  <blockquote {...rest} className={"mt-5 border-l-2 border-slate-300 pl-4 text-slate-600 dark:border-slate-700 dark:text-slate-300 " + (rest.className ?? "")}>{children}</blockquote>
-);
-
-const MarkdownA = ({ href, children, ...rest }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-  <a href={href ?? "#"} {...rest} className={"font-medium text-sky-700 underline decoration-sky-500/40 underline-offset-4 transition hover:text-sky-600 dark:text-sky-300 dark:decoration-sky-400/40 dark:hover:text-sky-200 " + (rest.className ?? "")}>{children}</a>
-);
-
-const MarkdownCode = ({ className, children, ...rest }: { className?: string; children?: React.ReactNode } & React.HTMLAttributes<HTMLElement>) => {
-  const isBlock = Boolean(className);
-  if (isBlock) {
+const MarkdownCode = ({
+  className,
+  children,
+  ...rest
+}: { className?: string; children?: React.ReactNode } & React.HTMLAttributes<HTMLElement>) => {
+  if (className) {
+    const lang = className.replace("language-", "");
     return (
-      <code {...rest} className={"block overflow-x-auto rounded-xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm text-slate-800 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-100 " + (className ?? "")}>{children}</code>
+      <div className="my-7 overflow-hidden rounded-xl bg-[#1e1e2e]">
+        {lang && (
+          <div className="flex items-center justify-end border-b border-white/[0.07] px-5 py-2.5">
+            <span className="font-mono text-xs text-slate-400">{lang}</span>
+          </div>
+        )}
+        <pre className="overflow-x-auto p-5">
+          <code className="text-sm leading-relaxed text-slate-100">{children}</code>
+        </pre>
+      </div>
     );
   }
   return (
-    <code {...rest} className={"rounded bg-slate-200 px-1.5 py-0.5 text-[0.92em] text-slate-800 dark:bg-slate-800 dark:text-slate-100 " + (className ?? "")}>{children}</code>
+    <code
+      {...rest}
+      className="rounded bg-indigo-50 px-1.5 py-0.5 font-mono text-[0.875em] text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300"
+    >
+      {children}
+    </code>
   );
 };
 
 const MarkdownH2 = ({ children, ...rest }: React.HTMLAttributes<HTMLHeadingElement>) => (
-  <h2 {...rest} className={"mt-10 scroll-mt-24 text-xl font-semibold text-slate-900 dark:text-white " + (rest.className ?? "")}>{children}</h2>
+  <h2
+    {...rest}
+    className={
+      "mt-12 scroll-mt-24 text-2xl font-bold tracking-tight text-slate-900 dark:text-white " +
+      (rest.className ?? "")
+    }
+  >
+    {children}
+  </h2>
 );
 
 const MarkdownH3 = ({ children, ...rest }: React.HTMLAttributes<HTMLHeadingElement>) => (
-  <h3 {...rest} className={"mt-7 scroll-mt-24 text-base font-semibold text-slate-800 dark:text-slate-100 " + (rest.className ?? "")}>{children}</h3>
+  <h3
+    {...rest}
+    className={
+      "mt-8 scroll-mt-24 text-lg font-semibold text-slate-800 dark:text-slate-100 " +
+      (rest.className ?? "")
+    }
+  >
+    {children}
+  </h3>
 );
 
-const MarkdownHr = (props: React.HTMLAttributes<HTMLHRElement>) => <hr {...props} className={"my-8 border-slate-300 dark:border-slate-800 " + (props.className ?? "")} />;
+const MarkdownP = ({ children, ...rest }: React.HTMLAttributes<HTMLParagraphElement>) => (
+  <p
+    {...rest}
+    className={
+      "mt-6 text-[1.0625rem] leading-[1.75] text-slate-700 dark:text-slate-300 " +
+      (rest.className ?? "")
+    }
+  >
+    {children}
+  </p>
+);
+
+const MarkdownUl = ({ children, ...rest }: React.HTMLAttributes<HTMLUListElement>) => (
+  <ul
+    {...rest}
+    className={
+      "mt-6 space-y-3 pl-6 text-[1.0625rem] leading-[1.75] text-slate-700 marker:text-indigo-400 dark:text-slate-300 dark:marker:text-indigo-500 " +
+      (rest.className ?? "")
+    }
+  >
+    {children}
+  </ul>
+);
+
+const MarkdownOl = ({ children, ...rest }: React.OlHTMLAttributes<HTMLOListElement>) => (
+  <ol
+    {...rest}
+    className={
+      "mt-6 list-decimal space-y-3 pl-6 text-[1.0625rem] leading-[1.75] text-slate-700 marker:text-indigo-400 dark:text-slate-300 dark:marker:text-indigo-500 " +
+      (rest.className ?? "")
+    }
+  >
+    {children}
+  </ol>
+);
+
+const MarkdownBlockquote = ({
+  children,
+  ...rest
+}: React.BlockquoteHTMLAttributes<HTMLElement>) => (
+  <blockquote
+    {...rest}
+    className={
+      "my-7 border-l-4 border-indigo-400 pl-5 text-slate-600 italic dark:border-indigo-600 dark:text-slate-400 " +
+      (rest.className ?? "")
+    }
+  >
+    {children}
+  </blockquote>
+);
+
+const MarkdownA = ({ href, children, ...rest }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+  <a
+    href={href ?? "#"}
+    {...rest}
+    className={
+      "font-medium text-indigo-700 underline decoration-indigo-400/50 underline-offset-4 transition hover:text-indigo-600 dark:text-indigo-300 dark:decoration-indigo-500/40 dark:hover:text-indigo-200 " +
+      (rest.className ?? "")
+    }
+  >
+    {children}
+  </a>
+);
+
+const MarkdownHr = (props: React.HTMLAttributes<HTMLHRElement>) => (
+  <hr
+    {...props}
+    className={"my-10 border-slate-200 dark:border-slate-800 " + (props.className ?? "")}
+  />
+);
+
+const MarkdownTable = ({ children, ...rest }: React.HTMLAttributes<HTMLTableElement>) => (
+  <div className="my-7 overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+    <table
+      {...rest}
+      className={"w-full border-collapse text-sm " + (rest.className ?? "")}
+    >
+      {children}
+    </table>
+  </div>
+);
+
+const MarkdownTh = ({ children, ...rest }: React.ThHTMLAttributes<HTMLTableCellElement>) => (
+  <th
+    {...rest}
+    className={
+      "border-b border-slate-200 bg-slate-50 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-400 " +
+      (rest.className ?? "")
+    }
+  >
+    {children}
+  </th>
+);
+
+const MarkdownTd = ({ children, ...rest }: React.TdHTMLAttributes<HTMLTableCellElement>) => (
+  <td
+    {...rest}
+    className={
+      "border-b border-slate-100 px-4 py-3 text-slate-700 dark:border-slate-800 dark:text-slate-300 " +
+      (rest.className ?? "")
+    }
+  >
+    {children}
+  </td>
+);
+
+// ─── Route exports ────────────────────────────────────────────────────────────
 
 export function generateStaticParams() {
   return getPostSlugs().map((slug) => ({ slug }));
@@ -142,7 +264,7 @@ export function generateMetadata({ params }: BlogPostPageProps): Promise<Metadat
     }
 
     return {
-      title: post.title,  // layout.tsx template adds "| Shrikant Havale" automatically
+      title: post.title,
       description: post.excerpt,
       alternates: {
         canonical: `${siteUrl}/blog/${slug}`,
@@ -167,6 +289,8 @@ export function generateMetadata({ params }: BlogPostPageProps): Promise<Metadat
   });
 }
 
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
 export default async function BlogPostPage({ params }: Readonly<BlogPostPageProps>) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
@@ -177,95 +301,182 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
   const tocItems = extractTocItems(post.content);
   const isArchitecturePost = slug === "scaling-event-driven-systems";
 
+  const allPosts = getPosts();
+  const currentIndex = allPosts.findIndex((p) => p.slug === slug);
+  const previousPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+  const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
-      <SubpageTopBar leftLabel="← All blogs" leftHref="/blog" maxWidthClass="max-w-3xl" />
-      <article className="mx-auto max-w-3xl px-6 py-20">
-        <header className="border-b border-slate-200 pb-6 dark:border-slate-800">
-          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
-            {formatDate(post.date)}
-            <span className="px-2 text-slate-400 dark:text-slate-600">•</span>
-            {readMinutes} min read
+    <main className="min-h-screen bg-white text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
+      <SubpageTopBar leftLabel="← All blogs" leftHref="/blog" maxWidthClass="max-w-[720px]" />
+
+      <div className="mx-auto max-w-[720px] px-6 py-14 sm:py-20">
+
+        {/* ── Header ── */}
+        <header>
+          {/* Tag pills */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <span
+                  key={`${post.slug}-tag-${tag}`}
+                  className="rounded-full border border-indigo-200/80 bg-indigo-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-indigo-700 dark:border-indigo-800/60 dark:bg-indigo-950/40 dark:text-indigo-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Title */}
+          <h1 className="mt-5 text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+            {post.title}
+          </h1>
+
+          {/* Excerpt */}
+          <p className="mt-4 max-w-[60ch] text-lg leading-relaxed text-slate-500 dark:text-slate-400">
+            {post.excerpt}
           </p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">{post.title}</h1>
-          <p className="mt-4 text-base leading-relaxed text-slate-600 dark:text-slate-300">{post.excerpt}</p>
-          <div className="mt-4 flex flex-wrap items-center gap-2">
-            {post.tags?.map((tag) => (
-              <span
-                key={`${post.slug}-${tag}`}
-                className="rounded-full border border-slate-300/90 bg-white/70 px-2.5 py-1 text-[11px] font-medium text-slate-600 dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-300"
-              >
-                {tag}
-              </span>
-            ))}
+
+          {/* Meta row */}
+          <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-slate-400 dark:text-slate-500">
+            <span>{formatDate(post.date)}</span>
+            <span aria-hidden="true">·</span>
+            <span>{readMinutes} min read</span>
             {post.source === "original" && (
-              <span className="rounded-full border border-slate-300/90 bg-white/70 px-2.5 py-1 text-[11px] font-medium text-slate-500 dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-400">
-                Source: original
-              </span>
+              <>
+                <span aria-hidden="true">·</span>
+                <span>Original</span>
+              </>
             )}
             {post.source && post.source !== "original" && (
-              <a
-                href={post.source}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-sky-200 bg-sky-50 px-2.5 py-1 text-[11px] font-medium text-sky-700 transition hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:border-sky-800/60 dark:bg-sky-900/20 dark:text-sky-300 dark:hover:border-sky-400 dark:hover:bg-sky-500"
-              >
-                Source article
-              </a>
+              <>
+                <span aria-hidden="true">·</span>
+                <a
+                  href={post.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                >
+                  Source article ↗
+                </a>
+              </>
             )}
           </div>
+
+          <hr className="mt-8 border-slate-200 dark:border-slate-800" />
         </header>
+
+        {/* ── Table of contents ── */}
+        <BlogToc items={tocItems} />
+
+        {/* ── Architecture context cards (specific post) ── */}
         {isArchitecturePost && (
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             {architectureNotes.map((note) => (
               <div
                 key={note}
-                className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-relaxed text-slate-700 dark:border-slate-800 dark:bg-slate-900/40 dark:text-gray-400"
+                className="rounded-xl border border-indigo-100 bg-indigo-50/60 px-4 py-3 text-sm leading-relaxed text-indigo-900 dark:border-indigo-900/40 dark:bg-indigo-950/30 dark:text-indigo-200"
               >
                 {note}
               </div>
             ))}
           </div>
         )}
-        <div className="mt-8 lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start lg:gap-8">
-          {tocItems.length > 0 && (
+
+        {/* ── Article body ── */}
+        <article className="mt-10">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeSlug]}
+            components={{
+              pre: MarkdownPre,
+              code: MarkdownCode,
+              h2: MarkdownH2,
+              h3: MarkdownH3,
+              p: MarkdownP,
+              ul: MarkdownUl,
+              ol: MarkdownOl,
+              blockquote: MarkdownBlockquote,
+              a: MarkdownA,
+              hr: MarkdownHr,
+              table: MarkdownTable,
+              th: MarkdownTh,
+              td: MarkdownTd,
+            }}
+          >
+            {post.content}
+          </ReactMarkdown>
+        </article>
+
+        {/* ── Footer ── */}
+        <footer className="mt-16 border-t border-slate-200 pt-10 dark:border-slate-800">
+          {/* Tags reprise */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <span
+                  key={`${post.slug}-footer-${tag}`}
+                  className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-500 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Prev / Next navigation */}
+          {(previousPost ?? nextPost) && (
             <nav
-              aria-label="Table of contents"
-              className="mb-8 rounded-2xl border border-slate-200 bg-white p-5 lg:sticky lg:top-24 lg:mb-0 dark:border-slate-800 dark:bg-slate-900/40"
+              aria-label="Post navigation"
+              className="mt-8 grid gap-4 sm:grid-cols-2"
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">On this page</p>
-              <ul className="mt-3 space-y-2">
-                {tocItems.map((item) => (
-                  <li key={item.id} className={item.level === 3 ? "pl-4" : "pl-0"}>
-                    <a href={`#${item.id}`} className="text-sm text-slate-600 transition hover:text-sky-700 dark:text-slate-300 dark:hover:text-sky-200">
-                      {item.text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              {previousPost ? (
+                <Link
+                  href={previousPost.href}
+                  className="group flex flex-col gap-1 rounded-xl border border-slate-200 bg-white p-5 transition hover:border-indigo-300 hover:bg-indigo-50/50 dark:border-slate-800 dark:bg-slate-900/40 dark:hover:border-indigo-700/60 dark:hover:bg-indigo-950/30"
+                >
+                  <span className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
+                    ← Previous
+                  </span>
+                  <span className="mt-1 line-clamp-2 text-sm font-medium text-slate-700 group-hover:text-indigo-700 dark:text-slate-300 dark:group-hover:text-indigo-300">
+                    {previousPost.title}
+                  </span>
+                </Link>
+              ) : (
+                <div />
+              )}
+
+              {nextPost ? (
+                <Link
+                  href={nextPost.href}
+                  className="group flex flex-col items-end gap-1 rounded-xl border border-slate-200 bg-white p-5 text-right transition hover:border-indigo-300 hover:bg-indigo-50/50 dark:border-slate-800 dark:bg-slate-900/40 dark:hover:border-indigo-700/60 dark:hover:bg-indigo-950/30"
+                >
+                  <span className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
+                    Next →
+                  </span>
+                  <span className="mt-1 line-clamp-2 text-sm font-medium text-slate-700 group-hover:text-indigo-700 dark:text-slate-300 dark:group-hover:text-indigo-300">
+                    {nextPost.title}
+                  </span>
+                </Link>
+              ) : (
+                <div />
+              )}
             </nav>
           )}
-          <div className="text-base leading-relaxed text-slate-700 dark:text-slate-200">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeSlug]}
-              components={{
-                h2: MarkdownH2,
-                h3: MarkdownH3,
-                p: MarkdownP,
-                ul: MarkdownUl,
-                ol: MarkdownOl,
-                blockquote: MarkdownBlockquote,
-                a: MarkdownA,
-                code: MarkdownCode,
-                hr: MarkdownHr,
-              }}
+
+          {/* Back link */}
+          <div className="mt-8 text-center">
+            <Link
+              href="/blog"
+              className="text-sm font-medium text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
             >
-              {post.content}
-            </ReactMarkdown>
+              ← Back to all posts
+            </Link>
           </div>
-        </div>
-      </article>
+        </footer>
+      </div>
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
