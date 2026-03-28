@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(head:*)",
+      "mcp__sonarqube__search_sonar_issues_in_projects",
+      "Bash(npm run:*)",
+      "Bash(node:*)",
+      "Bash(pdftotext 'D:/Developer/Shrikant-Portfolio/shrikant-portfolio/public/Master Thesis.pdf' -)",
+      "Bash(pdftotext \"D:/Developer/Shrikant-Portfolio/shrikant-portfolio/public/Master Thesis.pdf\" /tmp/thesis.txt)",
+      "Read(//tmp/**)"
+    ]
+  }
+}
