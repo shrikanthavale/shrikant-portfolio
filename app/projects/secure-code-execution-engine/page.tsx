@@ -1,7 +1,16 @@
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { projects } from "@/app/data/projects";
 import { notFound } from "next/navigation";
-import React from "react";
+import ThesisArchitecture from "@/app/components/ThesisArchitecture";
+
+export function generateMetadata() {
+  const project = projects.find((p) => p.slug === "secure-code-execution-engine");
+  if (!project) return { title: "Project not found" };
+  return {
+    title: `${project.title} | Project Details`,
+    description: project.description,
+  };
+}
 
 export default function SecureCodeExecutionEnginePage() {
   const project = projects.find((p) => p.slug === "secure-code-execution-engine");
@@ -11,12 +20,14 @@ export default function SecureCodeExecutionEnginePage() {
     <main className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
       <SubpageTopBar leftLabel="← All projects" leftHref="/projects" maxWidthClass="max-w-4xl" />
       <article className="mx-auto max-w-4xl px-6 py-20">
-        {/* Hero Section */}
+
         <header className="border-b border-slate-200 pb-7 dark:border-slate-800">
-          <h1 className="heading-gradient text-3xl font-bold tracking-tight sm:text-5xl">{project.title}</h1>
-          <p className="mt-4 text-lg leading-8 text-slate-600 dark:text-gray-400">
-            Secure, scalable backend for evaluating programming assignments by executing untrusted code in isolated VMs, integrated with Moodle.
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-sky-700 dark:text-sky-300">
+            {project.preface}
           </p>
+          <h1 className="heading-gradient mt-3 text-3xl font-bold tracking-tight sm:text-5xl">{project.title}</h1>
+          <p className="mt-4 text-base leading-8 text-slate-600 dark:text-gray-400">{project.description}</p>
+          <p className="mt-4 text-sm font-medium text-slate-500 dark:text-slate-400">Role: {project.role}</p>
           <div className="mt-4 flex flex-wrap gap-2">
             {project.tags.map((tag) => (
               <span
@@ -29,92 +40,107 @@ export default function SecureCodeExecutionEnginePage() {
           </div>
         </header>
 
-        {/* Problem Section */}ē
-        <section className="glass-card mt-10 rounded-2xl p-6">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Problem</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
-            Evaluating programming assignments at scale is challenging. Manual grading is slow, error-prone, and not scalable. Basic automated systems often lack security, flexibility, and cannot safely execute arbitrary code from students.
-          </p>
-        </section>
+        <section className="mt-10 grid gap-6 md:grid-cols-2">
+          <div className="glass-card rounded-2xl p-6">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Research context</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">{project.context}</p>
+            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
+              Existing automated graders were built as standalone tools — disconnected from LMS platforms and never
+              designed to handle the security risks of running arbitrary student code. The research tackled both gaps
+              simultaneously: full Moodle integration and execution isolation via per-user virtual machines.
+            </p>
+          </div>
 
-        {/* Core Challenge */}
-        <section className="glass-card mt-6 rounded-2xl p-6">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Core Challenge</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
-            The main challenge is executing untrusted code submissions. Without proper isolation, malicious or buggy code can compromise the system, access sensitive data, or abuse resources.
-          </p>
-        </section>
-
-        {/* Architecture Section */}
-        <section className="glass-card mt-6 rounded-2xl p-6">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Architecture</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
-            The system flow:
-          </p>
-          <ol className="mt-4 space-y-2 text-sm leading-7 text-slate-600 dark:text-gray-400 list-decimal list-inside">
-            <li>User submits assignment in Moodle</li>
-            <li>Moodle calls backend REST API</li>
-            <li>API provisions a VirtualBox VM</li>
-            <li>Untrusted code is executed in the VM</li>
-            <li>Result is collected and returned to Moodle</li>
-          </ol>
-          <div className="mt-6 flex justify-center">
-            {/* Placeholder for architecture diagram */}
-            <div className="h-40 w-full max-w-md rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center text-slate-400 dark:text-slate-600">
-              [Architecture diagram coming soon]
-            </div>
+          <div className="glass-card rounded-2xl p-6">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Impact</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
+              Successfully prototyped a system where student code submitted via Moodle was compiled and executed in
+              isolated remote VMs, preventing damage to the host system — the same concept used today by platforms
+              like HackerRank and LeetCode.
+            </p>
+            <ul className="mt-4 space-y-2 text-sm leading-7 text-slate-600 dark:text-gray-400">
+              {project.outcomes.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500" aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
-        {/* Technical Approach */}
         <section className="glass-card mt-6 rounded-2xl p-6">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Technical Approach</h2>
-          <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-600 dark:text-gray-400 list-disc list-inside">
-            <li>REST API orchestrates assignment submission, execution, and result retrieval</li>
-            <li>VirtualBox VMs are provisioned on demand for each code execution</li>
-            <li>Execution pipeline manages code transfer, execution, and teardown</li>
-          </ul>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">The problem: executing untrusted code</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
+            Automated evaluation of programming assignments requires actually running student-submitted code. That code
+            is untrusted by definition — a student may knowingly or unknowingly submit programs that delete files,
+            exhaust memory, spin infinite loops, or open network connections to internal services. Reek (1989) noted
+            this directly: execution of alien code in a live environment may result in damage to or disclosure of the
+            system or data held therein.
+          </p>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
+            The thesis evaluated four isolation approaches before landing on VM-per-user: static analysis (bypassable
+            with reflection), Java Security Manager (same-JVM, no resource limits, now removed in Java 21),
+            Unix accounts with ulimit (shared kernel, no per-submission tree limits), and finally full VM isolation —
+            the only approach that closes every vector in the threat model.
+          </p>
         </section>
 
-        {/* Security Design */}
         <section className="glass-card mt-6 rounded-2xl p-6">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Security Design</h2>
-          <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-600 dark:text-gray-400 list-disc list-inside">
-            <li>Isolation: Each submission runs in a dedicated VM, preventing code breakout</li>
-            <li>Blast radius control: Resource limits and network isolation reduce risk</li>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Architecture and implementation highlights</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
+            The system was structured as four layers, each with a clear abstraction boundary so the application layer
+            could be swapped without changing the isolation infrastructure beneath it.
+          </p>
+          <ul className="mt-4 space-y-2 text-sm leading-7 text-slate-600 dark:text-gray-400">
+            {project.architecture.map((item) => (
+              <li key={item} className="flex gap-2">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500" aria-hidden="true" />
+                <span>{item}</span>
+              </li>
+            ))}
           </ul>
+          <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-900/70">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sky-700 dark:text-sky-300">
+              End-to-end flow
+            </p>
+            <ol className="mt-3 space-y-1.5 text-sm leading-7 text-slate-600 dark:text-gray-400 [counter-reset:step]">
+              {[
+                "Student submits Java code via a programming question in a Moodle quiz",
+                "Moodle plugin calls the REST API with the source code and student ID",
+                "REST API clones the base SliTaz VM and assigns it to the student",
+                "Code is transferred to the VM via SSH, compiled, and executed",
+                "Output is returned to the REST API, graded against expected results",
+                "Result and feedback are written back to the Moodle gradebook",
+              ].map((step) => (
+                <li key={step} className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-400 dark:bg-slate-600" aria-hidden="true" />
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <ThesisArchitecture />
         </section>
 
-        {/* Trade-offs */}
         <section className="glass-card mt-6 rounded-2xl p-6">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Trade-offs</h2>
-          <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-600 dark:text-gray-400 list-disc list-inside">
-            <li>VMs provide strong isolation but are slower to start than containers</li>
-            <li>Security prioritized over raw performance for initial prototype</li>
-          </ul>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Trade-offs and what I would do differently today</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
+            Full VMs provide the strongest isolation guarantee but are expensive — boot time, disk footprint, and
+            memory overhead per user make the 1-VM-per-user model impractical at scale. The thesis future work section
+            explicitly named Docker containerization as the natural successor, written in 2015 before container runtimes
+            were production-stable.
+          </p>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
+            Today the same architecture would use gVisor or Firecracker microVMs at the execution layer — kernel-level
+            isolation without full VM overhead — with cgroups v2 for hard CPU and memory limits, network namespace
+            isolation to block all egress by default, and a read-only root filesystem with a short-lived writable
+            scratch mount discarded after each run. The REST API contract and Moodle plugin architecture would remain
+            unchanged; only the virtualization layer beneath would be swapped.
+          </p>
         </section>
 
-        {/* Outcome */}
-        <section className="glass-card mt-6 rounded-2xl p-6">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Outcome</h2>
-          <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-600 dark:text-gray-400 list-disc list-inside">
-            <li>Working prototype with safe code execution</li>
-            <li>Integrated with Moodle for real assignment workflows</li>
-            <li>Demonstrated secure, automated grading</li>
-          </ul>
-        </section>
-
-        {/* Future Improvements */}
-        <section className="glass-card mt-6 rounded-2xl p-6">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Future Improvements</h2>
-          <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-600 dark:text-gray-400 list-disc list-inside">
-            <li>Switch to containers for faster startup and better resource efficiency</li>
-            <li>Add a queue system for scalable, parallel execution</li>
-            <li>Support for multiple programming languages</li>
-          </ul>
-        </section>
       </article>
     </main>
   );
 }
-

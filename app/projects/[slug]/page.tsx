@@ -3,6 +3,7 @@ import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { getProjectBySlug, projects } from "@/app/data/projects";
 import SystemArchitecture from "@/app/components/SystemArchitecture";
 import PortfolioArchitecture from "@/app/components/PortfolioArchitecture";
+import ThesisArchitecture from "@/app/components/ThesisArchitecture";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -41,6 +42,7 @@ export default async function ProjectPage({ params }: Readonly<ProjectPageProps>
   const project = getProjectBySlug(slug);
   const shouldShowArchitectureDiagram = slug === "emergency-operations-control-platform";
   const shouldShowPortfolioArchitecture = slug === "portfolio-development";
+  const shouldShowThesisArchitecture = slug === "secure-code-execution-engine";
   const architectureLabels = architectureLabelsBySlug[slug] ?? [];
 
   if (!project) notFound();
@@ -67,6 +69,18 @@ export default async function ProjectPage({ params }: Readonly<ProjectPageProps>
     );
   } else if (shouldShowPortfolioArchitecture) {
     architectureContent = <PortfolioArchitecture />;
+  } else if (shouldShowThesisArchitecture) {
+    architectureContent = (
+      <>
+        <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-gray-400">
+          The system is structured as four layers with clear abstraction boundaries, so the application layer can be
+          swapped without changing the isolation infrastructure beneath it.
+        </p>
+        <div className="mt-5">
+          <ThesisArchitecture />
+        </div>
+      </>
+    );
   } else {
     architectureContent = (
       <ul className="mt-4 space-y-2 text-sm leading-7 text-slate-600 dark:text-gray-400">

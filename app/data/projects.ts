@@ -13,24 +13,28 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "secure-code-execution-engine",
-    title: "Designing a Secure Code Execution Engine for Programming Assessments",
+    title: "Secure Code Execution Engine",
+    preface: "Master's Thesis — FH Hagenberg, 2015",
     description:
-      "Built a system to automatically evaluate programming assignments by safely executing untrusted code in isolated virtual machines, integrated with Moodle.",
-    tags: ["Java", "REST API", "VirtualBox", "Moodle", "System Design"],
-    role: "Lead Backend Engineer, secure code execution and assessment automation",
+      "Designed and built a prototype for secure automated evaluation of programming assignments in Moodle using dynamically provisioned Oracle VirtualBox VMs — solving the security gap of executing untrusted student code that all existing grading systems of the time ignored.",
+    tags: ["Java", "J2EE", "REST API", "Oracle VirtualBox", "Moodle", "SSH", "Tomcat", "SliTaz Linux", "System Design", "Security"],
+    role: "Researcher, Architect and Developer",
     context:
-      "Developed a backend system for programming assessments that required secure, scalable execution of untrusted student code, with seamless integration into Moodle LMS workflows.",
+      "Master's thesis at University of Applied Sciences Hagenberg, Austria (FH OÖ), September 2015. Research identified two critical gaps in automated programming assessment tools: none were integrated with e-learning platforms, and none handled the security risk of executing untrusted student code — file deletion, memory overflow, infinite loops, denial-of-service via threads.",
     architecture: [
-      "Isolated code execution using VirtualBox VMs to sandbox untrusted code.",
-      "REST API for assignment submission, result retrieval, and integration with Moodle.",
-      "Automated VM provisioning and teardown for scalable, parallel evaluation.",
-      "Centralized logging and result aggregation for auditability and feedback.",
-      "Security controls to prevent code breakout and resource abuse.",
+      "4-layer architecture: Moodle plugin (application layer) → REST API on Tomcat (VM management and programming API) → Oracle VBox SDK (virtualization API) → Oracle VirtualBox with SliTaz Linux VMs (virtualization layer).",
+      "REST API (.war on Tomcat) with 7 endpoints via Oracle VirtualBox SDK: check connection, get VM details, start VM, stop VM, clone VM, compile Java program, execute Java program.",
+      "Each student assigned a dedicated SliTaz Linux VM (64MB RAM, 1GB HDD) — code executed in isolation, damage contained to that VM, new clone available in seconds from master.",
+      "Moodle question type plugin integrated with Moodle gradebook, student accounts, course system and quiz workflow.",
+      "Evaluated static analysis, Java Security Manager, sandboxing and Unix accounts before selecting VM isolation as the only approach that closes the full threat model.",
     ],
     outcomes: [
-      "Demonstrated secure execution of untrusted code and scalable evaluation architecture.",
-      "Enabled automated grading and feedback for programming assignments.",
-      "Reduced manual grading effort and improved assessment turnaround time.",
+      "Designed a 4-layer architecture separating virtualization, API control, business logic and Moodle integration — each layer independently replaceable.",
+      "Built a REST API (.war deployed on Tomcat) using Oracle VirtualBox SDK with 7 endpoints: check connection, get VM details, start VM, stop VM, clone VM, compile Java program, execute Java program.",
+      "Each student assigned a dedicated isolated SliTaz Linux VM (64MB RAM, 1GB HDD) — malicious code damage contained to that VM only, cloneable from master in seconds.",
+      "Moodle question type plugin integrated with Moodle gradebook, student accounts, course system and quiz workflow — instructors can mix programming questions with MCQ, true/false etc.",
+      "Evaluated multiple security alternatives before the VM approach: static analysis, Java Security Manager, sandboxing, Unix accounts — documented why each was insufficient.",
+      "REST API published on GitHub for reuse in other e-learning platforms beyond Moodle.",
     ],
   },
   {
