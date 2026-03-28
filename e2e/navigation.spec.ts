@@ -8,7 +8,7 @@ test.describe("Navigation", () => {
 
   test("logo/name links back to homepage", async ({ page }) => {
     await page.goto("/journey");
-    await page.locator('a[href="#hero"]').first().click();
+    await page.locator('a').filter({ hasText: 'Home' }).first().click();
     await expect(page).not.toHaveURL(/journey/);
   });
 
