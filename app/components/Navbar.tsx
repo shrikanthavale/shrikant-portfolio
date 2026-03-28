@@ -68,7 +68,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur transition-colors dark:border-slate-800 dark:bg-slate-950/95">
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white transition-colors dark:border-slate-800 dark:bg-slate-950/95 dark:backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
         <a
           href="#hero"
