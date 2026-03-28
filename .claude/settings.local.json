@@ -19,7 +19,13 @@
       "Bash(claude mcp:*)",
       "mcp__sonarqube__search_my_sonarqube_projects",
       "mcp__sonarqube__get_duplications",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(find D:DeveloperShrikant-Portfolioshrikant-portfolio/public -type f -name *.pdf)",
+      "Bash(grep -r \"ProjectPageShell\\\\|dangerouslySetInnerHTML\" D:DeveloperShrikant-Portfolioshrikant-portfolio/app --include=*.tsx --include=*.ts)",
+      "mcp__github__get_me",
+      "mcp__github__search_pull_requests",
+      "mcp__github__list_commits",
+      "mcp__github__get_commit"
     ]
   }
 }
