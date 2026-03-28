@@ -4,7 +4,7 @@ date: "2023-09-27"
 excerpt: "A practical comparison of JDBC and JPA, and how Java applications access relational databases."
 
 tags: "java,jdbc,jpa"
-source: "https://shrikant-havale.in/2023/09/27/access-database-using-jdbc/"
+source: "https://www.shrikant-havale.in/blog/access-database-using-jdbc"
 ---
 
 This post introduces Java database access with JDBC and compares it with JPA.
@@ -29,4 +29,4 @@ Use JDBC when you need low-level SQL control. Use JPA when productivity and obje
 
 ## Source
 
-Original post: https://shrikant-havale.in/2023/09/27/access-database-using-jdbc/
+Original post: https://www.shrikant-havale.in/blog/access-database-using-jdbc

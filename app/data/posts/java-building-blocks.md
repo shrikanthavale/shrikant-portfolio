@@ -4,7 +4,7 @@ date: "2024-10-06"
 excerpt: "A practical summary of Java fundamentals: entry points, imports, compilation, classpath, literals, wrappers, text blocks, and garbage collection."
 
 tags: "java,language-basics,certification"
-source: "https://shrikant-havale.in/2024/10/06/java-building-blocks/"
+source: "https://www.shrikant-havale.in/blog/java-building-blocks"
 ---
 
 This article is a compact, exam-focused set of Java fundamentals and command-line basics.
@@ -138,4 +138,4 @@ public class Bear {
 
 ## Source
 
-Original post: https://shrikant-havale.in/2024/10/06/java-building-blocks/
+Original post: https://www.shrikant-havale.in/blog/java-building-blocks

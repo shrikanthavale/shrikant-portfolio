@@ -4,7 +4,7 @@ date: "2023-08-12"
 excerpt: "A practical example of race conditions in bank-account updates and how synchronization prevents overdraw scenarios."
 
 tags: "java,concurrency,threads"
-source: "https://shrikant-havale.in/2023/08/12/concurrency-in-java/"
+source: "https://www.shrikant-havale.in/blog/concurrency-in-java"
 ---
 
 When a Java program runs on a single thread, behavior is usually predictable. With multiple threads, race conditions can produce inconsistent outcomes.
@@ -75,4 +75,4 @@ Locking ensures both steps execute atomically for a given account object.
 
 ## Source
 
-Original post: https://shrikant-havale.in/2023/08/12/concurrency-in-java/
+Original post: https://www.shrikant-havale.in/blog/concurrency-in-java

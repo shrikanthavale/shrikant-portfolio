@@ -4,7 +4,7 @@ date: "2024-08-16"
 excerpt: "A quick-reference summary for arrays, collections, generics, sorting/searching, null behavior, and comparators in Java."
 
 tags: "java,collections,arrays"
-source: "https://shrikant-havale.in/2024/08/16/working-with-arrays-collections-summary/"
+source: "https://www.shrikant-havale.in/blog/working-with-arrays-collections-summary"
 ---
 
 This is a focused summary of practical Java collection and array behavior.
@@ -57,4 +57,4 @@ This is a focused summary of practical Java collection and array behavior.
 
 ## Source
 
-Original post: https://shrikant-havale.in/2024/08/16/working-with-arrays-collections-summary/
+Original post: https://www.shrikant-havale.in/blog/working-with-arrays-collections-summary

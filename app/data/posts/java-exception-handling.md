@@ -4,7 +4,7 @@ date: "2024-08-06"
 excerpt: "Core exception-handling notes covering constructors, checked vs unchecked exceptions, and try-with-resources behavior."
 
 tags: "java,exceptions,error-handling"
-source: "https://shrikant-havale.in/2024/08/06/java-exception-handling/"
+source: "https://www.shrikant-havale.in/blog/java-exception-handling"
 ---
 
 A concise summary of Java exception handling fundamentals.
@@ -43,4 +43,4 @@ A concise summary of Java exception handling fundamentals.
 
 ## Source
 
-Original post: https://shrikant-havale.in/2024/08/06/java-exception-handling/
+Original post: https://www.shrikant-havale.in/blog/java-exception-handling

@@ -4,7 +4,7 @@ date: "2024-09-28"
 excerpt: "JDBC fundamentals: core interfaces, connection APIs, prepared/callable statements, bind variables, and ResultSet behavior."
 
 tags: "java,jdbc,database"
-source: "https://shrikant-havale.in/2024/09/28/database-jdbc/"
+source: "https://www.shrikant-havale.in/blog/database-jdbc"
 ---
 
 A concise reference for JDBC basics and common interview/exam details.
@@ -74,4 +74,4 @@ ResultSet rs = ps.executeQuery();
 
 ## Source
 
-Original post: https://shrikant-havale.in/2024/09/28/database-jdbc/
+Original post: https://www.shrikant-havale.in/blog/database-jdbc

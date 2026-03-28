@@ -4,7 +4,7 @@ date: "2023-10-13"
 excerpt: "An intro to Java file I/O, including classic I/O APIs and NIO.2, with guidance on modern usage."
 
 tags: "java,io,nio"
-source: "https://shrikant-havale.in/2023/10/13/java-io-api/"
+source: "https://www.shrikant-havale.in/blog/java-io-api"
 ---
 
 In this article, we look at Java I/O options for writing and reading application data from storage.
@@ -22,4 +22,4 @@ In modern Java applications, NIO.2 is generally preferred for richer capabilitie
 
 ## Source
 
-Original post: https://shrikant-havale.in/2023/10/13/java-io-api/
+Original post: https://www.shrikant-havale.in/blog/java-io-api

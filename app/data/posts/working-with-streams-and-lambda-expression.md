@@ -4,7 +4,7 @@ date: "2024-09-14"
 excerpt: "High-density notes on Java functional interfaces, stream pipelines, Optionals, reductions, collectors, and parallel processing rules."
 
 tags: "java,streams,lambda"
-source: "https://shrikant-havale.in/2024/09/14/working-with-streams-and-lambda-expression/"
+source: "https://www.shrikant-havale.in/blog/working-with-streams-and-lambda-expression"
 ---
 
 A practical checklist for Java functional programming and stream APIs.
@@ -69,4 +69,4 @@ IntStream.empty().average().getAsDouble(); // throws NoSuchElementException
 
 ## Source
 
-Original post: https://shrikant-havale.in/2024/09/14/working-with-streams-and-lambda-expression/
+Original post: https://www.shrikant-havale.in/blog/working-with-streams-and-lambda-expression
