@@ -16,7 +16,7 @@ export const projects: Project[] = [
     title: "Secure Code Execution Engine",
     preface: "Master's Thesis — FH Hagenberg, 2015",
     description:
-      "Designed and built a prototype for secure automated evaluation of programming assignments in Moodle using dynamically provisioned Oracle VirtualBox VMs — solving the security gap of executing untrusted student code that all existing grading systems of the time ignored.",
+      "Built a secure automated grading system for programming assignments in Moodle using isolated Oracle VirtualBox VMs per student.",
     tags: ["Java", "J2EE", "REST API", "Oracle VirtualBox", "Moodle", "SSH", "Tomcat", "SliTaz Linux", "System Design", "Security"],
     role: "Researcher, Architect and Developer",
     context:
@@ -29,7 +29,7 @@ export const projects: Project[] = [
       "Evaluated static analysis, Java Security Manager, sandboxing and Unix accounts before selecting VM isolation as the only approach that closes the full threat model.",
     ],
     outcomes: [
-      "Designed a 4-layer architecture separating virtualization, API control, business logic and Moodle integration — each layer independently replaceable.",
+      "Prototype of the same concept used today by HackerRank and LeetCode — built in 2015.",
       "Built a REST API (.war deployed on Tomcat) using Oracle VirtualBox SDK with 7 endpoints: check connection, get VM details, start VM, stop VM, clone VM, compile Java program, execute Java program.",
       "Each student assigned a dedicated isolated SliTaz Linux VM (64MB RAM, 1GB HDD) — malicious code damage contained to that VM only, cloneable from master in seconds.",
       "Moodle question type plugin integrated with Moodle gradebook, student accounts, course system and quiz workflow — instructors can mix programming questions with MCQ, true/false etc.",
@@ -105,7 +105,7 @@ export const projects: Project[] = [
     title: "Personal Portfolio Platform",
     preface: "Side project",
     description:
-      "Production-grade portfolio with CI/CD pipelines, static analysis, security hardening, and automated deployment verification.",
+      "Production-grade portfolio with CI/CD, static analysis, security hardening and automated deployment verification.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "GitHub Actions", "SonarCloud", "Vercel", "Claude Code"],
     role: "Designer and Engineer",
     context:
@@ -118,7 +118,7 @@ export const projects: Project[] = [
       "AI-assisted development workflow using Claude Code with WebStorm JetBrains plugin",
     ],
     outcomes: [
-      "Zero critical security vulnerabilities via SonarCloud quality gates",
+      "Zero critical vulnerabilities via SonarCloud. Full engineering pipeline from day one.",
       "Automated post-deployment SMTP health check on every release",
       "Dependabot automated dependency vulnerability scanning",
     ],

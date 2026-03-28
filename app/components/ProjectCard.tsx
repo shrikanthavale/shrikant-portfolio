@@ -73,7 +73,7 @@ function pickAccentKey(seed: string) {
   return ACCENT_ORDER[hash % ACCENT_ORDER.length];
 }
 
-const TECH_BADGE_META: Record<string, { icon: LucideIcon; tone: string }> = {
+export const TECH_BADGE_META: Record<string, { icon: LucideIcon; tone: string }> = {
   Java: { icon: Coffee, tone: "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-700/50 dark:bg-amber-500/10 dark:text-amber-100" },
   "Spring Boot": { icon: Leaf, tone: "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-700/50 dark:bg-emerald-500/10 dark:text-emerald-100" },
   Kafka: { icon: Workflow, tone: "border-indigo-300 bg-indigo-50 text-indigo-700 dark:border-indigo-700/50 dark:bg-indigo-500/10 dark:text-indigo-100" },
@@ -116,7 +116,7 @@ export default function ProjectCard({
   const prefaceLabel = preface ?? (isDetailed ? "Project narrative" : "Case study");
 
   return (
-    <article className={`glass-card glass-card-hover flex h-full flex-col justify-between rounded-2xl p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 ${accent.cardHover}`}>
+    <article className={`glass-card glass-card-hover flex h-full min-h-[300px] flex-col justify-between rounded-2xl p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 ${accent.cardHover}`}>
       <div>
         <p className={`text-[11px] font-semibold uppercase tracking-[0.16em] ${accent.preface}`}>
           {prefaceLabel}
@@ -136,24 +136,15 @@ export default function ProjectCard({
         ) : null}
       </div>
 
-      <div className="mt-7 flex flex-wrap gap-2 sm:gap-2.5">
-        {tags.map((tag) => {
-          const meta = TECH_BADGE_META[tag] ?? {
-            icon: Cpu,
-            tone: "border-slate-300 bg-slate-100 text-slate-700 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-100",
-          };
-          const Icon = meta.icon;
-
-          return (
-            <span
-              key={tag}
-              className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-semibold tracking-normal sm:gap-1.5 sm:px-3 sm:tracking-wide ${meta.tone}`}
-            >
-              <Icon className="h-3 w-3 shrink-0 opacity-95 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
-              <span>{tag}</span>
-            </span>
-          );
-        })}
+      <div className="mt-7 flex flex-wrap gap-1.5 sm:gap-2">
+        {tags.map((tag) => (
+          <span
+            key={tag}
+            className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-medium text-slate-500 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-400"
+          >
+            {tag}
+          </span>
+        ))}
       </div>
 
       {isDetailed && outcomes?.length ? (
