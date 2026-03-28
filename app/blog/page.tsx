@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import BlogPreviewClient from "@/app/components/BlogPreviewClient";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { getPosts } from "@/app/lib/getPosts";
+import { siteUrl } from "@/app/lib/config";
 
 const description =
   "Articles on backend engineering — Java microservices, distributed systems, resiliency patterns, observability, and event-driven architecture.";
@@ -46,6 +47,19 @@ export default function BlogIndexPage() {
           </Suspense>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+              { "@type": "ListItem", position: 2, name: "Blog", item: `${siteUrl}/blog` },
+            ],
+          }),
+        }}
+      />
     </main>
   );
 }

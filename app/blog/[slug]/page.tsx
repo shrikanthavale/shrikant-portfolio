@@ -6,6 +6,7 @@ import rehypeSlug from "rehype-slug";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import {getPostBySlug, getPostSlugs} from "@/app/lib/getPosts";
 import type {Metadata} from "next";
+import { siteUrl } from "@/app/lib/config";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -133,14 +134,12 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  return params.then(async ({ slug }) => {
+  return params.then(({ slug }) => {
     const post = getPostBySlug(slug);
 
     if (!post) {
       return { title: "Post not found" };
     }
-
-    const { siteUrl } = await import("@/app/lib/config");
 
     return {
       title: post.title,  // layout.tsx template adds "| Shrikant Havale" automatically
@@ -267,6 +266,24 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
           </div>
         </div>
       </article>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.title,
+            description: post.excerpt,
+            datePublished: post.date,
+            author: {
+              "@type": "Person",
+              name: "Shrikant Havale",
+              url: siteUrl,
+            },
+            url: `${siteUrl}/blog/${slug}`,
+          }),
+        }}
+      />
     </main>
   );
 }

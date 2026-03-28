@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ProjectCard from "@/app/components/ProjectCard";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { projects } from "@/app/data/projects";
+import { siteUrl } from "@/app/lib/config";
 
 const description =
   "Backend engineering projects by Shrikant Havale — microservices, distributed systems, event-driven architecture, and real-world system design.";
@@ -55,6 +56,19 @@ export default function ProjectsIndexPage() {
           </div>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+              { "@type": "ListItem", position: 2, name: "Projects", item: `${siteUrl}/projects` },
+            ],
+          }),
+        }}
+      />
     </main>
   );
 }
