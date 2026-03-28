@@ -10,7 +10,7 @@ export function generateMetadata() {
   const project = projects.find((p) => p.slug === "secure-code-execution-engine");
   if (!project) return { title: "Project not found" };
   return {
-    title: `${project.title} | Project Details`,
+    title: project.title,
     description: project.description,
   };
 }

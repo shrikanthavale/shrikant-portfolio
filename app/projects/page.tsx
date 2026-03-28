@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import ProjectCard from "@/app/components/ProjectCard";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { projects } from "@/app/data/projects";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Backend engineering projects by Shrikant Havale — microservices, distributed systems, event-driven architecture, and real-world system design.",
+};
 
 export default function ProjectsIndexPage() {
   return (

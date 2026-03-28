@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import BlogPreviewClient from "@/app/components/BlogPreviewClient";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { getPosts } from "@/app/lib/getPosts";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description:
+    "Articles on backend engineering — Java microservices, distributed systems, resiliency patterns, observability, and event-driven architecture.",
+};
 
 export default function BlogIndexPage() {
   const posts = getPosts();

@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import CertificationsClient from "@/app/components/CertificationsClient";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { certifications } from "@/app/data/certifications";
+
+export const metadata: Metadata = {
+  title: "Certifications",
+  description:
+    "Technical certifications earned by Shrikant Havale across cloud platforms, backend engineering, and distributed systems.",
+};
 
 export default function CertificationsPage() {
   return (

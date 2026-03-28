@@ -29,7 +29,7 @@ export function generateMetadata({ params }: ProjectPageProps) {
     const project = getProjectBySlug(slug);
     if (!project) return { title: "Project not found" };
     return {
-      title: `${project.title} | Project Details`,
+      title: project.title,
       description: project.description,
     };
   });

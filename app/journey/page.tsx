@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import ExperienceTimeline from "@/app/components/ExperienceTimeline";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
+
+export const metadata: Metadata = {
+  title: "Career Journey",
+  description:
+    "A timeline of Shrikant Havale's career as a backend engineer — roles, responsibilities, and growth across enterprise and product companies.",
+};
 
 export default function JourneyPage() {
   return (
