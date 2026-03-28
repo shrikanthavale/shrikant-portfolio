@@ -1,0 +1,34 @@
+import { test, expect } from "@playwright/test";
+
+test.describe("Navigation", () => {
+  test("homepage loads with correct title", async ({ page }) => {
+    await page.goto("/");
+    await expect(page).toHaveTitle(/Shrikant Havale/);
+  });
+
+  test("logo/name links back to homepage", async ({ page }) => {
+    await page.goto("/journey");
+    await page.locator('a[href="#hero"]').first().click();
+    await expect(page).toHaveURL("/");
+  });
+
+  test("Projects nav link is visible on homepage", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator('nav a[href="#projects"]')).toBeVisible();
+  });
+
+  test("Blog nav link is visible on homepage", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator('nav a[href="#blog"]')).toBeVisible();
+  });
+
+  test("Contact nav link is visible on homepage", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator('nav a[href="#contact"]')).toBeVisible();
+  });
+
+  test("'Let's talk' button is visible", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator('a[href="#contact"]').filter({ hasText: /let.s talk/i })).toBeVisible();
+  });
+});
