@@ -15,44 +15,42 @@ export default function BlogToc({ items }: Readonly<{ items: TocItem[] }>) {
   if (items.length < 2) return null;
 
   return (
-    <div className="mt-8 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800">
+    <div className="border-y border-slate-200 py-5 dark:border-slate-800">
       {/* Mobile toggle button */}
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between bg-slate-50 px-5 py-3.5 md:hidden dark:bg-slate-900/60"
+        className="flex w-full items-center justify-between md:hidden"
         aria-expanded={open}
       >
-        <span className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-500 dark:text-slate-400">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500">
           On this page
         </span>
         <ChevronDown
-          className={`h-4 w-4 text-slate-400 transition-transform duration-200 dark:text-slate-500 ${open ? "rotate-180" : ""}`}
+          className={`h-3.5 w-3.5 text-slate-400 transition-transform duration-200 dark:text-slate-500 ${open ? "rotate-180" : ""}`}
           aria-hidden="true"
         />
       </button>
 
-      {/* Desktop header (always visible) */}
-      <div className="hidden border-b border-slate-100 bg-slate-50 px-5 py-3.5 md:block dark:border-slate-800 dark:bg-slate-900/60">
-        <p className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-500 dark:text-slate-400">
-          On this page
-        </p>
-      </div>
+      {/* Desktop label (always visible) */}
+      <p className="hidden text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400 md:block dark:text-slate-500">
+        On this page
+      </p>
 
       {/* TOC items */}
       <nav
         aria-label="Table of contents"
         className={`${open ? "block" : "hidden"} md:block`}
       >
-        <ul className="divide-y divide-slate-100 dark:divide-slate-800/60">
+        <ul className="mt-3 space-y-1">
           {items.map((item) => (
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
-                className={`block py-2.5 text-sm transition-colors hover:bg-indigo-50 hover:text-indigo-700 dark:hover:bg-indigo-950/30 dark:hover:text-indigo-300 ${
+                className={`block py-1 text-sm transition-colors hover:text-indigo-600 dark:hover:text-indigo-400 ${
                   item.level === 3
-                    ? "pl-9 text-slate-500 dark:text-slate-400"
-                    : "pl-5 text-slate-600 dark:text-slate-300"
+                    ? "pl-4 text-slate-400 dark:text-slate-500"
+                    : "text-slate-500 dark:text-slate-400"
                 }`}
               >
                 {item.text}

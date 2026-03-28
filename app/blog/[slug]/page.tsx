@@ -308,9 +308,9 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
 
   return (
     <main className="min-h-screen bg-white text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
-      <SubpageTopBar leftLabel="← All blogs" leftHref="/blog" maxWidthClass="max-w-[720px]" />
+      <SubpageTopBar leftLabel="← All blogs" leftHref="/blog" maxWidthClass="max-w-[680px]" />
 
-      <div className="mx-auto max-w-[720px] px-6 py-14 sm:py-20">
+      <div className="mx-auto max-w-[680px] px-6 sm:px-0 py-16 sm:py-24">
 
         {/* ── Header ── */}
         <header>
@@ -320,7 +320,7 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
               {post.tags.map((tag) => (
                 <span
                   key={`${post.slug}-tag-${tag}`}
-                  className="rounded-full border border-indigo-200/80 bg-indigo-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-indigo-700 dark:border-indigo-800/60 dark:bg-indigo-950/40 dark:text-indigo-300"
+                  className="rounded-full border border-indigo-200/70 bg-indigo-50/80 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.07em] text-indigo-600 dark:border-indigo-800/50 dark:bg-indigo-950/40 dark:text-indigo-400"
                 >
                   {tag}
                 </span>
@@ -329,46 +329,48 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
           )}
 
           {/* Title */}
-          <h1 className="mt-5 text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+          <h1 className="mt-6 text-[2rem] font-extrabold leading-[1.15] tracking-tight text-slate-900 sm:text-[2.75rem] dark:text-white">
             {post.title}
           </h1>
 
           {/* Excerpt */}
-          <p className="mt-4 max-w-[60ch] text-lg leading-relaxed text-slate-500 dark:text-slate-400">
+          <p className="mt-6 max-w-[60ch] text-[1.125rem] leading-relaxed text-slate-500 dark:text-slate-400">
             {post.excerpt}
           </p>
 
-          {/* Meta row */}
-          <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-slate-400 dark:text-slate-500">
-            <span>{formatDate(post.date)}</span>
-            <span aria-hidden="true">·</span>
-            <span>{readMinutes} min read</span>
-            {post.source === "original" && (
-              <>
-                <span aria-hidden="true">·</span>
-                <span>Original</span>
-              </>
-            )}
-            {post.source && post.source !== "original" && (
-              <>
-                <span aria-hidden="true">·</span>
-                <a
-                  href={post.source}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
-                >
-                  Source article ↗
-                </a>
-              </>
-            )}
+          {/* Meta row — indigo left-border accent */}
+          <div className="mt-7 border-l-2 border-indigo-400 pl-3 dark:border-indigo-600">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-400 dark:text-slate-500">
+              <span>{formatDate(post.date)}</span>
+              <span aria-hidden="true">·</span>
+              <span>{readMinutes} min read</span>
+              {post.source === "original" && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <span>Original</span>
+                </>
+              )}
+              {post.source && post.source !== "original" && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <a
+                    href={post.source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                  >
+                    Source article ↗
+                  </a>
+                </>
+              )}
+            </div>
           </div>
-
-          <hr className="mt-8 border-slate-200 dark:border-slate-800" />
         </header>
 
         {/* ── Table of contents ── */}
-        <BlogToc items={tocItems} />
+        <div className="mt-10">
+          <BlogToc items={tocItems} />
+        </div>
 
         {/* ── Architecture context cards (specific post) ── */}
         {isArchitecturePost && (
@@ -385,7 +387,7 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
         )}
 
         {/* ── Article body ── */}
-        <article className="mt-10">
+        <article className="mt-12">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeSlug]}
