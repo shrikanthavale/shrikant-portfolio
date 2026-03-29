@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { Code2, Github, Linkedin, TerminalSquare } from "lucide-react";
+import { Code2, TerminalSquare } from "lucide-react";
 import { siteConfig } from "@/app/site.config";
+import { GithubIcon, LinkedinIcon } from "@/app/components/BrandIcons";
 
-const iconMap = { Github, Linkedin, Code2, TerminalSquare };
+const iconMap = { Github: GithubIcon, Linkedin: LinkedinIcon, Code2, TerminalSquare };
 
 export default function Footer() {
   const { person, social, footer } = siteConfig;

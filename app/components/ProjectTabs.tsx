@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { Cpu, type LucideIcon } from "lucide-react";
+import { Cpu } from "lucide-react";
 import { TECH_BADGE_META } from "@/app/components/ProjectCard";
 
 export type ProjectTab = {
@@ -77,7 +77,7 @@ function TechChips({ tagList }: Readonly<{ tagList: string[] }>) {
           icon: Cpu,
           tone: "border-slate-300 bg-slate-100 text-slate-700 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-100",
         };
-        const Icon = meta.icon as LucideIcon;
+        const Icon = meta.icon;
         return (
           <span
             key={tag}

@@ -1,4 +1,5 @@
-import { Github, type LucideIcon } from "lucide-react";
+import { type LucideIcon } from "lucide-react";
+import { GithubIcon } from "@/app/components/BrandIcons";
 
 function OracleIcon() {
   return (
@@ -22,7 +23,7 @@ type IconEntry = { Icon: LucideIcon; color: string } | { custom: React.ReactNode
 
 const issuerIconMap: Record<string, IconEntry> = {
   Oracle: { custom: <OracleIcon /> },
-  GitHub: { Icon: Github, color: "#181717" },
+  GitHub: { custom: <GithubIcon width={20} height={20} style={{ color: "#181717" }} /> },
   Broadcom: { custom: <SpringIcon /> },
 };
 

@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
-import { Award, Github, Linkedin, Milestone } from "lucide-react";
+import { Award, Milestone } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/app/site.config";
+import { GithubIcon, LinkedinIcon } from "@/app/components/BrandIcons";
 
-const iconMap = { Github, Linkedin };
+const iconMap = { Github: GithubIcon, Linkedin: LinkedinIcon };
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");

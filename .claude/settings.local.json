@@ -33,7 +33,10 @@
       "Bash(grep -E \"^\\\\s*d|\\\\.json$|\\\\.js$|\\\\.ts$|\\\\.md$\")",
       "Bash(curl -s \"https://sonarcloud.io/api/issues/search?projectKeys=shrikanthavale_shrikant-portfolio&statuses=OPEN&ps=50\" -H \"Authorization: Bearer $SONARQUBE_TOKEN\")",
       "Bash(python3 -m json.tool)",
-      "Bash(curl -s \"https://sonarcloud.io/api/issues/search?projectKeys=shrikanthavale_shrikant-portfolio&statuses=OPEN&ps=50\")"
+      "Bash(curl -s \"https://sonarcloud.io/api/issues/search?projectKeys=shrikanthavale_shrikant-portfolio&statuses=OPEN&ps=50\")",
+      "Bash(ls \"D:\\\\Developer\\\\Shrikant-Portfolio\\\\shrikant-portfolio\\\\node_modules\\\\lucide-react\\\\dist\\\\esm\\\\icons | grep -i github\")",
+      "Bash(linkedin)",
+      "Bash(npx eslint:*)"
     ]
   }
 }

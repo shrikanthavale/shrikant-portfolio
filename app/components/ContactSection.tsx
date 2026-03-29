@@ -2,10 +2,10 @@
 
 import { useState, type SyntheticEvent } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
-import { Github, Linkedin } from "lucide-react";
 import { siteConfig } from "@/app/site.config";
+import { GithubIcon, LinkedinIcon } from "@/app/components/BrandIcons";
 
-const iconMap = { Github, Linkedin };
+const iconMap = { Github: GithubIcon, Linkedin: LinkedinIcon };
 
 type FormState = {
   name: string;
