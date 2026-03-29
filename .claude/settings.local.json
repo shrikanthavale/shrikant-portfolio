@@ -29,7 +29,8 @@
       "WebFetch(domain:cdn.simpleicons.org)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(npx playwright:*)",
-      "Bash(\"D:/Developer/Shrikant-Portfolio/shrikant-portfolio/.gitignore\":*)"
+      "Bash(\"D:/Developer/Shrikant-Portfolio/shrikant-portfolio/.gitignore\":*)",
+      "Bash(grep -E \"^\\\\s*d|\\\\.json$|\\\\.js$|\\\\.ts$|\\\\.md$\")"
     ]
   }
 }
