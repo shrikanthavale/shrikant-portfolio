@@ -3,6 +3,9 @@
 import { useState, type SyntheticEvent } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { Github, Linkedin } from "lucide-react";
+import { siteConfig } from "@/app/site.config";
+
+const iconMap = { Github, Linkedin };
 
 type FormState = {
   name: string;
@@ -26,6 +29,9 @@ export default function ContactSection() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
   const canSubmit = status !== "submitting" && (!turnstileSiteKey || Boolean(form.turnstileToken));
+
+  const { contact, resume, social } = siteConfig;
+  const navbarSocial = social.filter((s) => s.navbarVisible);
 
   const updateField = (field: keyof FormState, value: string) => {
     if (status !== "idle") {
@@ -63,7 +69,7 @@ export default function ContactSection() {
       }
 
       setStatus("success");
-      setStatusMessage("Thanks for reaching out. I will get back to you within 24 hours.");
+      setStatusMessage(contact.successMessage);
       setForm(initialState);
     } catch {
       setStatus("error");
@@ -85,52 +91,48 @@ export default function ContactSection() {
     <section id="contact" className="section-ambient border-t border-slate-200 bg-white/85 dark:border-slate-800 dark:bg-slate-950/70">
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="heading-gradient text-3xl font-bold tracking-tight sm:text-5xl">Let&apos;s build scalable systems together</h2>
+          <h2 className="heading-gradient text-3xl font-bold tracking-tight sm:text-5xl">{contact.heading}</h2>
           <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg sm:leading-9 dark:text-gray-400">
-            I design resilient backend systems, distributed architectures, and high-throughput event-driven platforms.
+            {contact.subheading}
           </p>
         </div>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-start">
           <div className="lg:order-2">
             <div className="mt-6 rounded-xl border border-slate-200 bg-white/60 p-4 dark:border-slate-800 dark:bg-slate-900/40">
-              <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">To help me respond faster, please include:</p>
+              <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{contact.hintsTitle}</p>
               <ul className="mt-2 space-y-1 text-sm text-slate-600 dark:text-slate-300">
-                <li>- Project context or role details</li>
-                <li>- Expected timeline</li>
-                <li>- Relevant links or references</li>
+                {contact.hints.map((hint) => (
+                  <li key={hint}>- {hint}</li>
+                ))}
               </ul>
             </div>
 
             <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <a
-                href="/Havale_Shrikant.pdf"
+                href={resume.path}
                 download
                 className="inline-flex w-full items-center justify-center rounded-md bg-gradient-to-r from-sky-500 to-cyan-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-[1.03] hover:shadow-md hover:shadow-sky-400/40 sm:w-auto"
               >
                 Download Resume
               </a>
               <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:items-center">
-                <a
-                  href="https://github.com/shrikanthavale"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                  className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
-                >
-                  <Github className="h-4 w-4" aria-hidden="true" />
-                  <span>GitHub</span>
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/shrikanthavale/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
-                >
-                  <Linkedin className="h-4 w-4" aria-hidden="true" />
-                  <span>LinkedIn</span>
-                </a>
+                {navbarSocial.map((s) => {
+                  const Icon = iconMap[s.icon as keyof typeof iconMap];
+                  return (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm transition-all duration-200 hover:scale-[1.03] hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-300 sm:w-auto"
+                    >
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                      <span>{s.label}</span>
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -171,7 +173,7 @@ export default function ContactSection() {
                     required
                     rows={6}
                     maxLength={3000}
-                    placeholder="Tell me a bit about the project, role, or problem you want to discuss."
+                    placeholder={contact.messagePlaceholder}
                     value={form.message}
                     onChange={(event) => updateField("message", event.target.value)}
                     className="min-h-40 w-full resize-y rounded-md border border-slate-300 bg-white px-3 py-3 text-sm text-slate-700 outline-none ring-0 transition-all duration-200 placeholder:text-slate-400 focus:border-sky-500 focus:shadow-[0_0_0_4px_rgba(14,165,233,0.12)] dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:shadow-[0_0_0_4px_rgba(56,189,248,0.12)]"
@@ -220,7 +222,7 @@ export default function ContactSection() {
                     "Send message"
                   )}
                 </button>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Usually responds within 24 hours</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{contact.responseTime}</p>
               </div>
 
               {status !== "idle" && (

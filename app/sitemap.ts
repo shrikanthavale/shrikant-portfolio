@@ -3,38 +3,38 @@ import { getPosts } from "@/app/lib/getPosts";
 import { projects } from "@/app/data/projects";
 
 
-import { siteUrl } from "@/app/lib/config";
+import { siteConfig } from "@/app/site.config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: siteUrl,
+      url: siteConfig.seo.url,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: `${siteUrl}/journey`,
+      url: `${siteConfig.seo.url}/journey`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/projects`,
+      url: `${siteConfig.seo.url}/projects`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${siteUrl}/blog`,
+      url: `${siteConfig.seo.url}/blog`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${siteUrl}/certifications`,
+      url: `${siteConfig.seo.url}/certifications`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
@@ -42,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const projectRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
-     url: `${siteUrl}/projects/${project.slug}`,
+     url: `${siteConfig.seo.url}/projects/${project.slug}`,
     lastModified: now,
     changeFrequency: "monthly",
     priority: 0.75,
@@ -52,7 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const parsedDate = Date.parse(post.date);
 
     return {
-      url: `${siteUrl}${post.href}`,
+      url: `${siteConfig.seo.url}${post.href}`,
       lastModified: Number.isNaN(parsedDate) ? now : new Date(parsedDate),
       changeFrequency: "yearly",
       priority: 0.7,

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ProjectCard from "@/app/components/ProjectCard";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { projects } from "@/app/data/projects";
-import { siteUrl } from "@/app/lib/config";
+import { siteConfig } from "@/app/site.config";
 
 const description =
   "Backend engineering projects by Shrikant Havale — microservices, distributed systems, event-driven architecture, and real-world system design.";
@@ -63,8 +63,8 @@ export default function ProjectsIndexPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-              { "@type": "ListItem", position: 2, name: "Projects", item: `${siteUrl}/projects` },
+              { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.seo.url },
+              { "@type": "ListItem", position: 2, name: "Projects", item: `${siteConfig.seo.url}/projects` },
             ],
           }),
         }}

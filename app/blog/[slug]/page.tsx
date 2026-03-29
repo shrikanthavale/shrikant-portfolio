@@ -9,7 +9,7 @@ import BlogToc from "@/app/components/BlogToc";
 import type { TocItem } from "@/app/components/BlogToc";
 import { getPostBySlug, getPostSlugs, getPosts } from "@/app/lib/getPosts";
 import type { Metadata } from "next";
-import { siteUrl } from "@/app/lib/config";
+import { siteConfig } from "@/app/site.config";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -267,7 +267,7 @@ export function generateMetadata({ params }: BlogPostPageProps): Promise<Metadat
       title: post.title,
       description: post.excerpt,
       alternates: {
-        canonical: `${siteUrl}/blog/${slug}`,
+        canonical: `${siteConfig.seo.url}/blog/${slug}`,
       },
       openGraph: {
         title: post.title,
@@ -276,7 +276,7 @@ export function generateMetadata({ params }: BlogPostPageProps): Promise<Metadat
         publishedTime: post.date,
         authors: ["Shrikant Havale"],
         tags: post.tags,
-        url: `${siteUrl}/blog/${slug}`,
+        url: `${siteConfig.seo.url}/blog/${slug}`,
         images: [{ url: "/profile.jpg", width: 500, height: 500, alt: "Shrikant Havale" }],
       },
       twitter: {
@@ -491,9 +491,9 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
             author: {
               "@type": "Person",
               name: "Shrikant Havale",
-              url: siteUrl,
+              url: siteConfig.seo.url,
             },
-            url: `${siteUrl}/blog/${slug}`,
+            url: `${siteConfig.seo.url}/blog/${slug}`,
           }),
         }}
       />

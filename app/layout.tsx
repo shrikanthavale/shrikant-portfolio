@@ -5,7 +5,10 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import ThemeProvider from "@/app/components/ThemeProvider";
 import "./globals.css";
 
-import { siteUrl, siteName, siteAuthor } from "@/app/lib/config";
+import { siteConfig } from "@/app/site.config";
+
+const { person, seo, social } = siteConfig;
+const pageTitle = `${person.name} | ${person.title}`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,51 +21,40 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(seo.url),
   title: {
-    default: "Shrikant Havale | Senior Backend Engineer",
-    template: "%s | Shrikant Havale",
+    default: pageTitle,
+    template: `%s | ${person.name}`,
   },
-  description:
-    "Shrikant Havale is a Senior Backend Engineer specializing in Java microservices, distributed systems, resiliency, observability, and event-driven architecture.",
-  keywords: [
-    "Shrikant Havale",
-    "Senior Backend Engineer",
-    "Java Backend Developer",
-    "Spring Boot",
-    "Microservices",
-    "Distributed Systems",
-    "Portfolio",
-  ],
-  authors: [{ name: siteAuthor, url: siteUrl }],
-  creator: "Shrikant Havale",
-  publisher: siteAuthor,
+  description: seo.description,
+  keywords: seo.keywords,
+  authors: [{ name: person.name, url: seo.url }],
+  creator: person.name,
+  publisher: person.name,
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-     url: siteUrl,
-    title: "Shrikant Havale | Senior Backend Engineer",
-    description:
-      "Portfolio showcasing Java backend engineering work in resilient microservices, distributed systems, and technical architecture.",
-     siteName: siteName,
+    url: seo.url,
+    title: pageTitle,
+    description: seo.ogDescription,
+    siteName: seo.siteName,
     images: [
       {
-        url: "/profile.jpg",
+        url: seo.ogImage,
         width: 500,
         height: 500,
-        alt: "Shrikant Havale",
+        alt: person.name,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shrikant Havale | Senior Backend Engineer",
-    description:
-      "Portfolio showcasing Java backend engineering work in resilient microservices, distributed systems, and technical architecture.",
-    images: ["/profile.jpg"],
+    title: pageTitle,
+    description: seo.ogDescription,
+    images: [seo.ogImage],
   },
   robots: {
     index: true,
@@ -75,7 +67,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "vdT2Qx0QvbFBMDrxdEFqrntWgxIPbf6v5MA6fqGGy_Q",
+    google: seo.googleVerification,
   },
 };
 
@@ -87,20 +79,16 @@ export default function RootLayout({
   const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Shrikant Havale",
-     url: siteUrl,
-     image: `${siteUrl}/profile.jpg`,
-    jobTitle: "Senior Backend Engineer",
+    name: person.name,
+    url: seo.url,
+    image: `${seo.url}${person.profilePhoto}`,
+    jobTitle: person.title,
     worksFor: {
       "@type": "Organization",
-      name: "Eurofunk Kappacher Gmbh"
+      name: person.currentEmployer,
     },
-    knowsAbout: ["Java", "Spring Boot", "Microservices", "Kafka", "Redis", "Distributed Systems"],
-    sameAs: [
-      "https://github.com/shrikanthavale",
-      "https://www.linkedin.com/in/shrikanthavale/",
-      "https://stackoverflow.com/users/2931342/shrikant-havale",  // ← add SO and HackerRank
-    ],
+    knowsAbout: person.knowsAbout,
+    sameAs: social.map((s) => s.href),
   };
 
   return (

@@ -1,7 +1,7 @@
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import ProjectTabs, { type ProjectTab } from "@/app/components/ProjectTabs";
 import { TECH_BADGE_META } from "@/app/components/ProjectCard";
-import { siteUrl } from "@/app/lib/config";
+import { siteConfig } from "@/app/site.config";
 import type { Project } from "@/app/data/projects";
 import { Cpu } from "lucide-react";
 
@@ -55,9 +55,9 @@ export default function ProjectPageShell({ project, slug, tabs }: Readonly<Proje
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-              { "@type": "ListItem", position: 2, name: "Projects", item: `${siteUrl}/projects` },
-              { "@type": "ListItem", position: 3, name: project.title, item: `${siteUrl}/projects/${slug}` },
+              { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.seo.url },
+              { "@type": "ListItem", position: 2, name: "Projects", item: `${siteConfig.seo.url}/projects` },
+              { "@type": "ListItem", position: 3, name: project.title, item: `${siteConfig.seo.url}/projects/${slug}` },
             ],
           }),
         }}

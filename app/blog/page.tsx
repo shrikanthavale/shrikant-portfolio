@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import BlogPreviewClient from "@/app/components/BlogPreviewClient";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import { getPosts } from "@/app/lib/getPosts";
-import { siteUrl } from "@/app/lib/config";
+import { siteConfig } from "@/app/site.config";
 
 const description =
   "Articles on backend engineering — Java microservices, distributed systems, resiliency patterns, observability, and event-driven architecture.";
@@ -54,8 +54,8 @@ export default function BlogIndexPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-              { "@type": "ListItem", position: 2, name: "Blog", item: `${siteUrl}/blog` },
+              { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.seo.url },
+              { "@type": "ListItem", position: 2, name: "Blog", item: `${siteConfig.seo.url}/blog` },
             ],
           }),
         }}

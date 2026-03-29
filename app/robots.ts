@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 
-import { siteUrl } from "@/app/lib/config";
+import { siteConfig } from "@/app/site.config";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -10,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],  // ← add this
     },
-    sitemap: `${siteUrl}/sitemap.xml`,
-    host: siteUrl,
+    sitemap: `${siteConfig.seo.url}/sitemap.xml`,
+    host: siteConfig.seo.url,
   };
 }

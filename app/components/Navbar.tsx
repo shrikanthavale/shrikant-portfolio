@@ -6,14 +6,9 @@ import ThemeToggle from "./ThemeToggle";
 import { Award, Github, Linkedin, Milestone } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { siteConfig } from "@/app/site.config";
 
-const NAV_ITEMS = [
-  { label: "Home", href: "#hero" },
-  { label: "Projects", href: "#projects" },
-  { label: "Tech Stack", href: "#tech" },
-  { label: "Blog", href: "#blog" },
-  { label: "Contact", href: "#contact" },
-] as const;
+const iconMap = { Github, Linkedin };
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -23,8 +18,11 @@ export default function Navbar() {
   const iconButtonClassName =
     "inline-flex h-9 w-9 items-center justify-center rounded-md border bg-white/80 text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:bg-sky-500";
 
+  const { person, navbar, social } = siteConfig;
+  const navbarSocial = social.filter((s) => s.navbarVisible);
+
   useEffect(() => {
-    const sectionIds = NAV_ITEMS.map((item) => item.href.slice(1));
+    const sectionIds = navbar.navItems.map((item) => item.href.slice(1));
     const sections = sectionIds
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
@@ -65,20 +63,20 @@ export default function Navbar() {
       window.removeEventListener("scroll", updateActiveSection);
       window.removeEventListener("resize", updateActiveSection);
     };
-  }, []);
+  }, [navbar.navItems]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white transition-colors dark:border-slate-800 dark:bg-slate-950/95 dark:backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
         <a
           href="#hero"
-          title="Senior Backend Engineer"
+          title={person.title}
           className="flex items-center gap-3 leading-tight text-slate-900 dark:text-white"
         >
           <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-sky-500/40">
             <Image
-              src="/profile.jpg"
-              alt="Shrikant Havale"
+              src={person.profilePhoto}
+              alt={person.name}
               fill
               sizes="(max-width: 768px) 100vw, 48px"
               className="object-cover"
@@ -86,12 +84,12 @@ export default function Navbar() {
             />
           </div>
           <span className="flex flex-col">
-            <span className="text-xl font-bold tracking-wide">Shrikant Havale</span>
-            <span className="text-xs font-medium tracking-wide text-slate-500 dark:text-gray-400">Senior Backend Engineer</span>
+            <span className="text-xl font-bold tracking-wide">{person.name}</span>
+            <span className="text-xs font-medium tracking-wide text-slate-500 dark:text-gray-400">{person.title}</span>
           </span>
         </a>
         <nav className="hidden items-center gap-4 text-[13px] font-medium text-slate-600 lg:gap-5 lg:text-sm md:flex dark:text-slate-200">
-          {NAV_ITEMS.map((item) => {
+          {navbar.navItems.map((item) => {
             const isActive = activeSection === item.href.slice(1);
 
             return (
@@ -137,30 +135,27 @@ export default function Navbar() {
           >
             <Award className="h-4 w-4" aria-hidden="true" />
           </Link>
-          <a
-            href="https://github.com/shrikanthavale"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className={`${iconButtonClassName} border-slate-300 dark:border-slate-700`}
-          >
-            <Github className="h-4 w-4" aria-hidden="true" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/shrikanthavale/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className={`${iconButtonClassName} border-slate-300 dark:border-slate-700`}
-          >
-            <Linkedin className="h-4 w-4" aria-hidden="true" />
-          </a>
+          {navbarSocial.map((s) => {
+            const Icon = iconMap[s.icon as keyof typeof iconMap];
+            return (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className={`${iconButtonClassName} border-slate-300 dark:border-slate-700`}
+              >
+                <Icon className="h-4 w-4" aria-hidden="true" />
+              </a>
+            );
+          })}
           <ThemeToggle />
           <a
-            href="#contact"
+            href={navbar.cta.href}
             className="rounded-md bg-sky-700 px-3 py-1.5 text-xs font-medium text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-105 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-400/40 sm:px-4 sm:py-2 sm:text-sm dark:bg-sky-500 dark:hover:bg-sky-400"
           >
-            Let&apos;s talk
+            {navbar.cta.label}
           </a>
         </div>
       </div>
