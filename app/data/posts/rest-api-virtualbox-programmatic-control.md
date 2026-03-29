@@ -30,6 +30,8 @@ Virtual Machines (SliTaz Linux)
 
 The REST API becomes a language-agnostic interface. Any client — PHP, Python, mobile app — can control VMs without knowing anything about the VirtualBox SDK. This is the same pattern used by cloud providers like AWS EC2, which expose VM management through HTTP APIs regardless of the underlying hypervisor.
 
+![Layer 3 and Layer 2 detail — Web Service, VM Management Component, Programming Component, and VM Entities bundled into a single .war deployed on Tomcat, with the VBox SDK in Layer 2 below](/images/blog/SystemArchitecture_VMPAPILayer.png)
+
 ## The VirtualBox SDK
 
 Oracle VirtualBox ships with `vboxjws.jar` — a Java library that exposes the full VirtualBox API. Before the REST API can use it, VirtualBox must be running with its web service enabled:
@@ -147,6 +149,8 @@ IProgress progress = machine.deleteConfig(media);
 progress.waitForCompletion(60000);
 ```
 
+![VM Management Component class diagram — the restapi package (Jersey endpoints) delegates to the business package which accesses IMachine and ISession interfaces from the VBox SDK for remote VM control](/images/blog/VMAPI_VirtualManager.png)
+
 ### Code Execution
 
 **Copy source file into VM:**
@@ -193,6 +197,8 @@ Body: { "vmName": "student-42" }
 ```
 
 Same pattern — SSH into VM, run utility with `execute` flag, capture stdout/stderr.
+
+![Programming Component class diagram — SSH-based classes responsible for copying source files into the VM and invoking the utility JAR to compile and execute Java code, separate from VM lifecycle management](/images/blog/VMAPI_Programming.png)
 
 ## Request and Response Format
 

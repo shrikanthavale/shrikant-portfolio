@@ -21,17 +21,19 @@ The system needed to:
 
 The last requirement is the hard one. For the threat model and why naive approaches fail, see the earlier post on [executing untrusted code safely](/blog/executing-untrusted-code).
 
+![Deployment overview — Moodle platform server, VirtualBox host with vBoxWebSrv, and per-student SliTaz Linux VMs as independent deployment units connected over the same network](/images/blog/DeploymentDiagram.png)
+
 ## Four-Layer Architecture
 
 The system is divided into four independent layers, each with a single responsibility.
 
-![Overall system architecture showing four layers](/images/blog/SystemArchitecture.png)
+![Overall four-layer system architecture — virtualization at the base, VBox SDK above it, REST management API in the middle, and Moodle at the top. Every layer is independent and replaceable](/images/blog/SystemArchitecture.png)
 
 **Layer 1 — Virtualization Layer**
-Hosts Oracle VirtualBox with multiple minimal Linux VMs (SliTaz Linux, ~30MB). Each VM has only what it needs: SSH, JRE, and a small utility application for compiling and executing Java programs. Nothing else. No web server, no database, no shared filesystem with the host.
+Hosts Oracle VirtualBox with multiple minimal Linux VMs (SliTaz Linux, ~30MB ISO, 64MB RAM, 1GB HDD per VM). Each VM has only what it needs: SSH powered by Dropbear, JDK, and a small utility JAR for compiling and executing Java programs. Nothing else. No web server, no database, no shared filesystem with the host or other VMs.
 
 **Layer 2 — Virtualization API Layer**
-The Oracle VirtualBox SDK (`vboxjws.jar`) — a Java library that exposes programmatic control over VMs. This layer is vendor-provided, not custom code. It maps directly to what VirtualBox's desktop application does, but accessible via Java API calls.
+The Oracle VirtualBox SDK (`vboxjws.jar`) — a Java library that exposes programmatic control over VMs. This layer is vendor-provided, not custom code. It maps directly to what VirtualBox's desktop application does, but accessible via Java API calls. Every competing technology in Layer 1 (VMware, Docker, AWS EC2) ships an equivalent SDK — there is always a one-to-one pairing between the virtualization technology and its API layer.
 
 **Layer 3 — VM Management and Programming API**
 The core of the system. A Java/J2EE web application deployed on Tomcat that exposes a REST API. It uses the VirtualBox SDK from Layer 2 to control VMs, and SSH to transfer files and run programs inside them.
@@ -39,7 +41,7 @@ The core of the system. A Java/J2EE web application deployed on Tomcat that expo
 **Layer 4 — Application Layer**
 The Moodle plugin. It makes HTTP calls to Layer 3 and renders results to students and instructors. It has no knowledge of what happens in the layers below — VMs, SSH, VirtualBox are all invisible to it.
 
-The key design principle: each layer is independently replaceable. Swap VirtualBox for Docker in Layer 1 and 2, and Layer 3 adapts its SDK calls. Layer 4 never changes.
+The key design principle: each layer is independently replaceable. Swap VirtualBox for Docker in Layers 1 and 2, and Layer 3 adapts its SDK calls. Layer 4 never changes.
 
 ## Layer 3 in Detail: The REST API
 
@@ -47,9 +49,9 @@ This is where all the business logic lives. The API has two components.
 
 ### VM Management Component
 
-Handles the lifecycle of virtual machines:
+Handles the lifecycle of virtual machines.
 
-![VM Management and Programming API layer architecture](/images/blog/SystemArchitecture_VMPAPILayer.png)
+![Virtual Machine Management and Programming API layer — Layer 3 and Layer 2 combined, showing the internal Web Service, VM Management Component, Programming Component, and VM Entity classes](/images/blog/SystemArchitecture_VMPAPILayer.png)
 
 ```
 GET  /vm/list                    → list all VMs and their status
@@ -61,12 +63,12 @@ POST /vm/{name}/copyfile         → copy source file into VM via SSH
 DELETE /vm/{name}                → delete the VM
 ```
 
-The internal class structure has two layers:
+The internal class structure separates concerns across two packages:
 
-- `com.fhooe.mc.thesis.virtualmachine.restapi` — Jersey REST endpoints, handles request/response marshalling
-- `com.fhooe.mc.thesis.virtualmachine.business` — business logic, talks directly to VirtualBox SDK
+- `com.fhooe.mc.thesis.virtualmachine.restapi` — Jersey REST endpoints, handles request/response marshalling and XML un-marshalling into entities
+- `com.fhooe.mc.thesis.virtualmachine.business` — business logic, initialises the VirtualBox connection, accesses `IMachine` and `ISession` interfaces from the SDK, performs the actual VM operations
 
-A typical clone operation sequence: the REST endpoint receives the request, passes it to the business layer, which calls the VirtualBox SDK to find the base machine, initiates a full clone, waits for completion, and returns the new VM's details.
+A typical clone sequence: REST endpoint receives the request → passes to business layer → business layer calls VBox SDK to locate the base machine → initiates full clone → waits for completion → returns new VM details.
 
 ### Programming Component
 
@@ -84,7 +86,7 @@ The flow for a student submission:
 3. Moodle plugin calls `POST /program/compile` with the VM name
 4. The business layer SSHs into the VM and invokes the utility JAR
 5. The utility extracts the source from XML, creates a `.java` file, runs `javac`
-6. Compilation result (success/errors) is returned in XML format
+6. Compilation result (success/errors with line and column numbers) is returned in XML format
 7. If successful, Moodle calls `POST /program/execute`
 8. The utility runs `java` and captures stdout/stderr
 9. Result is returned to Moodle for grading
@@ -105,7 +107,17 @@ The XML format for source transfer:
 </programDetails>
 ```
 
-## Layer 1 in Detail: The Utility Application
+## Layer 1 in Detail: The Virtualization Layer
+
+Each virtual machine is a clone of a single base image: SliTaz Linux running on Oracle VirtualBox.
+
+![Virtualization layer detail — Oracle VirtualBox host running vBoxWebSrv, with multiple SliTaz Linux VMs each containing JDK, SSH (Dropbear), VBox Guest Additions, and the utility JAR](/images/blog/SystemArchitecture_VirtualizationLayer.png)
+
+SliTaz was chosen for its minimal footprint: ~30MB ISO, ~100MB installed root filesystem, SSH via Dropbear, boot time of 2–3 seconds. Minimal VM configuration: 64MB RAM, 1GB HDD. The smaller the VM, the faster the clone and boot cycle. VirtualBox Guest Additions must be installed so the SDK can retrieve each VM's IP address — without them, the VBox SDK cannot resolve the machine's network address and SSH becomes impossible.
+
+This process runs once: build one working base image, then clone it for every student.
+
+### The Utility Application
 
 A small JAR installed on each VM that processes the XML file dropped by the SSH transfer, compiles or executes the Java source, and writes results back to a known location for SSH retrieval.
 
@@ -116,26 +128,33 @@ A small JAR installed on each VM that processes the XML file dropped by the SSH 
   └── output/              ← results written here, SSH reads back
 ```
 
-This indirection matters: the REST API never runs `javac` or `java` directly. It copies a file and invokes a JAR. The JAR handles all compilation logic, error formatting, and output capture. This separation means the REST API doesn't need to know anything about Java compilation — it just moves files and runs a command.
+![Utility application class diagram — ProgrammingQuestionEvaluation orchestrates compilation and execution using JavaCompiler, DiagnosticCollector, ProcessBuilder, and JAXB for XML marshalling](/images/blog/Virtualization_Utility.png)
+
+The utility uses `JavaCompiler` and `DiagnosticCollector` from the JDK for compilation (preserving exact line and column numbers in error output), `ProcessBuilder` for execution, and JAXB for XML marshalling. The design is intentionally extensible: supporting a second language (C, Python) would mean adding one more utility JAR — the REST API and Moodle plugin would not change.
+
+This indirection matters: the REST API never runs `javac` or `java` directly. It copies a file and invokes a JAR. The JAR handles all compilation logic, error formatting, and output capture. This separation means Layer 3 has no language-specific knowledge.
 
 ## Layer 4: The Moodle Plugin
 
 A PHP-based Moodle question type plugin that adds "Programming Question" as a question type in Moodle's quiz system.
 
+![Application layer — Moodle architecture with the Programming Question plugin (in green) consuming the REST API from Layer 3. Arrows show the direction of data flow between layers](/images/blog/SystemArchitecture_ApplicationLayer_Moodle.png)
+
 From the instructor's perspective:
 
-- Write a question description
-- Provide a code template (scaffolding for students)
-- Write or upload a reference solution
-- Define expected input/output pairs for grading
+- Write a question description and code template (scaffolding for students)
+- Provide a reference solution with expected input/output pairs for grading
+- Mix programming questions with MCQ, true/false, and other question types in the same Moodle quiz
 
 From the student's perspective:
 
 - See the question and template in the Moodle quiz interface
 - Write their solution in a code editor
-- Submit — grading happens automatically
+- Submit — grading happens automatically and results appear as a standard Moodle grade
 
-The plugin consumes the REST API entirely transparently. The instructor and student never know VMs exist.
+The plugin is structured as a standard Moodle question type: `edit_programming_form.php` handles the instructor UI, `question.php` holds the grading logic, `renderer.php` renders the student-facing view, and `questiontype.php` handles persistence. Two additional database tables store the question source code and expected input/output pairs.
+
+The plugin consumes the REST API entirely transparently. Instructors and students never know VMs exist.
 
 ## What the Architecture Gets Right
 
@@ -151,7 +170,7 @@ The plugin consumes the REST API entirely transparently. The instructor and stud
 
 The architecture is sound. The implementation details would change:
 
-- VirtualBox → Docker containers (faster startup, lighter weight, better resource limits)
+- VirtualBox → Docker containers (faster startup, lighter weight, better resource limits via cgroups)
 - Jersey REST → Spring Boot (better ecosystem, easier testing)
 - SSH file transfer → Docker volume mounts or container file copy API
 - Manual XML format → JSON

@@ -16,15 +16,7 @@ This post rebuilds that architecture using the tools available in 2026. The thre
 
 The 2015 system had four layers:
 
-```
-Layer 4: Application Layer (Moodle plugin)
-           ↓ REST API calls
-Layer 3: VM Management and Programming API (Java/Tomcat)
-           ↓ Oracle VirtualBox SDK
-Layer 2: Virtualization API Layer (vboxjws.jar)
-           ↓ controls
-Layer 1: Virtualization Layer (Oracle VirtualBox + SliTaz Linux VMs)
-```
+![Original four-layer thesis architecture — SliTaz Linux VMs at the base, VBox SDK above it, Java/Tomcat REST API in the middle, and Moodle plugin at the top](/images/blog/SystemArchitecture.png)
 
 The REST API in Layer 3 exposed these operations:
 

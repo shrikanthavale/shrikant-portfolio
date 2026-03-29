@@ -37,7 +37,8 @@
       "Bash(ls \"D:\\\\Developer\\\\Shrikant-Portfolio\\\\shrikant-portfolio\\\\node_modules\\\\lucide-react\\\\dist\\\\esm\\\\icons | grep -i github\")",
       "Bash(linkedin)",
       "Bash(npx eslint:*)",
-      "mcp__sonarqube__search_duplicated_files"
+      "mcp__sonarqube__search_duplicated_files",
+      "Bash(grep -n \"!\\\\[\" /d/Developer/Shrikant-Portfolio/shrikant-portfolio/app/data/posts/*.md)"
     ]
   }
 }

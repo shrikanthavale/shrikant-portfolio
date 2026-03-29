@@ -214,6 +214,27 @@ const MarkdownHr = (props: React.HTMLAttributes<HTMLHRElement>) => (
   />
 );
 
+const MarkdownImg = ({ src, alt }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+  const href = typeof src === "string" ? src : "";
+  return (
+  <span className="my-10 block">
+    <a href={href} target="_blank" rel="noopener noreferrer" title="Click to open full size">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src ?? ""}
+        alt={alt ?? ""}
+        className="w-full cursor-zoom-in rounded-xl border border-slate-200 shadow-sm transition-opacity hover:opacity-90 dark:border-slate-700"
+      />
+    </a>
+    {alt && (
+      <span className="mt-3 block text-center text-[0.8125rem] italic leading-relaxed text-slate-500 dark:text-slate-400">
+        {alt}
+      </span>
+    )}
+  </span>
+  );
+};
+
 const MarkdownTable = ({ children, ...rest }: React.HTMLAttributes<HTMLTableElement>) => (
   <div className="my-7 overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
     <table
@@ -405,6 +426,7 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
               table: MarkdownTable,
               th: MarkdownTh,
               td: MarkdownTd,
+              img: MarkdownImg,
             }}
           >
             {post.content}

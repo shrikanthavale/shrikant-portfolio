@@ -128,6 +128,8 @@ POST /vm/{id}/stop      → shut down
 DELETE /vm/{id}         → delete clone
 ```
 
+![Deployment layout from the thesis — Moodle platform, VirtualBox host running vBoxWebSrv, and isolated SliTaz Linux VMs as separate machines on the same intranet](/images/blog/DeploymentDiagram.png)
+
 The security guarantee is simple: even if student code completely destroys the VM — deletes every file, corrupts the OS, fills the disk — the damage is contained to that one ephemeral clone. The host is unaffected. Other students are unaffected. Clone a new one and continue.
 
 This is the same model online judges use today, now typically implemented with containers (Docker, gVisor) or microVMs (Firecracker) instead of full VMs. The 2015 thesis noted Docker as the natural next step in the future work section — at the time it was too new to rely on.
