@@ -1,236 +1,11 @@
-# Shrikant Havale - Portfolio
+# Developer Portfolio Template
 
-Modern developer portfolio showcasing backend engineering expertise, system design, and real-world projects.
-
-## Tech Stack
-
-- Next.js
-- Tailwind CSS
-- TypeScript
-- Markdown-based blog content
-
-## Features
-
-- Modern responsive UI
-- Dynamic blog system (Markdown-based)
-- Real-world backend case studies
-- System design and architecture showcase
-
-## Structure
-
-- `app/components` -> reusable UI components
-- `app/data` -> blog and content
-- `app/lib` -> utility functions
-
-## Highlights
-
-- Event-driven architecture design
-- Microservices and distributed systems
-- Kafka, Redis, and scalable backend patterns
-
-## Run Locally
-
-```bash
-npm install
-npm run dev
-```
-
-## Contact Form Setup (Hostinger SMTP or Resend)
-
-The contact section posts to `POST /api/contact`.
-
-The API now supports two providers:
-
-- SMTP (recommended if you already have Hostinger email settings)
-- Resend (fallback)
-
-If SMTP variables are present, SMTP is used first.
-If SMTP is not configured, it falls back to Resend.
-
-Create a `.env.local` file with:
-
-```bash
-CONTACT_TO_EMAIL=you@example.com
-# Hostinger SMTP (used first if configured)
-SMTP_HOST=smtp.hostinger.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=your_email@yourdomain.com
-SMTP_PASS=your_email_password
-CONTACT_FROM_EMAIL=Portfolio Contact <your_email@yourdomain.com>
-
-# Optional fallback: Resend
-RESEND_API_KEY=your_resend_api_key
-
-# Optional anti-spam
-NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_turnstile_site_key
-TURNSTILE_SECRET_KEY=your_turnstile_secret_key
-```
-
-Notes:
-
-- Yes, you can test this on localhost. SMTP will send real emails from your Hostinger mailbox even in local development.
-- For Hostinger, `SMTP_PORT=587` with `SMTP_SECURE=false` is the common setup (STARTTLS).
-- Some Hostinger plans may require app passwords or mailbox-specific passwords.
-- If you use Resend fallback for testing, `CONTACT_FROM_EMAIL` can be `onboarding@resend.dev`.
-- The route includes basic anti-spam protection (honeypot + simple rate limiting).
-- Turnstile is optional. If both Turnstile keys are set, widget + server verification are enforced.
-
-## Deployment SMTP Health Check
-
-This repository includes a protected endpoint that sends a deployment health email
-through the same SMTP/Resend path used by the contact form:
-
-- `POST /api/ops/deploy-health`
-
-The endpoint requires an auth header:
-
-- `x-deploy-health-token: <DEPLOY_HEALTH_TOKEN>`
-
-Set this secret in Vercel environment variables:
-
-```bash
-DEPLOY_HEALTH_TOKEN=long_random_token_value
-```
-
-GitHub Actions workflow `.github/workflows/deploy-smtp-health.yml` calls this endpoint
-after successful `main` CI runs.
-
-Add these GitHub repository secrets:
-
-```bash
-DEPLOY_HEALTH_URL=https://your-domain.com/api/ops/deploy-health
-DEPLOY_HEALTH_TOKEN=the_same_token_as_vercel
-```
-
-If the health check email cannot be sent, the workflow fails.
-
-## Development Workflow
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Run the local quality checks before opening a PR:
-
-```bash
-npm run lint
-npm run typecheck
-npm run build
-```
-
-Optional formatting commands:
-
-```bash
-npm run format:check
-npm run format
-```
-
-## Pre-commit Checks
-
-This repository uses Husky + lint-staged.
-
-- On commit, staged JavaScript/TypeScript files are linted with autofix.
-- On commit, staged JSON/Markdown/CSS/YAML files are formatted with Prettier.
-- Commit messages are validated with commitlint (Conventional Commits).
-
-If the hook fails, fix the reported issues and re-run the commit.
-
-## Pull Request Checklist
-
-Before requesting review, confirm:
-
-- The branch builds successfully locally.
-- Lint passes with `npm run lint`.
-- Type checks pass with `npm run typecheck`.
-- Production build passes with `npm run build`.
-- UI changes were tested on desktop and mobile viewport sizes.
-- New behavior includes tests where relevant, or rationale is documented in the PR.
-- No secrets or environment-specific values were committed.
-
-CI runs the same core quality gates (`lint`, `typecheck`, `build`) on push and pull requests.
-
-## Commit Message Convention
-
-Use Conventional Commits for clearer history and easier release notes.
-
-Recommended format:
-
-```text
-type(scope): short summary
-```
-
-Common types:
-
-- `feat`: new feature
-- `fix`: bug fix
-- `docs`: documentation-only change
-- `refactor`: code restructuring without behavior change
-- `test`: adding or updating tests
-- `chore`: maintenance work (tooling, config, dependencies)
-
-Examples:
-
-```text
-feat(blog): add tag-based filtering for preview cards
-fix(theme): avoid setState in effect for mount guard
-chore(ci): add lint typecheck and build workflow
-docs(readme): add pull request checklist
-```
-
-## Release Flow
-
-This repository uses a lightweight, quality-gated workflow:
-
-- Keep `main` protected and always deployable.
-- Create short-lived branches from `main` for each change.
-- Open a pull request for every branch.
-- Merge with **Squash and merge** after CI passes.
-
-Suggested branch naming:
-
-- `feat/short-description`
-- `fix/short-description`
-- `chore/short-description`
-
-Recommended daily flow:
-
-```bash
-git checkout main
-git pull
-git checkout -b feat/your-change
-
-# work, then commit
-git add -A
-git commit -m "feat(scope): short summary"
-git push -u origin feat/your-change
-```
-
-After merge, keep local branches clean:
-
-```bash
-git checkout main
-git pull
-git branch -d feat/your-change
-```
-
-Recommended GitHub repository settings:
-
-- Allow squash merging: enabled
-- Allow merge commits: disabled
-- Allow rebase merging: disabled
-- Automatically delete head branches: enabled
-
-## Lighthouse Scores
+A production-grade developer portfolio template built with Next.js, TypeScript, Tailwind CSS v4, and Vercel.
 
 [![Performance](https://img.shields.io/badge/Performance-100-brightgreen)](https://www.shrikant-havale.in)
 [![Accessibility](https://img.shields.io/badge/Accessibility-96-brightgreen)](https://www.shrikant-havale.in)
 [![Best Practices](https://img.shields.io/badge/Best%20Practices-100-brightgreen)](https://www.shrikant-havale.in)
 [![SEO](https://img.shields.io/badge/SEO-100-brightgreen)](https://www.shrikant-havale.in)
-
-## SonarCloud Quality Gate
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
@@ -242,24 +17,324 @@ Recommended GitHub repository settings:
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=shrikanthavale_shrikant-portfolio&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio)
 
-This project uses [SonarCloud](https://sonarcloud.io/) for static code analysis and quality gates. See the [sonar-project.properties](./sonar-project.properties) for configuration.
+---
 
-- SonarCloud runs on every push and pull request to `main`.
-- See the [SonarCloud dashboard](https://sonarcloud.io/summary/new_code?id=shrikanthavale_shrikant-portfolio) for code quality, coverage, and maintainability.
+## Features
+
+- **Single-file configuration** — all personal data lives in `app/site.config.ts`
+- **Dark / light theme** — system-aware with manual toggle via `next-themes`
+- **Blog system** — Markdown files with YAML frontmatter, tag support, syntax highlighting
+- **Project showcase** — typed data file with individual project detail pages
+- **Career journey timeline** — animated scroll-driven timeline from a typed data file
+- **Certifications page** — filterable grid driven by a data file
+- **Contact form** — rate-limited, honeypot-protected, Cloudflare Turnstile support, dual email provider (SMTP + Resend fallback)
+- **CI/CD pipeline** — GitHub Actions: commitlint → ESLint → TypeScript → build → Playwright E2E → Lighthouse CI → SonarCloud
+- **SEO optimized** — sitemap, robots.txt, Open Graph, Twitter cards, JSON-LD schema
+- **Lighthouse 100 / 100 / 100 / 100**
 
 ---
 
-## Learn More
+## Quick Start
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# 1. Fork and clone
+git clone https://github.com/your-username/your-portfolio.git
+cd your-portfolio
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# 2. Install dependencies
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 3. Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your email credentials (see Configuration below)
 
-## Deploy on Vercel
+# 4. Fill in your personal details
+# Edit app/site.config.ts (see Configuration below)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# 5. Start the dev server
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000).
+
+---
+
+## Configuration
+
+Everything you need to personalise is in **`app/site.config.ts`**. Edit this file once and the entire site updates.
+
+### `person` — your identity
+
+```ts
+person: {
+  name: "Your Name",
+  title: "Your Job Title",
+  location: "Your City, Country",
+  currentEmployer: "Your Company",
+  profilePhoto: "/profile.jpg",       // place your photo in /public
+  knowsAbout: ["Java", "Spring Boot"], // skills for JSON-LD schema
+}
+```
+
+### `social` — all social profiles
+
+```ts
+social: [
+  { label: "GitHub", href: "https://github.com/you", icon: "Github", navbarVisible: true },
+  { label: "LinkedIn", href: "https://linkedin.com/in/you", icon: "Linkedin", navbarVisible: true },
+  { label: "Stack Overflow", href: "...", icon: "Code2", navbarVisible: false },
+  { label: "HackerRank", href: "...", icon: "TerminalSquare", navbarVisible: false },
+];
+```
+
+`navbarVisible: true` — shown in the navbar icon row and the contact section buttons.
+`navbarVisible: false` — shown in the footer social list only.
+
+### `navbar` — navigation links and CTA
+
+```ts
+navbar: {
+  cta: { label: "Let's talk", href: "#contact" },
+  navItems: [
+    { label: "Home",      href: "#hero" },
+    { label: "Projects",  href: "#projects" },
+    { label: "Tech Stack", href: "#tech" },
+    { label: "Blog",      href: "#blog" },
+    { label: "Contact",   href: "#contact" },
+  ],
+}
+```
+
+### `hero` — landing section
+
+Controls the tagline, headline, bio, credentials badge, CTA buttons, service cards, and stat grid.
+
+### `contact` — contact section
+
+Controls the section heading, subheading, hint box, message placeholder, response time label, and the success message shown after form submission.
+
+### `footer` — quick links
+
+The `quickLinks` array drives the footer link columns. Hash links (`#section`) render as `<a>` tags; path links (`/page`) render as Next.js `<Link>` tags automatically.
+
+### `seo` — metadata and Open Graph
+
+```ts
+seo: {
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://your-domain.com",
+  siteName: "Your Name Portfolio",
+  description: "...",
+  ogDescription: "...",
+  ogImage: "/profile.jpg",
+  keywords: ["Your Name", "Backend Engineer", ...],
+  googleVerification: "your_google_verification_token",
+}
+```
+
+### `resume` — resume download
+
+```ts
+resume: {
+  path: "/YourResume.pdf",  // place the file in /public
+}
+```
+
+---
+
+## Content
+
+Beyond `site.config.ts`, four data files hold all section content. Replace them with your own.
+
+### Projects — `app/data/projects.ts`
+
+A typed array of `Project` objects. Each entry generates both a card on the home page and a full detail page at `/projects/[slug]`.
+
+```ts
+{
+  slug: "your-project",
+  title: "Project Title",
+  description: "Short description shown on the card.",
+  tags: ["Java", "Kafka"],
+  // ... see existing entries for the full shape
+}
+```
+
+### Certifications — `app/data/certifications.ts`
+
+A typed array of `Certification` objects shown on the `/certifications` page.
+
+```ts
+{
+  title: "Certification Name",
+  issuer: "Issuing Body",
+  date: "2024",
+  credentialId: "ABC123",
+  verifyUrl: "https://...",
+}
+```
+
+### Career Journey — `app/data/journey.ts`
+
+A typed array of `TimelineEntry` objects rendered as the animated scroll timeline on `/journey`.
+
+```ts
+{
+  title: "Company or Degree",
+  kind: "work" | "education",
+  accent: "cyan" | "amber" | "rose",
+  stage: "Short stage label",
+  location: "City, Country",
+  period: "2020-2023",
+  role: "Your Role",
+  narrative: "One sentence summary.",
+  tags: ["Java", "Spring"],
+  highlights: ["Key achievement 1", "Key achievement 2"],
+}
+```
+
+### Blog Posts — `app/data/posts/`
+
+Each post is a `.md` or `.mdx` file with YAML frontmatter:
+
+```yaml
+---
+title: "Your Post Title"
+date: "2024-06-01"
+excerpt: "A short summary shown on the blog listing."
+tags: ["java", "microservices"]
+---
+Your post content in Markdown...
+```
+
+---
+
+## Environment Variables
+
+Copy `.env.example` to `.env.local` and fill in your values.
+
+| Variable                         | Required           | Purpose                                  |
+| -------------------------------- | ------------------ | ---------------------------------------- |
+| `CONTACT_TO_EMAIL`               | Yes                | Recipient for contact form emails        |
+| `SMTP_HOST`                      | One of SMTP/Resend | Hostinger (or other) SMTP host           |
+| `SMTP_PORT`                      | One of SMTP/Resend | Usually `587`                            |
+| `SMTP_USER`                      | One of SMTP/Resend | SMTP login email                         |
+| `SMTP_PASS`                      | One of SMTP/Resend | SMTP password                            |
+| `CONTACT_FROM_EMAIL`             | One of SMTP/Resend | Sender display address                   |
+| `RESEND_API_KEY`                 | One of SMTP/Resend | Resend API key (fallback if SMTP absent) |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | No                 | Cloudflare Turnstile site key            |
+| `TURNSTILE_SECRET_KEY`           | No                 | Cloudflare Turnstile secret key          |
+| `DEPLOY_HEALTH_TOKEN`            | No                 | Auth token for `/api/ops/deploy-health`  |
+| `NEXT_PUBLIC_SITE_URL`           | No                 | Overrides the default site URL           |
+
+SMTP is used when `SMTP_HOST`, `SMTP_USER`, and `SMTP_PASS` are all set. Otherwise Resend is used. Turnstile is optional — omit both keys to disable the widget entirely.
+
+---
+
+## Deployment
+
+### Vercel (recommended)
+
+1. Push your fork to GitHub.
+2. Go to [vercel.com](https://vercel.com), import the repository.
+3. Add all environment variables from `.env.local` in the Vercel project settings.
+4. Deploy — Vercel detects Next.js automatically.
+
+### Deployment Health Check (optional)
+
+A protected endpoint at `POST /api/ops/deploy-health` sends a test email through the same SMTP/Resend path used by the contact form. It verifies email delivery is working after each production deploy.
+
+To enable it:
+
+1. Add `DEPLOY_HEALTH_TOKEN` to your Vercel environment variables.
+2. Add these secrets to your GitHub repository:
+
+```bash
+DEPLOY_HEALTH_URL=https://your-domain.com/api/ops/deploy-health
+DEPLOY_HEALTH_TOKEN=the_same_token_as_vercel
+```
+
+The GitHub Actions workflow `.github/workflows/deploy-smtp-health.yml` calls this endpoint automatically after successful `main` CI runs.
+
+---
+
+## Contributing / Development
+
+### Development Workflow
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run quality checks before opening a PR:
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
+
+Optional formatting:
+
+```bash
+npm run format:check
+npm run format
+```
+
+### Pre-commit Checks
+
+This repository uses Husky + lint-staged.
+
+- Staged JavaScript/TypeScript files are linted with autofix.
+- Staged JSON/Markdown/CSS/YAML files are formatted with Prettier.
+- Commit messages are validated with commitlint (Conventional Commits).
+
+If the hook fails, fix the reported issues and re-run the commit.
+
+### Pull Request Checklist
+
+Before requesting review, confirm:
+
+- The branch builds successfully locally.
+- Lint passes with `npm run lint`.
+- Type checks pass with `npm run typecheck`.
+- Production build passes with `npm run build`.
+- UI changes were tested on desktop and mobile viewport sizes.
+- New behaviour includes tests where relevant, or rationale is documented in the PR.
+- No secrets or environment-specific values were committed.
+
+CI runs the same core quality gates (`lint`, `typecheck`, `build`) on push and pull requests.
+
+### Commit Message Convention
+
+Use Conventional Commits for clearer history.
+
+```text
+type(scope): short summary
+```
+
+Common types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
+
+```text
+feat(blog): add tag-based filtering for preview cards
+fix(theme): avoid setState in effect for mount guard
+chore(ci): add lint typecheck and build workflow
+docs(readme): add pull request checklist
+```
+
+### Release Flow
+
+- Keep `main` protected and always deployable.
+- Create short-lived branches from `main` for each change.
+- Open a pull request for every branch.
+- Merge with **Squash and merge** after CI passes.
+
+Suggested branch naming: `feat/short-description`, `fix/short-description`, `chore/short-description`.
+
+Recommended GitHub repository settings:
+
+- Allow squash merging: enabled
+- Allow merge commits: disabled
+- Allow rebase merging: disabled
+- Automatically delete head branches: enabled
