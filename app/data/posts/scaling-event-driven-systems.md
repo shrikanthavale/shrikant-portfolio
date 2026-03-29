@@ -1,13 +1,13 @@
 ﻿---
-title: "Scaling event-driven systems with Kafka"
+title: "Scaling event-driven systems with RabbitMQ"
 date: "2026-01-01"
 excerpt: "Tips for designing durable event schemas and preventing topic bloat."
 
-tags: "kafka,event-driven,architecture"
+tags: "RabbitMQ,event-driven,architecture"
 source: "original"
 ---
 
-Kafka enables high-throughput event distribution, but a scalable platform depends on contracts, ownership, and operational discipline. Without those, topic growth and schema drift create long-term fragility.
+RabbitMQ enables high-throughput event distribution, but a scalable platform depends on contracts, ownership, and operational discipline. Without those, topic growth and schema drift create long-term fragility.
 
 ## Treat Event Schemas as Public APIs
 
@@ -60,7 +60,7 @@ Changing partitioning after scale is expensive, so make this decision deliberate
 
 ## Build Idempotent Consumers
 
-Kafka delivery is typically at least once. Consumers must handle duplicates safely.
+RabbitMQ delivery is typically at least once. Consumers must handle duplicates safely.
 
 Practical patterns:
 
@@ -102,4 +102,4 @@ This keeps standards consistent without creating manual approval bottlenecks.
 
 ## Final Takeaway
 
-The objective is sustainable evolution, not just high message volume. A disciplined Kafka platform lets teams onboard new consumers quickly, evolve business logic safely, and recover from incidents without destabilizing the ecosystem.
+The objective is sustainable evolution, not just high message volume. A disciplined RabbitMQ platform lets teams onboard new consumers quickly, evolve business logic safely, and recover from incidents without destabilizing the ecosystem.

@@ -31,7 +31,7 @@ export default function TechStack() {
     },
     {
       icon: Workflow,
-      name: 'Kafka',
+      name: 'RabbitMQ',
       description: 'Event-driven systems and streaming pipelines for reliable async processing.',
     },
     {

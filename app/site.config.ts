@@ -5,7 +5,7 @@ export const siteConfig = {
     location: "Austria",
     currentEmployer: "Eurofunk Kappacher Gmbh",
     profilePhoto: "/profile.jpg",
-    knowsAbout: ["Java", "Spring Boot", "Microservices", "Kafka", "Redis", "Distributed Systems"],
+    knowsAbout: ["Java", "Spring Boot", "Microservices", "RabbitMQ", "Redis", "Distributed Systems"],
   },
 
   /**
@@ -73,7 +73,7 @@ export const siteConfig = {
       },
       {
         title: "Event-driven systems",
-        description: "RabbitMQ, Kafka, Redis — async processing and coordination",
+        description: "RabbitMQ, Redis — async processing and coordination",
         icon: "Zap",
         colors: {
           border: "border-violet-200 dark:border-violet-800/60",

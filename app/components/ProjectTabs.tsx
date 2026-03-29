@@ -50,7 +50,6 @@ const TAG_GROUPS: Record<string, string> = {
   SSH: "Backend",
   Oracle: "Backend",
   Db2: "Backend",
-  Kafka: "Backend",
   "REST API": "API & Integration",
   Moodle: "API & Integration",
   "Oracle VirtualBox": "Infrastructure",

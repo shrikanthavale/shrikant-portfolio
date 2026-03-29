@@ -76,7 +76,6 @@ function pickAccentKey(seed: string) {
 export const TECH_BADGE_META: Record<string, { icon: LucideIcon; tone: string }> = {
   Java: { icon: Coffee, tone: "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-700/50 dark:bg-amber-500/10 dark:text-amber-100" },
   "Spring Boot": { icon: Leaf, tone: "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-700/50 dark:bg-emerald-500/10 dark:text-emerald-100" },
-  Kafka: { icon: Workflow, tone: "border-indigo-300 bg-indigo-50 text-indigo-700 dark:border-indigo-700/50 dark:bg-indigo-500/10 dark:text-indigo-100" },
   RabbitMQ: { icon: Radio, tone: "border-orange-300 bg-orange-50 text-orange-700 dark:border-orange-700/50 dark:bg-orange-500/10 dark:text-orange-100" },
   Redis: { icon: Database, tone: "border-rose-300 bg-rose-50 text-rose-700 dark:border-rose-700/50 dark:bg-rose-500/10 dark:text-rose-100" },
   PostgreSQL: { icon: HardDrive, tone: "border-sky-300 bg-sky-50 text-sky-700 dark:border-sky-700/50 dark:bg-sky-500/10 dark:text-sky-100" },

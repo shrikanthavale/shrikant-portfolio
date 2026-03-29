@@ -24,7 +24,7 @@ export const posts: Post[] = [
     href: "/blog/practical-observability",
   },
   {
-    title: "Scaling event-driven systems with Kafka",
+    title: "Scaling event-driven systems with RabbitMQ",
     excerpt:
       "Tips for designing durable event schemas and preventing topic bloat.",
     date: "Jan 2026",

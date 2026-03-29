@@ -29,7 +29,7 @@ export const projects: Project[] = [
       "Evaluated static analysis, Java Security Manager, sandboxing and Unix accounts before selecting VM isolation as the only approach that closes the full threat model.",
     ],
     outcomes: [
-      "Prototype of the same concept used today by HackerRank and LeetCode — built in 2015.",
+      "Prototype for executing code in contained environment",
       "Built a REST API (.war deployed on Tomcat) using Oracle VirtualBox SDK with 7 endpoints: check connection, get VM details, start VM, stop VM, clone VM, compile Java program, execute Java program.",
       "Each student assigned a dedicated isolated SliTaz Linux VM (64MB RAM, 1GB HDD) — malicious code damage contained to that VM only, cloneable from master in seconds.",
       "Moodle question type plugin integrated with Moodle gradebook, student accounts, course system and quiz workflow — instructors can mix programming questions with MCQ, true/false etc.",

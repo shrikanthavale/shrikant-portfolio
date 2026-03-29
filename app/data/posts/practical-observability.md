@@ -72,7 +72,7 @@ Distributed tracing is most valuable on boundaries with latency or reliability r
 - Ingress gateway
 - Outbound HTTP clients
 - Database operations
-- Kafka producers and consumers
+- RabbitMQ producers and consumers
 
 Full sampling is rarely required. Adaptive sampling around errors and high-latency traces provides stronger signal per cost unit.
 

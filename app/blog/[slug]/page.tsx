@@ -17,7 +17,7 @@ type BlogPostPageProps = {
 
 const architectureNotes = [
   "API Gateway handles authentication, routing, and rate limiting",
-  "Payment Service publishes events to Kafka for async processing",
+  "Payment Service publishes events to RabbitMQ for async processing",
   "Worker services consume events for validation and settlement",
   "Redis is used for caching and idempotency handling",
   "Database ensures transactional consistency",

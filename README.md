@@ -153,7 +153,7 @@ A typed array of `Project` objects. Each entry generates both a card on the home
   slug: "your-project",
   title: "Project Title",
   description: "Short description shown on the card.",
-  tags: ["Java", "Kafka"],
+  tags: ["Java", "RabbitMQ"],
   // ... see existing entries for the full shape
 }
 ```
