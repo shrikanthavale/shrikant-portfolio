@@ -30,7 +30,6 @@ A production-grade developer portfolio template built with Next.js, TypeScript, 
 - **Contact form** — rate-limited, honeypot-protected, Cloudflare Turnstile support, dual email provider (SMTP + Resend fallback)
 - **CI/CD pipeline** — GitHub Actions: commitlint → ESLint → TypeScript → build → Playwright E2E → Lighthouse CI → SonarCloud
 - **SEO optimized** — sitemap, robots.txt, Open Graph, Twitter cards, JSON-LD schema
-- **Lighthouse 100 / 100 / 100 / 100**
 
 ---
 
@@ -38,8 +37,8 @@ A production-grade developer portfolio template built with Next.js, TypeScript, 
 
 ```bash
 # 1. Fork and clone
-git clone https://github.com/your-username/your-portfolio.git
-cd your-portfolio
+git clone https://github.com/shrikanthavale/shrikant-portfolio
+cd shrikant-portfolio
 
 # 2. Install dependencies
 npm install
