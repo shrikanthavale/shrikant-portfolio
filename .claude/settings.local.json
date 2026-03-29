@@ -36,7 +36,8 @@
       "Bash(curl -s \"https://sonarcloud.io/api/issues/search?projectKeys=shrikanthavale_shrikant-portfolio&statuses=OPEN&ps=50\")",
       "Bash(ls \"D:\\\\Developer\\\\Shrikant-Portfolio\\\\shrikant-portfolio\\\\node_modules\\\\lucide-react\\\\dist\\\\esm\\\\icons | grep -i github\")",
       "Bash(linkedin)",
-      "Bash(npx eslint:*)"
+      "Bash(npx eslint:*)",
+      "mcp__sonarqube__search_duplicated_files"
     ]
   }
 }
