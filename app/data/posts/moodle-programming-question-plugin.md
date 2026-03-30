@@ -35,7 +35,7 @@ Moodle is structured as a core application surrounded by plugins. The core provi
 
 A Moodle plugin is physically just a folder of PHP files placed at the correct path. The plugin type and name determine the path. For a question type plugin named `programming`, the path is:
 
-```
+```text
 moodle/question/type/programming/
 ```
 
@@ -144,7 +144,7 @@ The rest — question text, category, marks, timestamps — is stored in Moodle'
 
 When an instructor saves a question with a reference solution, and when a student submits their code, the communication with Layer 3 follows the same steps:
 
-```
+```text
 1. Moodle form submitted
    ↓
 2. qtype_programming_edit_form (or question.php) captures the data

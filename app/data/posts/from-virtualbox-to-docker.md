@@ -20,7 +20,7 @@ The 2015 system had four layers:
 
 The REST API in Layer 3 exposed these operations:
 
-```
+```http
 POST /vm/clone          → clone base VM, assign to student
 POST /vm/{id}/start     → boot the VM
 POST /vm/{id}/execute   → SSH in, compile and run code, return output
@@ -157,7 +157,7 @@ Each submission becomes a Kubernetes Job. The cluster schedules it, runs it, col
 
 ## The Architecture Today
 
-```
+```text
 Layer 4: Application Layer (Moodle plugin, web app, or API client)
            ↓ REST API calls (same contract as 2015)
 Layer 3: Submission API (Spring Boot)

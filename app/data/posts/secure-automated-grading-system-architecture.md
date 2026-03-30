@@ -53,7 +53,7 @@ Handles the lifecycle of virtual machines.
 
 ![Virtual Machine Management and Programming API layer — Layer 3 and Layer 2 combined, showing the internal Web Service, VM Management Component, Programming Component, and VM Entity classes](/images/blog/SystemArchitecture_VMPAPILayer.png)
 
-```
+```http
 GET  /vm/list                    → list all VMs and their status
 GET  /vm/{name}                  → get VM details (IP, state, OS)
 POST /vm/{name}/start            → boot the VM
@@ -74,7 +74,7 @@ A typical clone sequence: REST endpoint receives the request → passes to busin
 
 Handles compilation and execution of Java source code inside a VM:
 
-```
+```http
 POST /program/compile            → compile Java source on target VM
 POST /program/execute            → execute compiled class on target VM
 ```
@@ -121,7 +121,7 @@ This process runs once: build one working base image, then clone it for every st
 
 A small JAR installed on each VM that processes the XML file dropped by the SSH transfer, compiles or executes the Java source, and writes results back to a known location for SSH retrieval.
 
-```
+```text
 /vm-tools/
   ├── utility.jar          ← compilation/execution engine
   ├── input/               ← SSH drops XML files here

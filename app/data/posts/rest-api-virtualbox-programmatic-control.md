@@ -18,7 +18,7 @@ The system architecture had four layers, with the Moodle plugin at the top and V
 
 A REST API in the middle solves this cleanly:
 
-```
+```text
 Moodle Plugin (PHP)
     ↓ HTTP calls
 REST API (Java/Tomcat)
@@ -59,7 +59,7 @@ The REST API exposes two groups of operations — VM management and code executi
 
 **List all virtual machines:**
 
-```
+```http
 GET /vm/list
 ```
 
@@ -67,7 +67,7 @@ Returns name, state (running/stopped), OS type for each VM.
 
 **Get VM details:**
 
-```
+```http
 GET /vm/{name}
 ```
 
@@ -75,7 +75,7 @@ Returns IP address (if running), state, OS name, memory.
 
 **Start a VM:**
 
-```
+```http
 POST /vm/{name}/start
 ```
 
@@ -94,7 +94,7 @@ The `headless` parameter means no GUI — the VM boots but shows no desktop. Cri
 
 **Stop a VM:**
 
-```
+```http
 POST /vm/{name}/stop
 ```
 
@@ -108,7 +108,7 @@ console.powerDown();
 
 **Clone a VM:**
 
-```
+```http
 POST /vm/clone
 Body: { "sourceName": "base-vm", "cloneName": "student-42" }
 ```
@@ -134,7 +134,7 @@ The clone is a full copy of the base VM — same OS, same tools, same utility ap
 
 **Delete a VM:**
 
-```
+```http
 DELETE /vm/{name}
 ```
 
@@ -155,7 +155,7 @@ progress.waitForCompletion(60000);
 
 **Copy source file into VM:**
 
-```
+```http
 POST /vm/{name}/copyfile
 Body: XML with source code details
 ```
@@ -175,7 +175,7 @@ channel.put(localFilePath, "/vm-tools/input/program.xml");
 
 **Compile source code:**
 
-```
+```http
 POST /program/compile
 Body: { "vmName": "student-42" }
 ```
@@ -191,7 +191,7 @@ exec.connect();
 
 **Execute compiled code:**
 
-```
+```http
 POST /program/execute
 Body: { "vmName": "student-42" }
 ```

@@ -103,7 +103,7 @@ For a university setting this might be acceptable. For anything at scale, or whe
 
 The approach the thesis ultimately implemented: each student gets a dedicated virtual machine, cloned from a known-good base image on demand.
 
-```
+```text
 [Moodle Plugin]
      |
      | REST API call
@@ -120,7 +120,7 @@ The VM is minimal — SliTaz Linux, a 30MB distribution, with only the Java tool
 
 The REST API handled the lifecycle:
 
-```
+```http
 POST /vm/clone          → clone base image, assign to student
 POST /vm/{id}/start     → boot the VM
 POST /vm/{id}/execute   → SSH in, write source, compile, run, return output
