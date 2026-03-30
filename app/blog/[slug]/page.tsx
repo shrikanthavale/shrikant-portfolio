@@ -7,10 +7,12 @@ import Link from "next/link";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import BlogToc from "@/app/components/BlogToc";
 import BlogTocSidebar from "@/app/components/BlogTocSidebar";
+import CodeBlock from "@/app/components/CodeBlock";
 import type { TocItem } from "@/app/components/BlogToc";
 import { getPostBySlug, getPostSlugs, getPosts } from "@/app/lib/getPosts";
 import type { Metadata } from "next";
 import { siteConfig } from "@/app/site.config";
+import { Linkedin } from "lucide-react";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -97,17 +99,11 @@ const MarkdownCode = ({
 }: { className?: string; children?: React.ReactNode } & React.HTMLAttributes<HTMLElement>) => {
   if (className) {
     const lang = className.replace("language-", "");
+    const codeText = typeof children === "string" ? children.replace(/\n$/, "") : "";
     return (
-      <div className="my-7 overflow-hidden rounded-xl bg-[#1e1e2e]">
-        {lang && (
-          <div className="flex items-center justify-end border-b border-white/[0.07] px-5 py-2.5">
-            <span className="font-mono text-xs text-slate-400">{lang}</span>
-          </div>
-        )}
-        <pre className="overflow-x-auto p-5">
-          <code className="text-sm leading-relaxed text-slate-100">{children}</code>
-        </pre>
-      </div>
+      <CodeBlock lang={lang} codeText={codeText}>
+        {children}
+      </CodeBlock>
     );
   }
   return (
@@ -366,35 +362,53 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
 
           {/* Meta row — indigo left-border accent */}
           <div className="mt-7 border-l-2 border-indigo-400 pl-3 dark:border-indigo-600">
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-400 dark:text-slate-500">
-              <span>{formatDate(post.date)}</span>
-              <span aria-hidden="true">·</span>
-              <span>{readMinutes} min read</span>
-              {post.source === "original" && (
-                <>
-                  <span aria-hidden="true">·</span>
-                  <span>Original</span>
-                </>
-              )}
-              {post.source === "thesis" && (
-                <>
-                  <span aria-hidden="true">·</span>
-                  <span>Master&apos;s Thesis</span>
-                </>
-              )}
-              {post.source && post.source !== "original" && post.source !== "thesis" && (
-                <>
-                  <span aria-hidden="true">·</span>
-                  <a
-                    href={post.source}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
-                  >
-                    Source article ↗
-                  </a>
-                </>
-              )}
+            <div className="flex items-center justify-between gap-x-3 gap-y-1 text-sm text-slate-400 dark:text-slate-500">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span>{formatDate(post.date)}</span>
+                <span aria-hidden="true">·</span>
+                <span>{readMinutes} min read</span>
+                {post.source === "original" && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span>Original</span>
+                  </>
+                )}
+                {post.source === "thesis" && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span>Master&apos;s Thesis</span>
+                  </>
+                )}
+                {post.source && post.source !== "original" && post.source !== "thesis" && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <a
+                      href={post.source}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                    >
+                      Source article ↗
+                    </a>
+                  </>
+                )}
+              </div>
+              {(() => {
+                const postUrl = `${siteConfig.seo.url}/blog/${slug}`;
+                const pillCls = "flex shrink-0 items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1 text-xs transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-slate-700 dark:hover:border-indigo-500 dark:hover:text-indigo-400";
+                return (
+                  <div className="flex shrink-0 items-center gap-2">
+                    <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn" className={`text-indigo-500 dark:text-indigo-400 ${pillCls}`}>
+                      <Linkedin className="h-4 w-4" aria-hidden="true" />
+                      <span>LinkedIn</span>
+                    </a>
+                    <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on X" className={`text-slate-600 dark:text-slate-300 ${pillCls}`}>
+                      <span className="font-bold leading-none">𝕏</span>
+                      <span>Twitter</span>
+                    </a>
+                  </div>
+                );
+              })()}
             </div>
           </div>
         </header>
