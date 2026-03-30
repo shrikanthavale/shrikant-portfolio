@@ -5,7 +5,6 @@ import {
   Cpu,
   Database,
   FileCode2,
-  Github,
   Layers3,
   FileText,
   Gauge,
@@ -132,9 +131,21 @@ export default function ProjectCard({
         )}
 
         {!isDetailed && outcomes?.length ? (
-          <p className="mt-4 rounded-lg border border-slate-200/80 bg-slate-50/70 px-3 py-2 text-xs font-medium leading-5 text-slate-600 dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-300">
-            Impact: {outcomes[0]}
-          </p>
+          <div className="mt-4 rounded-lg border border-slate-200/80 bg-slate-50/70 px-3 py-2 dark:border-slate-800 dark:bg-slate-900/70">
+            <p className="text-xs font-medium leading-5 text-slate-600 dark:text-slate-300">
+              Impact: {outcomes[0]}
+            </p>
+            {githubUrl && (
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1.5 block text-xs text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+              >
+                Open source — available as a template on GitHub
+              </a>
+            )}
+          </div>
         ) : null}
       </div>
 
@@ -163,38 +174,17 @@ export default function ProjectCard({
         </div>
       ) : null}
 
-      {(detailsHref || githubUrl) && (
-        <div className="mt-6 border-t border-slate-200 pt-5 dark:border-slate-800">
-          <div className="flex items-center justify-between gap-3">
-            {detailsHref ? (
-              <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-400 dark:text-slate-500">
-                {isDetailed ? "Open full case study" : "Open project narrative"}
-              </p>
-            ) : (
-              <span />
-            )}
-            <div className="flex items-center gap-2">
-              {githubUrl && (
-                <a
-                  href={githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium shadow-sm transition-all duration-200 hover:scale-[1.03] hover:shadow-md ${accent.cta}`}
-                >
-                  <Github className="h-3.5 w-3.5" aria-hidden="true" />
-                  Use template
-                </a>
-              )}
-              {detailsHref && (
-                <Link
-                  href={detailsHref}
-                  className={`inline-flex items-center rounded-md border px-3 py-1.5 text-xs font-medium shadow-sm transition-all duration-200 hover:scale-[1.03] hover:shadow-md ${accent.cta}`}
-                >
-                  {detailsLabel} →
-                </Link>
-              )}
-            </div>
-          </div>
+      {detailsHref && (
+        <div className="mt-6 flex items-center justify-between gap-3 border-t border-slate-200 pt-5 dark:border-slate-800">
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-400 dark:text-slate-500">
+            {isDetailed ? "Open full case study" : "Open project narrative"}
+          </p>
+          <Link
+            href={detailsHref}
+            className={`inline-flex items-center rounded-md border px-3 py-1.5 text-xs font-medium shadow-sm transition-all duration-200 hover:scale-[1.03] hover:shadow-md ${accent.cta}`}
+          >
+            {detailsLabel} →
+          </Link>
         </div>
       )}
     </article>
