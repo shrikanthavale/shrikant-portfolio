@@ -6,6 +6,7 @@ import rehypeSlug from "rehype-slug";
 import Link from "next/link";
 import SubpageTopBar from "@/app/components/SubpageTopBar";
 import BlogToc from "@/app/components/BlogToc";
+import BlogTocSidebar from "@/app/components/BlogTocSidebar";
 import type { TocItem } from "@/app/components/BlogToc";
 import { getPostBySlug, getPostSlugs, getPosts } from "@/app/lib/getPosts";
 import type { Metadata } from "next";
@@ -329,9 +330,13 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
 
   return (
     <main className="min-h-screen bg-white text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
-      <SubpageTopBar leftLabel="← All blogs" leftHref="/blog" maxWidthClass="max-w-[680px]" />
+      <SubpageTopBar leftLabel="← All blogs" leftHref="/blog" maxWidthClass="max-w-[1100px]" />
 
-      <div className="mx-auto max-w-[680px] px-6 sm:px-0 py-16 sm:py-24">
+      <div className="mx-auto max-w-[1100px] px-6 py-16 sm:py-24">
+        <div className="lg:flex lg:items-start lg:gap-12">
+
+        {/* ── Content column ── */}
+        <div className="min-w-0 lg:max-w-[680px] lg:flex-1">
 
         {/* ── Header ── */}
         <header>
@@ -388,8 +393,8 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
           </div>
         </header>
 
-        {/* ── Table of contents ── */}
-        <div className="mt-10">
+        {/* ── Table of contents (inline — hidden on desktop where sidebar takes over) ── */}
+        <div className="mt-10 lg:hidden">
           <BlogToc items={tocItems} />
         </div>
 
@@ -499,6 +504,17 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
             </Link>
           </div>
         </footer>
+
+        </div>{/* end content column */}
+
+        {/* ── TOC sidebar (desktop only) ── */}
+        {tocItems.length >= 2 && (
+          <aside className="hidden lg:block lg:w-[220px] lg:shrink-0 lg:sticky lg:top-24 lg:self-start">
+            <BlogTocSidebar items={tocItems} />
+          </aside>
+        )}
+
+        </div>{/* end flex row */}
       </div>
 
       <script
