@@ -3,7 +3,7 @@ import ProjectTabs, { type ProjectTab } from "@/app/components/ProjectTabs";
 import { TECH_BADGE_META } from "@/app/components/ProjectCard";
 import { siteConfig } from "@/app/site.config";
 import type { Project } from "@/app/data/projects";
-import { Cpu } from "lucide-react";
+import { Cpu, Github } from "lucide-react";
 
 type ProjectPageShellProps = {
   project: Project;
@@ -44,6 +44,26 @@ export default function ProjectPageShell({ project, slug, tabs }: Readonly<Proje
             })}
           </div>
         </header>
+
+        {project.githubUrl && (
+          <div className="mt-6 flex flex-col gap-3 rounded-xl border border-indigo-200 bg-indigo-50/70 px-5 py-4 sm:flex-row sm:items-center sm:justify-between dark:border-indigo-800/50 dark:bg-indigo-950/30">
+            <div className="flex items-center gap-3">
+              <Github className="h-5 w-5 shrink-0 text-indigo-500 dark:text-indigo-400" aria-hidden="true" />
+              <p className="text-sm font-medium text-indigo-800 dark:text-indigo-200">
+                This portfolio is open source and available as a template
+              </p>
+            </div>
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex shrink-0 items-center gap-1.5 self-start rounded-lg border border-indigo-300 bg-white px-4 py-2 text-xs font-semibold text-indigo-700 shadow-sm transition-all hover:border-indigo-500 hover:bg-indigo-600 hover:text-white sm:self-auto dark:border-indigo-700/60 dark:bg-indigo-900/40 dark:text-indigo-300 dark:hover:border-indigo-500 dark:hover:bg-indigo-600 dark:hover:text-white"
+            >
+              Use this template →
+            </a>
+          </div>
+        )}
+
         <div className="mt-8">
           <ProjectTabs tabs={tabs} />
         </div>

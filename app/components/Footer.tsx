@@ -60,7 +60,18 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-12 border-t border-slate-300 pt-6 text-center text-sm text-slate-500 dark:border-slate-800">
-          © {new Date().getFullYear()} {person.name}. {footer.copyright}
+          <p>© {new Date().getFullYear()} {person.name}. {footer.copyright}</p>
+          <p className="mt-1">
+            ⭐ Like this portfolio? Build yours →{" "}
+            <a
+              href={footer.templateRepo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-indigo-500 hover:underline dark:text-indigo-400"
+            >
+              Use the template
+            </a>
+          </p>
         </div>
       </div>
     </footer>

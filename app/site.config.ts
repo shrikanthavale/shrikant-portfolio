@@ -113,6 +113,7 @@ export const siteConfig = {
 
   footer: {
     copyright: "Built with Next.js & Tailwind CSS.",
+    templateRepo: "https://github.com/shrikanthavale/shrikant-portfolio",
     quickLinks: [
       {
         heading: "Work",

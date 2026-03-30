@@ -33,6 +33,7 @@ export default function Projects() {
               detailsLabel="View project page"
               variant="compact"
               preface={project!.preface}
+              githubUrl={project!.githubUrl}
             />
           ))}
         </div>

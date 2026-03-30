@@ -51,6 +51,7 @@ export default function ProjectsIndexPage() {
                 detailsLabel="Open project page"
                 variant="compact"
                 preface={project.preface}
+                githubUrl={project.githubUrl}
               />
             ))}
           </div>

@@ -5,6 +5,7 @@ import {
   Cpu,
   Database,
   FileCode2,
+  Github,
   Layers3,
   FileText,
   Gauge,
@@ -34,6 +35,7 @@ type ProjectCardProps = {
   detailsLabel?: string;
   variant?: "compact" | "detailed";
   preface?: string;
+  githubUrl?: string;
 };
 
 const CARD_ACCENTS = {
@@ -108,6 +110,7 @@ export default function ProjectCard({
   detailsLabel = "View project details",
   variant = "compact",
   preface,
+  githubUrl,
 }: Readonly<ProjectCardProps>) {
   const isDetailed = variant === "detailed";
   const accentKey = pickAccentKey(title);
@@ -160,17 +163,38 @@ export default function ProjectCard({
         </div>
       ) : null}
 
-      {detailsHref && (
-        <div className="mt-6 flex items-center justify-between gap-3 border-t border-slate-200 pt-5 dark:border-slate-800">
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-400 dark:text-slate-500">
-            {isDetailed ? "Open full case study" : "Open project narrative"}
-          </p>
-          <Link
-            href={detailsHref}
-            className={`inline-flex items-center rounded-md border px-3 py-1.5 text-xs font-medium shadow-sm transition-all duration-200 hover:scale-[1.03] hover:shadow-md ${accent.cta}`}
-          >
-            {detailsLabel} →
-          </Link>
+      {(detailsHref || githubUrl) && (
+        <div className="mt-6 border-t border-slate-200 pt-5 dark:border-slate-800">
+          <div className="flex items-center justify-between gap-3">
+            {detailsHref ? (
+              <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-400 dark:text-slate-500">
+                {isDetailed ? "Open full case study" : "Open project narrative"}
+              </p>
+            ) : (
+              <span />
+            )}
+            <div className="flex items-center gap-2">
+              {githubUrl && (
+                <a
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium shadow-sm transition-all duration-200 hover:scale-[1.03] hover:shadow-md ${accent.cta}`}
+                >
+                  <Github className="h-3.5 w-3.5" aria-hidden="true" />
+                  Use template
+                </a>
+              )}
+              {detailsHref && (
+                <Link
+                  href={detailsHref}
+                  className={`inline-flex items-center rounded-md border px-3 py-1.5 text-xs font-medium shadow-sm transition-all duration-200 hover:scale-[1.03] hover:shadow-md ${accent.cta}`}
+                >
+                  {detailsLabel} →
+                </Link>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </article>

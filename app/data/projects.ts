@@ -8,6 +8,7 @@ export type Project = {
   architecture: string[];
   outcomes: string[];
   preface?: string;
+  githubUrl?: string;
 };
 
 export const projects: Project[] = [
@@ -103,10 +104,11 @@ export const projects: Project[] = [
   {
     slug: "portfolio-development",
     title: "Personal Portfolio Platform",
-    preface: "Side project",
+    preface: "Side project · Open Source",
     description:
       "Production-grade portfolio with CI/CD, static analysis, security hardening and automated deployment verification.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "GitHub Actions", "SonarCloud", "Vercel", "Claude Code"],
+    githubUrl: "https://github.com/shrikanthavale/shrikant-portfolio",
     role: "Designer and Engineer",
     context:
       "Personal project to build a consulting-focused portfolio applying the same production engineering standards used in enterprise backend systems.",
