@@ -340,9 +340,14 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
 
         {/* ── Header ── */}
         <header>
+          {/* Title */}
+          <h1 className="text-[2rem] font-extrabold leading-[1.15] tracking-tight text-slate-900 sm:text-[2.75rem] dark:text-white">
+            {post.title}
+          </h1>
+
           {/* Tag pills */}
           {post.tags && post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="mt-4 flex flex-wrap gap-2">
               {post.tags.map((tag) => (
                 <span
                   key={`${post.slug}-tag-${tag}`}
@@ -353,11 +358,6 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
               ))}
             </div>
           )}
-
-          {/* Title */}
-          <h1 className="mt-6 text-[2rem] font-extrabold leading-[1.15] tracking-tight text-slate-900 sm:text-[2.75rem] dark:text-white">
-            {post.title}
-          </h1>
 
           {/* Excerpt */}
           <p className="mt-6 max-w-[60ch] text-[1.125rem] leading-relaxed text-slate-500 dark:text-slate-400">
@@ -376,7 +376,13 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
                   <span>Original</span>
                 </>
               )}
-              {post.source && post.source !== "original" && (
+              {post.source === "thesis" && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <span>Master&apos;s Thesis</span>
+                </>
+              )}
+              {post.source && post.source !== "original" && post.source !== "thesis" && (
                 <>
                   <span aria-hidden="true">·</span>
                   <a

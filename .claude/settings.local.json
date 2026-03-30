@@ -38,7 +38,8 @@
       "Bash(linkedin)",
       "Bash(npx eslint:*)",
       "mcp__sonarqube__search_duplicated_files",
-      "Bash(grep -n \"!\\\\[\" /d/Developer/Shrikant-Portfolio/shrikant-portfolio/app/data/posts/*.md)"
+      "Bash(grep -n \"!\\\\[\" /d/Developer/Shrikant-Portfolio/shrikant-portfolio/app/data/posts/*.md)",
+      "Bash(grep -n \"^source:\" app/data/posts/*.md)"
     ]
   }
 }
