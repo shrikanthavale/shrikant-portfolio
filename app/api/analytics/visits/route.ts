@@ -25,22 +25,23 @@ export async function GET(request: NextRequest) {
     }
 
     // Create a deduplication key: visit:{ip}:{YYYY-MM-DD}
-    // Use en-CA locale for stable YYYY-MM-DD format
-    const today = new Date().toLocaleDateString("en-CA");
+    // Use ISO format for deterministic, consistent date strings
+    const now = new Date();
+    const today = now.toISOString().slice(0, 10); // "2026-04-16"
     const dedupeKey = `visit:${ip}:${today}`;
 
     // Get month for monthly counter: YYYY-MM
-    const yearMonth = today.slice(0, 7); // "2026-04"
+    const yearMonth = now.toISOString().slice(0, 7); // "2026-04"
 
-    // Check if this visitor has already been counted today
-    const hasVisitedToday = await kv.exists(dedupeKey);
+    // Atomic set with NX (only set if key doesn't exist) and 24h expiration
+    // Returns true if key was newly created, false if already exists
+    const added = await kv.set(dedupeKey, "1", { nx: true, ex: 86400 });
 
-    if (!hasVisitedToday) {
-      // New visit for this IP today: increment counters and set dedup key
+    if (added) {
+      // New visit for this IP today: increment counters
       await Promise.all([
         kv.incr("visits:total"), // Increment global counter
         kv.incr(`visits:${yearMonth}`), // Increment monthly counter
-        kv.setex(dedupeKey, 86400, "1"), // Set dedup key with 24h TTL
       ]);
     }
 
