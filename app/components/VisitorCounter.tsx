@@ -31,7 +31,7 @@ export default function VisitorCounter() {
       try {
         const response = await fetch("/api/analytics/visits", {
           method: "GET",
-          cache: "no-store", // Don't cache to get fresh counts
+          next: { revalidate: 60 }, // Cache for 60 seconds, then revalidate
         });
 
         if (!response.ok) {
@@ -64,11 +64,12 @@ export default function VisitorCounter() {
     return null;
   }
 
-  const formattedVisits = formatNumber(visits);
+  const formattedVisits = visits < 10 ? visits.toString() : formatNumber(visits);
+  const suffix = visits < 10 ? "visits" : "visits";
 
   return (
     <span className="text-xs text-slate-500 dark:text-slate-400">
-      {formattedVisits}+ visitors
+      {visits < 10 ? formattedVisits : `${formattedVisits}+`} {suffix}
     </span>
   );
 }

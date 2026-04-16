@@ -12,14 +12,20 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   try {
     // Extract real IP address (handles proxies like Vercel, CloudFlare)
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+    let ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
       request.headers.get("cf-connecting-ip") ||
       request.headers.get("x-real-ip") ||
-      "unknown";
+      "";
+
+    // Fallback: generate unique anonymous ID to avoid undercounting
+    if (!ip) {
+      ip = `anon-${Math.random().toString(36).slice(2, 11)}`;
+    }
 
     // Create a deduplication key: visit:{ip}:{YYYY-MM-DD}
-    const today = new Date().toISOString().split("T")[0];
+    // Use en-CA locale for stable YYYY-MM-DD format
+    const today = new Date().toLocaleDateString("en-CA");
     const dedupeKey = `visit:${ip}:${today}`;
 
     // Check if this visitor has already been counted today
