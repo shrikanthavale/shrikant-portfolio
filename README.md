@@ -28,6 +28,7 @@ A production-grade developer portfolio template built with Next.js, TypeScript, 
 - **Career journey timeline** — animated scroll-driven timeline from a typed data file
 - **Certifications page** — filterable grid driven by a data file
 - **Contact form** — rate-limited, honeypot-protected, Cloudflare Turnstile support, dual email provider (SMTP + Resend fallback)
+- **Visitor counter** — privacy-friendly, Redis-based, deduplicates per IP per day
 - **CI/CD pipeline** — GitHub Actions: commitlint → ESLint → TypeScript → build → Playwright E2E → Lighthouse CI → SonarCloud
 - **SEO optimized** — sitemap, robots.txt, Open Graph, Twitter cards, JSON-LD schema
 
@@ -224,8 +225,26 @@ Copy `.env.example` to `.env.local` and fill in your values.
 | `TURNSTILE_SECRET_KEY`           | No                 | Cloudflare Turnstile secret key          |
 | `DEPLOY_HEALTH_TOKEN`            | No                 | Auth token for `/api/ops/deploy-health`  |
 | `NEXT_PUBLIC_SITE_URL`           | No                 | Overrides the default site URL           |
+| `KV_REST_API_URL`                | No                 | Vercel KV endpoint (auto-injected)       |
+| `KV_REST_API_TOKEN`              | No                 | Vercel KV token (auto-injected)          |
 
 SMTP is used when `SMTP_HOST`, `SMTP_USER`, and `SMTP_PASS` are all set. Otherwise Resend is used. Turnstile is optional — omit both keys to disable the widget entirely.
+
+### Visitor Counter (Optional)
+
+The portfolio includes a privacy-friendly visitor counter that displays total visits on the footer. It uses Vercel KV (Redis) and deduplicates visits per IP per day.
+
+To enable:
+
+1. Create a Vercel KV database:
+   - Go to [vercel.com](https://vercel.com) → Your Project → **Storage** → **Create Database** → **KV**
+   - Vercel auto-injects `KV_REST_API_URL` and `KV_REST_API_TOKEN` into your environment
+
+2. The component is already integrated in the footer. Just deploy and it works.
+
+3. To customize display or remove:
+   - Edit `app/components/Footer.tsx` to remove the `<VisitorCounter />` import and JSX
+   - Or edit `app/components/VisitorCounter.tsx` to change styling/format
 
 ---
 
