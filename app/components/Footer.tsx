@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Code2, TerminalSquare } from "lucide-react";
 import { siteConfig } from "@/app/site.config";
 import { GithubIcon, LinkedinIcon } from "@/app/components/BrandIcons";
+import VisitorCounter from "@/app/components/VisitorCounter";
 
 const iconMap = { Github: GithubIcon, Linkedin: LinkedinIcon, Code2, TerminalSquare };
 
@@ -61,6 +62,7 @@ export default function Footer() {
         </div>
         <div className="mt-12 border-t border-slate-300 pt-6 text-center text-sm text-slate-500 dark:border-slate-800">
           <p>© {new Date().getFullYear()} {person.name}. {footer.copyright}</p>
+          <VisitorCounter />
           <p className="mt-1">
             ⭐ Like this portfolio? Build yours →{" "}
             <a
