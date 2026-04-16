@@ -5,6 +5,7 @@ import { formatNumber } from "@/app/lib/formatNumber";
 
 interface VisitData {
   visits: number;
+  monthlyVisits: number;
 }
 
 /**
@@ -21,7 +22,7 @@ interface VisitData {
  * - Minimal, non-blocking UI
  */
 export default function VisitorCounter() {
-  const [visits, setVisits] = useState<number | null>(null);
+  const [monthlyVisits, setMonthlyVisits] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export default function VisitorCounter() {
 
         const data: VisitData = await response.json();
         if (isMounted) {
-          setVisits(data.visits);
+          setMonthlyVisits(data.monthlyVisits);
           setIsLoading(false);
         }
       } catch (error) {
@@ -60,16 +61,18 @@ export default function VisitorCounter() {
   }, []);
 
   // Don't render if loading or if fetch failed
-  if (isLoading || visits === null) {
+  if (isLoading || monthlyVisits === null) {
     return null;
   }
 
-  const formattedVisits = visits < 10 ? visits.toString() : formatNumber(visits);
-  const suffix = visits < 10 ? "visits" : "visits";
+  const suffix = "visits";
+  const displayText = monthlyVisits < 1000
+    ? `${monthlyVisits} ${suffix} this month`
+    : `${formatNumber(monthlyVisits)}+ ${suffix} this month`;
 
   return (
     <span className="text-xs text-slate-500 dark:text-slate-400">
-      {visits < 10 ? formattedVisits : `${formattedVisits}+`} {suffix}
+      {displayText}
     </span>
   );
 }
