@@ -30,7 +30,7 @@ export default function CodeBlock({ lang, codeText, children }: Readonly<CodeBlo
   }
 
   return (
-    <div className="my-7 overflow-hidden rounded-xl bg-[#1e1e2e]">
+    <div className="my-7 overflow-hidden rounded-[var(--ds-radius-card)] bg-[#1e1e2e]">
       <div className="flex items-center justify-between border-b border-white/[0.07] px-5 py-2.5">
         {lang ? (
           <span className="font-mono text-xs text-slate-400">{lang}</span>
@@ -41,10 +41,10 @@ export default function CodeBlock({ lang, codeText, children }: Readonly<CodeBlo
           type="button"
           onClick={handleCopy}
           aria-label="Copy code to clipboard"
-          className={`rounded border px-2 py-0.5 font-mono text-xs transition-colors duration-150 ${
+          className={`rounded-[var(--ds-radius-btn)] border px-2 py-0.5 font-mono text-xs transition-colors duration-150 ${
             copied
-              ? "border-indigo-400/50 text-indigo-300"
-              : "border-indigo-400/20 text-indigo-400/60 hover:border-indigo-400/40 hover:text-indigo-300"
+              ? "border-[var(--ds-accent)]/50 text-[var(--ds-accent-2)]"
+              : "border-white/15 text-slate-400 hover:border-white/30 hover:text-slate-200"
           }`}
         >
           {copied ? "Copied!" : "Copy"}

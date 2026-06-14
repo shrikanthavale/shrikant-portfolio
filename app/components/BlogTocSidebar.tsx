@@ -32,7 +32,7 @@ export default function BlogTocSidebar({ items }: Readonly<{ items: TocItem[] }>
 
   return (
     <nav aria-label="Table of contents (sidebar)">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500">
+      <p className="ds-soft text-[11px] font-semibold uppercase tracking-[0.12em]">
         On this page
       </p>
       <ul className="mt-3 space-y-0.5">
@@ -41,11 +41,9 @@ export default function BlogTocSidebar({ items }: Readonly<{ items: TocItem[] }>
             <a
               href={`#${item.id}`}
               className={[
-                "block py-1 text-[0.8125rem] leading-snug transition-colors hover:text-indigo-600 dark:hover:text-indigo-400",
+                "block py-1 text-[0.8125rem] leading-snug transition-colors hover:text-[var(--ds-accent)]",
                 item.level === 3 ? "pl-3.5" : "",
-                activeId === item.id
-                  ? "font-medium text-indigo-600 dark:text-indigo-400"
-                  : "text-slate-500 dark:text-slate-400",
+                activeId === item.id ? "ds-accent-text font-medium" : "ds-muted",
               ]
                 .filter(Boolean)
                 .join(" ")}

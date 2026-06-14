@@ -115,18 +115,16 @@ export default function ExperienceTimeline() {
   return (
     <section
       id="experience"
-      className="section-ambient section-ambient-alt border-t border-slate-200 bg-slate-50/60 dark:border-gray-800 dark:bg-slate-950/70"
+      className="ds-section-alt"
     >
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-sky-700 dark:text-sky-300">
-            Career and education journey
-          </p>
-          <h2 className="heading-gradient mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Career Journey</h2>
-          <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-gray-400">
+          <p className="ds-eyebrow">Career and education journey</p>
+          <h2 className="ds-section-title mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Career Journey</h2>
+          <p className="ds-muted mt-4 text-base leading-7 sm:text-lg sm:leading-8">
             From academic foundations to building real-world systems at scale.
           </p>
-          <p className="mt-3 text-sm leading-6 text-slate-500 sm:text-base dark:text-slate-400">
+          <p className="ds-soft mt-3 text-sm leading-6 sm:text-base">
             {"Foundation -> Enterprise systems -> Distributed depth -> Mission-critical delivery."}
           </p>
         </div>
@@ -167,18 +165,16 @@ export default function ExperienceTimeline() {
                         <div className="experience-timeline__card-shell">
                           <div className="experience-timeline__brand-row">
                             <div className="experience-timeline__brand-mark" aria-hidden="true">
-                              <kindMeta.icon className="h-4.5 w-4.5 text-slate-700 dark:text-slate-200" />
+                              <kindMeta.icon className="ds-text h-4.5 w-4.5" />
                             </div>
 
                             <div className="min-w-0">
-                              <h3 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">{entry.title}</h3>
+                              <h3 className="ds-display-font ds-text text-xl font-bold sm:text-2xl">{entry.title}</h3>
                               <div className="mt-1 flex flex-wrap items-center gap-2">
-                                <p className="experience-timeline__role text-base font-medium text-slate-600 dark:text-slate-300">{entry.role}</p>
-                                <span className="inline-flex items-center rounded-full border border-slate-300/85 bg-white/75 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-600 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-300">
-                                  {entry.stage}
-                                </span>
+                                <p className="experience-timeline__role ds-muted text-base font-medium">{entry.role}</p>
+                                <span className="ds-chip">{entry.stage}</span>
                               </div>
-                              <p className="mt-1.5 flex items-center gap-1 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-sky-700 dark:text-sky-300">
+                              <p className="ds-accent-text mt-1.5 flex items-center gap-1 text-[0.7rem] font-semibold uppercase tracking-[0.28em]">
                                 <MapPin className="h-3 w-3 shrink-0" aria-hidden="true" />
                                 {entry.location}
                               </p>
@@ -192,7 +188,7 @@ export default function ExperienceTimeline() {
 
                             </div>
 
-                          <p className="experience-timeline__summary mt-5 text-[0.98rem] font-semibold leading-6 text-slate-800 dark:text-slate-100">{entry.narrative}</p>
+                          <p className="experience-timeline__summary ds-text mt-5 text-[0.98rem] font-semibold leading-6">{entry.narrative}</p>
 
                           <div className="experience-timeline__tag-list mt-6" aria-label={`${entry.title} areas`}>
                             {visibleTags.map((tag) => (
@@ -203,7 +199,7 @@ export default function ExperienceTimeline() {
                             {hiddenTagCount > 0 && <span className="experience-timeline__tag">+{hiddenTagCount}</span>}
                           </div>
 
-                          <ul className="experience-timeline__highlights mt-7 space-y-3 text-sm leading-relaxed text-slate-600 dark:text-gray-300">
+                          <ul className="experience-timeline__highlights ds-muted mt-7 space-y-3 text-sm leading-relaxed">
                             {visibleHighlights.map((point, pointIndex) => (
                               <li key={point} className={`experience-timeline__highlight experience-timeline__highlight--${pointIndex + 1} flex gap-3`}>
                                 <span className={`mt-2 h-2 w-2 shrink-0 rounded-full ${kindMeta.markerClassName}`} aria-hidden="true" />

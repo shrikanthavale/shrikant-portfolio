@@ -13,35 +13,37 @@ const featuredProjects = featuredSlugs
 
 export default function Projects() {
   return (
-    <section id="projects" className="section-ambient border-t border-slate-200 bg-white dark:border-gray-800 dark:bg-slate-900/30">
+    <section id="projects" className="ds-section ds-section-alt">
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="heading-gradient text-3xl font-bold tracking-tight sm:text-5xl">Featured projects</h2>
-          <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg sm:leading-9 dark:text-gray-400">
+        <div className="reveal mx-auto max-w-2xl text-center">
+          <h2 className="ds-section-title">Featured projects</h2>
+          <p className="ds-section-sub mt-4 text-base leading-8 sm:text-lg sm:leading-9">
             Selected work demonstrating backend design, system reliability, and engineering collaboration. Open each project for dedicated implementation and architecture details.
           </p>
         </div>
         <div className="mt-12 grid gap-6 md:gap-7 lg:grid-cols-3">
-          {featuredProjects.map((project) => (
-            <ProjectCard
+          {featuredProjects.map((project, index) => (
+            <div
               key={project!.title}
-              title={project!.title}
-              description={project!.description}
-              outcomes={project!.outcomes}
-              tags={project!.tags}
-              detailsHref={`/projects/${project!.slug}`}
-              detailsLabel="View project page"
-              variant="compact"
-              preface={project!.preface}
-              githubUrl={project!.githubUrl}
-            />
+              className="reveal"
+              style={{ "--reveal-delay": `${index * 110}ms` } as React.CSSProperties}
+            >
+              <ProjectCard
+                title={project!.title}
+                description={project!.description}
+                outcomes={project!.outcomes}
+                tags={project!.tags}
+                detailsHref={`/projects/${project!.slug}`}
+                detailsLabel="View project page"
+                variant="compact"
+                preface={project!.preface}
+                githubUrl={project!.githubUrl}
+              />
+            </div>
           ))}
         </div>
-        <div className="mt-8 text-center">
-          <Link
-            href="/projects"
-            className="inline-flex items-center rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-105 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-400/40"
-          >
+        <div className="reveal mt-8 text-center" style={{ "--reveal-delay": "200ms" } as React.CSSProperties}>
+          <Link href="/projects" className="ds-btn-primary px-4 py-2 text-sm">
             View all projects →
           </Link>
         </div>

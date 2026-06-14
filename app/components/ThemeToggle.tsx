@@ -12,8 +12,7 @@ function useIsMounted() {
   );
 }
 
-const btnClassName =
-  "inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 bg-white/80 text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:bg-sky-500";
+const btnClassName = "ds-icon-btn";
 
 export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();

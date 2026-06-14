@@ -71,7 +71,7 @@ export default function VisitorCounter() {
     : `${formatNumber(monthlyVisits)}+ ${suffix} this month`;
 
   return (
-    <span className="text-xs text-slate-500 dark:text-slate-400">
+    <span className="ds-soft text-xs">
       {displayText}
     </span>
   );

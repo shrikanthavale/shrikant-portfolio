@@ -31,14 +31,14 @@ export default function BlogIndexPage() {
   const posts = getPosts();
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
+    <main className="ds-page min-h-screen transition-colors">
       <SubpageTopBar leftLabel="Blog" rightHref="/#blog" />
 
-      <section className="section-ambient border-b border-slate-200 bg-white/80 dark:border-slate-800 dark:bg-slate-900/30">
+      <section className="section-ambient border-b ds-rule bg-[var(--ds-bg-alt)]">
         <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="heading-gradient text-3xl font-bold tracking-tight sm:text-5xl">Blog library</h2>
-            <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-gray-400">
+          <div className="reveal mx-auto max-w-2xl text-center">
+            <h2 className="ds-section-title text-3xl sm:text-5xl">Blog library</h2>
+            <p className="ds-section-sub mt-4 text-base leading-7 sm:text-lg sm:leading-8">
               Explore all articles on backend architecture, distributed systems, and practical engineering patterns.
             </p>
           </div>

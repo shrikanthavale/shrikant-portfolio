@@ -8,7 +8,7 @@ import Footer from "@/app/components/Footer";
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
+    <main className="ds-page min-h-screen transition-colors">
       <Navbar />
       <Hero />
       <Projects />

@@ -75,7 +75,7 @@ export default function CertificationsClient({ certifications }: Readonly<Certif
 
   return (
     <div className="mt-12">
-      <div className="rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
+      <div className="ds-card p-5">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           <label className="lg:col-span-2">
             <span className="sr-only">Search certifications</span>
@@ -83,7 +83,7 @@ export default function CertificationsClient({ certifications }: Readonly<Certif
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Search by title, issuer, domain, or credential ID"
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 outline-none transition-colors placeholder:text-slate-400 focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:placeholder:text-slate-500 dark:focus:border-sky-400"
+              className="ds-input w-full px-3 py-2 text-sm"
             />
           </label>
 
@@ -92,7 +92,7 @@ export default function CertificationsClient({ certifications }: Readonly<Certif
             <select
               value={selectedDomain}
               onChange={(event) => setSelectedDomain(event.target.value)}
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 outline-none transition-colors focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-sky-400"
+              className="ds-input w-full px-3 py-2 text-sm"
             >
               {domains.map((domain) => (
                 <option key={domain} value={domain}>
@@ -107,7 +107,7 @@ export default function CertificationsClient({ certifications }: Readonly<Certif
             <select
               value={selectedIssuer}
               onChange={(event) => setSelectedIssuer(event.target.value)}
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 outline-none transition-colors focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-sky-400"
+              className="ds-input w-full px-3 py-2 text-sm"
             >
               {issuers.map((issuer) => (
                 <option key={issuer} value={issuer}>
@@ -122,7 +122,7 @@ export default function CertificationsClient({ certifications }: Readonly<Certif
             <select
               value={selectedFeatured}
               onChange={(event) => setSelectedFeatured(event.target.value)}
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 outline-none transition-colors focus:border-sky-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-sky-400"
+              className="ds-input w-full px-3 py-2 text-sm"
             >
               <option value="featured">Featured only</option>
               <option value="all">All certifications</option>
@@ -132,19 +132,17 @@ export default function CertificationsClient({ certifications }: Readonly<Certif
 
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
-            <p className="text-sm text-slate-600 dark:text-slate-300">
-              Showing <span className="font-semibold text-slate-900 dark:text-white">{filteredCertifications.length}</span> of {certifications.length} certifications.
+            <p className="ds-muted text-sm">
+              Showing <span className="ds-text font-semibold">{filteredCertifications.length}</span> of {certifications.length} certifications.
             </p>
             {selectedFeatured === "featured" && (
-              <span className="rounded-full border border-sky-200 bg-sky-50 px-2 py-0.5 text-[11px] font-medium text-sky-700 dark:border-sky-700/70 dark:bg-sky-900/30 dark:text-sky-300">
-                Default filter: Featured only
-              </span>
+              <span className="ds-chip">Default filter: Featured only</span>
             )}
           </div>
           <button
             type="button"
             onClick={resetFilters}
-            className="rounded-md border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:border-sky-500 hover:text-sky-700 dark:border-slate-700 dark:text-slate-300 dark:hover:border-sky-500 dark:hover:text-sky-300"
+            className="ds-btn-secondary px-3 py-1.5 text-xs font-semibold"
           >
             Reset filters
           </button>
@@ -152,15 +150,16 @@ export default function CertificationsClient({ certifications }: Readonly<Certif
       </div>
 
       {filteredCertifications.length === 0 ? (
-        <div className="mt-8 rounded-2xl border border-dashed border-slate-300 bg-white/70 p-8 text-center dark:border-slate-700 dark:bg-slate-900/60">
-          <p className="text-sm font-medium text-slate-700 dark:text-slate-200">No certifications match the selected filters.</p>
+        <div className="ds-rule mt-8 rounded-[var(--ds-radius-card)] border border-dashed bg-[var(--ds-surface)] p-8 text-center">
+          <p className="ds-text text-sm font-medium">No certifications match the selected filters.</p>
         </div>
       ) : (
         <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {filteredCertifications.map((item) => (
+          {filteredCertifications.map((item, index) => (
             <article
               key={item.id}
-              className="glass-card glass-card-hover relative flex h-full flex-col justify-between rounded-2xl border border-slate-200 p-5 shadow-sm dark:border-slate-800"
+              className="ds-card ds-card-hover reveal relative flex h-full flex-col justify-between p-5"
+              style={{ "--reveal-delay": `${index * 110}ms` } as React.CSSProperties}
             >
               {item.featured && (
                 <span
@@ -175,38 +174,36 @@ export default function CertificationsClient({ certifications }: Readonly<Certif
                 <div className="flex items-start gap-3">
                   <IssuerIcon issuer={item.issuer} />
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full border border-slate-300 bg-slate-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
-                      {item.domain}
-                    </span>
+                    <span className="ds-chip">{item.domain}</span>
                     <span className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] ${statusBadgeClassName[item.status]}`}>
                       {statusLabel[item.status]}
                     </span>
                   </div>
                 </div>
 
-                <h2 className="mt-4 text-lg font-bold leading-snug text-slate-900 dark:text-white">{item.title}</h2>
-                <p className="mt-2 text-sm font-medium text-slate-600 dark:text-slate-300">{item.issuer}</p>
-                <p className="mt-1 text-xs uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">Issued {item.year}</p>
+                <h2 className="ds-display-font ds-text mt-4 text-lg font-bold leading-snug">{item.title}</h2>
+                <p className="ds-muted mt-2 text-sm font-medium">{item.issuer}</p>
+                <p className="ds-soft mt-1 text-xs uppercase tracking-[0.12em]">Issued {item.year}</p>
 
                 {item.credentialId && (
-                  <p className="mt-4 text-xs text-slate-500 dark:text-slate-400">
-                    Credential ID: <span className="font-medium text-slate-700 dark:text-slate-300">{item.credentialId}</span>
+                  <p className="ds-soft mt-4 text-xs">
+                    Credential ID: <span className="ds-muted font-medium">{item.credentialId}</span>
                   </p>
                 )}
               </div>
 
-              <div className="mt-6 border-t border-slate-200 pt-4 dark:border-slate-800">
+              <div className="ds-rule mt-6 border-t pt-4">
                 {item.verifyUrl ? (
                   <a
                     href={item.verifyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center rounded-md bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-[1.03] hover:bg-sky-500 hover:shadow-md hover:shadow-sky-400/40"
+                    className="ds-btn-primary inline-flex items-center px-3 py-1.5 text-xs font-semibold"
                   >
                     Verify credential
                   </a>
                 ) : (
-                  <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Verification link not added yet</span>
+                  <span className="ds-soft text-xs font-medium">Verification link not added yet</span>
                 )}
               </div>
             </article>

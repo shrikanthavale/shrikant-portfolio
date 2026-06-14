@@ -10,7 +10,7 @@ export default function PortfolioArchitecture() {
           </div>
         </div>
 
-        <div className="h-5 w-px bg-slate-300 dark:bg-slate-700" />
+        <div className="h-5 w-px bg-[var(--ds-divider)]" />
 
         {/* Row 2: Core stack */}
         <div className="flex flex-wrap justify-center gap-3">
@@ -28,7 +28,7 @@ export default function PortfolioArchitecture() {
           </div>
         </div>
 
-        <div className="h-5 w-px bg-slate-300 dark:bg-slate-700" />
+        <div className="h-5 w-px bg-[var(--ds-divider)]" />
 
         {/* Row 3: DevOps & Quality */}
         <div className="flex flex-wrap justify-center gap-3">
@@ -46,7 +46,7 @@ export default function PortfolioArchitecture() {
           </div>
         </div>
 
-        <div className="h-5 w-px bg-slate-300 dark:bg-slate-700" />
+        <div className="h-5 w-px bg-[var(--ds-divider)]" />
 
         {/* Bottom: Security & Comms */}
         <div className="flex flex-wrap justify-center gap-3">
@@ -54,9 +54,9 @@ export default function PortfolioArchitecture() {
             <p className="text-sm font-bold text-amber-900 dark:text-amber-100">Cloudflare Turnstile</p>
             <p className="text-xs opacity-75 text-amber-800 dark:text-amber-200">Anti-spam</p>
           </div>
-          <div className="min-w-[160px] rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800/70">
-            <p className="text-sm font-bold text-slate-900 dark:text-slate-100">Nodemailer / Resend</p>
-            <p className="text-xs opacity-75 text-slate-600 dark:text-slate-300">Contact &amp; Health Email</p>
+          <div className="min-w-[160px] rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface)] px-4 py-2.5 text-center shadow-sm">
+            <p className="ds-text text-sm font-bold">Nodemailer / Resend</p>
+            <p className="ds-muted text-xs opacity-75">Contact &amp; Health Email</p>
           </div>
         </div>
       </div>

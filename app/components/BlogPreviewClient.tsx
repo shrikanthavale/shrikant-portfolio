@@ -10,9 +10,8 @@ type BlogPreviewClientProps = {
 };
 
 const FILTER_CHIP_STYLES = {
-  active: "border-slate-700 bg-slate-800 text-white dark:border-slate-200 dark:bg-slate-100 dark:text-slate-900",
-  inactive:
-    "border-slate-300/90 bg-slate-100/80 text-slate-700 hover:border-slate-400 hover:text-slate-900 dark:border-slate-700/80 dark:bg-slate-900/50 dark:text-slate-200 dark:hover:border-slate-500 dark:hover:text-white",
+  active: "border-[var(--ds-accent)] bg-[var(--ds-accent)] text-[var(--ds-accent-contrast)]",
+  inactive: "hover:border-[var(--ds-accent-border)] hover:text-[var(--ds-text)]",
 } as const;
 
 export default function BlogPreviewClient({ posts }: Readonly<BlogPreviewClientProps>) {
@@ -63,7 +62,7 @@ export default function BlogPreviewClient({ posts }: Readonly<BlogPreviewClientP
               key={tag}
               type="button"
               onClick={() => handleTagSelect(tag)}
-              className={`rounded-full border px-3 py-1.5 text-xs font-medium capitalize transition-all duration-200 ${
+              className={`ds-chip px-3 py-1.5 text-xs font-medium capitalize transition-all duration-200 ${
                 isActive
                   ? FILTER_CHIP_STYLES.active
                   : FILTER_CHIP_STYLES.inactive

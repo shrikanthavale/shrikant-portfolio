@@ -15,7 +15,7 @@ export default function BlogToc({ items }: Readonly<{ items: TocItem[] }>) {
   if (items.length < 2) return null;
 
   return (
-    <div className="border-y border-slate-200 py-5 dark:border-slate-800">
+    <div className="ds-rule border-y py-5">
       {/* Mobile toggle button */}
       <button
         type="button"
@@ -23,17 +23,17 @@ export default function BlogToc({ items }: Readonly<{ items: TocItem[] }>) {
         className="flex w-full items-center justify-between md:hidden"
         aria-expanded={open}
       >
-        <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500">
+        <span className="ds-soft text-[11px] font-semibold uppercase tracking-[0.12em]">
           On this page
         </span>
         <ChevronDown
-          className={`h-3.5 w-3.5 text-slate-400 transition-transform duration-200 dark:text-slate-500 ${open ? "rotate-180" : ""}`}
+          className={`ds-soft h-3.5 w-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
           aria-hidden="true"
         />
       </button>
 
       {/* Desktop label (always visible) */}
-      <p className="hidden text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400 md:block dark:text-slate-500">
+      <p className="ds-soft hidden text-[11px] font-semibold uppercase tracking-[0.12em] md:block">
         On this page
       </p>
 
@@ -47,10 +47,8 @@ export default function BlogToc({ items }: Readonly<{ items: TocItem[] }>) {
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
-                className={`block py-1 text-sm transition-colors hover:text-indigo-600 dark:hover:text-indigo-400 ${
-                  item.level === 3
-                    ? "pl-4 text-slate-400 dark:text-slate-500"
-                    : "text-slate-500 dark:text-slate-400"
+                className={`block py-1 text-sm transition-colors hover:text-[var(--ds-accent)] ${
+                  item.level === 3 ? "ds-soft pl-4" : "ds-muted"
                 }`}
               >
                 {item.text}

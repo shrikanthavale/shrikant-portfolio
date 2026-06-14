@@ -17,21 +17,21 @@ export default function SubpageTopBar({
   maxWidthClass = "max-w-6xl",
 }: Readonly<SubpageTopBarProps>) {
   const rightLink = (
-    <Link href={rightHref} className="text-link-subtle caret-transparent text-sm font-medium text-slate-500 hover:text-sky-600 dark:text-slate-400 dark:hover:text-sky-200">
+    <Link href={rightHref} className="text-link-subtle ds-muted caret-transparent text-sm font-medium hover:text-[var(--ds-accent)]">
       {rightLabel}
     </Link>
   );
 
   const leftContent = leftHref ? (
-    <Link href={leftHref} className="text-link-subtle caret-transparent text-sm font-medium text-sky-700 hover:text-sky-600 dark:text-sky-300 dark:hover:text-sky-200">
+    <Link href={leftHref} className="text-link-subtle ds-link-accent caret-transparent text-sm font-medium">
       {leftLabel}
     </Link>
   ) : (
-    <span className="text-sm font-medium text-slate-500 dark:text-slate-400">{leftLabel}</span>
+    <span className="ds-muted text-sm font-medium">{leftLabel}</span>
   );
 
   return (
-    <section className="border-b border-slate-200 bg-white/90 dark:border-slate-800 dark:bg-slate-950/90">
+    <section className="ds-header">
       <div className={`mx-auto flex ${maxWidthClass} items-center justify-between px-6 py-4`}>
         {rightLink}
         <div className="flex items-center gap-3">

@@ -37,43 +37,6 @@ type ProjectCardProps = {
   githubUrl?: string;
 };
 
-const CARD_ACCENTS = {
-  cyan: {
-    preface: "text-sky-700 dark:text-sky-300",
-    cardHover: "hover:border-sky-300 dark:hover:border-sky-700",
-    outcomeWrap: "border-sky-200/80 bg-sky-50/45 dark:border-sky-900/70 dark:bg-sky-900/20",
-    outcomeDot: "bg-sky-500",
-    cta:
-      "border-sky-200 bg-sky-50 text-sky-700 hover:border-sky-500 hover:bg-sky-500 hover:text-white hover:shadow-sky-500/20 dark:border-sky-800/60 dark:bg-sky-900/20 dark:text-sky-300 dark:hover:border-sky-400 dark:hover:bg-sky-500 dark:hover:shadow-sky-500/10",
-  },
-  amber: {
-    preface: "text-amber-700 dark:text-amber-300",
-    cardHover: "hover:border-amber-300 dark:hover:border-amber-700",
-    outcomeWrap: "border-amber-200/80 bg-amber-50/45 dark:border-amber-900/70 dark:bg-amber-900/20",
-    outcomeDot: "bg-amber-500",
-    cta:
-      "border-amber-200 bg-amber-50 text-amber-700 hover:border-amber-500 hover:bg-amber-500 hover:text-white hover:shadow-amber-500/20 dark:border-amber-800/60 dark:bg-amber-900/20 dark:text-amber-300 dark:hover:border-amber-400 dark:hover:bg-amber-500 dark:hover:shadow-amber-500/10",
-  },
-  rose: {
-    preface: "text-rose-700 dark:text-rose-300",
-    cardHover: "hover:border-rose-300 dark:hover:border-rose-700",
-    outcomeWrap: "border-rose-200/80 bg-rose-50/45 dark:border-rose-900/70 dark:bg-rose-900/20",
-    outcomeDot: "bg-rose-500",
-    cta:
-      "border-rose-200 bg-rose-50 text-rose-700 hover:border-rose-500 hover:bg-rose-500 hover:text-white hover:shadow-rose-500/20 dark:border-rose-800/60 dark:bg-rose-900/20 dark:text-rose-300 dark:hover:border-rose-400 dark:hover:bg-rose-500 dark:hover:shadow-rose-500/10",
-  },
-} as const;
-
-const ACCENT_ORDER = ["cyan", "amber", "rose"] as const;
-
-function pickAccentKey(seed: string) {
-  let hash = 0;
-  for (let index = 0; index < seed.length; index += 1) {
-    hash = (hash + (seed.codePointAt(index) ?? 0) * (index + 1)) % 997;
-  }
-  return ACCENT_ORDER[hash % ACCENT_ORDER.length];
-}
-
 export const TECH_BADGE_META: Record<string, { icon: LucideIcon; tone: string }> = {
   Java: { icon: Coffee, tone: "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-700/50 dark:bg-amber-500/10 dark:text-amber-100" },
   "Spring Boot": { icon: Leaf, tone: "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-700/50 dark:bg-emerald-500/10 dark:text-emerald-100" },
@@ -112,35 +75,27 @@ export default function ProjectCard({
   githubUrl,
 }: Readonly<ProjectCardProps>) {
   const isDetailed = variant === "detailed";
-  const accentKey = pickAccentKey(title);
-  const accent = CARD_ACCENTS[accentKey];
   const prefaceLabel = preface ?? (isDetailed ? "Project narrative" : "Case study");
 
   return (
-    <article className={`glass-card glass-card-hover flex h-full min-h-[300px] flex-col justify-between rounded-2xl p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 ${accent.cardHover}`}>
+    <article className="ds-card ds-card-hover flex h-full min-h-[300px] flex-col justify-between p-6">
       <div>
-        <p className={`text-[11px] font-semibold uppercase tracking-[0.16em] ${accent.preface}`}>
-          {prefaceLabel}
-        </p>
-        <h3 className="mt-3 text-xl font-bold leading-tight text-slate-900 sm:text-2xl dark:text-white">{title}</h3>
-        {role && <p className="mt-3 text-xs font-medium uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{role}</p>}
-        <p className={`mt-4 text-sm leading-7 text-slate-600 dark:text-gray-400 ${isDetailed ? "" : "line-clamp-4"}`}>{description}</p>
+        <p className="ds-eyebrow text-[11px]">{prefaceLabel}</p>
+        <h3 className="ds-display-font ds-text mt-3 text-xl leading-tight sm:text-2xl">{title}</h3>
+        {role && <p className="ds-soft mt-3 text-xs font-medium uppercase tracking-[0.14em]">{role}</p>}
+        <p className={`ds-muted mt-4 text-sm leading-7 ${isDetailed ? "" : "line-clamp-4"}`}>{description}</p>
 
-        {isDetailed && context && (
-          <p className="mt-4 text-sm leading-7 text-slate-500 dark:text-slate-400">{context}</p>
-        )}
+        {isDetailed && context && <p className="ds-soft mt-4 text-sm leading-7">{context}</p>}
 
         {!isDetailed && outcomes?.length ? (
-          <div className="mt-4 rounded-lg border border-slate-200/80 bg-slate-50/70 px-3 py-2 dark:border-slate-800 dark:bg-slate-900/70">
-            <p className="text-xs font-medium leading-5 text-slate-600 dark:text-slate-300">
-              Impact: {outcomes[0]}
-            </p>
+          <div className="ds-border-box mt-4 rounded-[var(--ds-radius-btn)] bg-[var(--ds-accent-soft)] px-3 py-2">
+            <p className="ds-muted text-xs font-medium leading-5">Impact: {outcomes[0]}</p>
             {githubUrl && (
               <a
                 href={githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1.5 block text-xs text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                className="ds-link-accent mt-1.5 block text-xs"
               >
                 Open source — available as a template on GitHub
               </a>
@@ -151,22 +106,22 @@ export default function ProjectCard({
 
       <div className="mt-7 flex flex-wrap gap-1.5 sm:gap-2">
         {tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs font-medium text-slate-500 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-400"
-          >
+          <span key={tag} className="ds-chip">
             {tag}
           </span>
         ))}
       </div>
 
       {isDetailed && outcomes?.length ? (
-        <div className={`mt-6 rounded-2xl border p-4 ${accent.outcomeWrap}`}>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">Selected outcomes</p>
-          <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600 dark:text-gray-400">
+        <div className="ds-border-box mt-6 rounded-[var(--ds-radius-btn)] bg-[var(--ds-accent-soft)] p-4">
+          <p className="ds-soft text-[11px] font-semibold uppercase tracking-[0.14em]">Selected outcomes</p>
+          <ul className="ds-muted mt-3 space-y-2 text-sm leading-6">
             {outcomes.slice(0, 2).map((item) => (
               <li key={item} className="flex gap-2">
-                <span className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full ${accent.outcomeDot}`} aria-hidden="true" />
+                <span
+                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ds-accent)]"
+                  aria-hidden="true"
+                />
                 <span>{item}</span>
               </li>
             ))}
@@ -175,14 +130,11 @@ export default function ProjectCard({
       ) : null}
 
       {detailsHref && (
-        <div className="mt-6 flex items-center justify-between gap-3 border-t border-slate-200 pt-5 dark:border-slate-800">
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-400 dark:text-slate-500">
+        <div className="ds-rule mt-6 flex items-center justify-between gap-3 border-t pt-5">
+          <p className="ds-soft text-xs font-medium uppercase tracking-[0.14em]">
             {isDetailed ? "Open full case study" : "Open project narrative"}
           </p>
-          <Link
-            href={detailsHref}
-            className={`inline-flex items-center rounded-md border px-3 py-1.5 text-xs font-medium shadow-sm transition-all duration-200 hover:scale-[1.03] hover:shadow-md ${accent.cta}`}
-          >
+          <Link href={detailsHref} className="ds-btn-secondary px-3 py-1.5 text-xs">
             {detailsLabel} →
           </Link>
         </div>

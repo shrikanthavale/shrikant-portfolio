@@ -16,7 +16,7 @@ export default function ProjectTabs({ tabs }: Readonly<{ tabs: ProjectTab[] }>) 
 
   return (
     <div>
-      <div className="border-b border-slate-200 dark:border-slate-800">
+      <div className="border-b ds-rule">
         <nav className="-mb-px flex overflow-x-auto" aria-label="Project sections">
           {tabs.map((tab) => (
             <button
@@ -24,10 +24,10 @@ export default function ProjectTabs({ tabs }: Readonly<{ tabs: ProjectTab[] }>) 
               onClick={() => setActiveId(tab.id)}
               aria-selected={activeId === tab.id}
               role="tab"
-              className={`shrink-0 whitespace-nowrap border-b-2 px-4 py-3 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-500 ${
+              className={`shrink-0 whitespace-nowrap border-b-2 px-4 py-3 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--ds-accent)] ${
                 activeId === tab.id
-                  ? "border-sky-600 text-sky-700 dark:border-sky-400 dark:text-sky-300"
-                  : "border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700 dark:text-slate-400 dark:hover:border-slate-600 dark:hover:text-slate-200"
+                  ? "border-[var(--ds-accent)] text-[var(--ds-accent)]"
+                  : "border-transparent text-[var(--ds-soft)] hover:border-[var(--ds-border)] hover:text-[var(--ds-text)]"
               }`}
             >
               {tab.label}
@@ -75,7 +75,7 @@ function TechChips({ tagList }: Readonly<{ tagList: string[] }>) {
       {tagList.map((tag) => {
         const meta = TECH_BADGE_META[tag] ?? {
           icon: Cpu,
-          tone: "border-slate-300 bg-slate-100 text-slate-700 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-100",
+          tone: "border-[var(--ds-border)] bg-[var(--ds-surface)] text-[var(--ds-text)]",
         };
         const Icon = meta.icon;
         return (
@@ -117,7 +117,7 @@ export function TechStackContent({ tags }: Readonly<{ tags: string[] }>) {
     <div className="space-y-6">
       {groupEntries.map(([group, groupTags]) => (
         <div key={group}>
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
+          <p className="ds-soft mb-3 text-[11px] font-semibold uppercase tracking-[0.14em]">
             {group}
           </p>
           <TechChips tagList={groupTags} />
@@ -125,7 +125,7 @@ export function TechStackContent({ tags }: Readonly<{ tags: string[] }>) {
       ))}
       {ungrouped.length > 0 && (
         <div>
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
+          <p className="ds-soft mb-3 text-[11px] font-semibold uppercase tracking-[0.14em]">
             Other
           </p>
           <TechChips tagList={ungrouped} />

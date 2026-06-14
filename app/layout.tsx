@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Newsreader, Archivo_Black } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ThemeProvider from "@/app/components/ThemeProvider";
+import DesignSwitcher from "@/app/components/DesignSwitcher";
+import RevealInit from "@/app/components/RevealInit";
 import "./globals.css";
 
 import { siteConfig } from "@/app/site.config";
@@ -19,6 +21,20 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+});
+
+const archivoBlack = Archivo_Black({
+  variable: "--font-archivo",
+  weight: "400",
+  subsets: ["latin"],
+});
+
+const designInitScript = `(function(){try{var d=localStorage.getItem("portfolio-design");if(d==="bento"||d==="editorial"||d==="brutalist"||d==="terminal"){document.documentElement.dataset.design=d;}}catch(e){}})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(seo.url),
@@ -92,15 +108,20 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-design="bento" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} ${archivoBlack.variable} antialiased`}
       >
+        <script dangerouslySetInnerHTML={{ __html: designInitScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {children}
+          <DesignSwitcher />
+          <RevealInit />
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>

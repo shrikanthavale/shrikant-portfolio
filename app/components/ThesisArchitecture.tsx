@@ -12,7 +12,7 @@ function DiagramFigure({
         href={src}
         target="_blank"
         rel="noopener noreferrer"
-        className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:shadow-md dark:border-slate-700 dark:bg-slate-900"
+        className="ds-card block overflow-hidden hover:shadow-md"
       >
         <Image
           src={src}
@@ -24,8 +24,8 @@ function DiagramFigure({
         />
       </a>
       <figcaption className="flex flex-col items-center gap-0.5">
-        <span className="text-center text-xs text-slate-500 dark:text-slate-400">{caption}</span>
-        <span className="text-[10px] text-slate-400 dark:text-slate-500">Click to view full size</span>
+        <span className="ds-soft text-center text-xs">{caption}</span>
+        <span className="ds-soft text-[10px] opacity-80">Click to view full size</span>
       </figcaption>
     </figure>
   );
@@ -34,7 +34,7 @@ function DiagramFigure({
 export default function ThesisArchitecture() {
   return (
     <div className="mt-5 space-y-8">
-      <h3 className="text-base font-semibold text-slate-900 dark:text-white">
+      <h3 className="ds-display-font ds-text text-base">
         System Architecture Diagrams
       </h3>
 

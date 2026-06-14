@@ -16,8 +16,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const isJourneyPage = pathname === "/journey";
   const isCertificationsPage = pathname === "/certifications";
-  const iconButtonClassName =
-    "inline-flex h-9 w-9 items-center justify-center rounded-md border bg-white/80 text-slate-700 shadow-sm transition-all duration-200 hover:scale-105 hover:border-sky-500 hover:bg-sky-500 hover:text-white dark:bg-slate-900 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:bg-sky-500";
+  const iconButtonClassName = "ds-icon-btn";
 
   const { person, navbar, social } = siteConfig;
   const navbarSocial = social.filter((s) => s.navbarVisible);
@@ -67,14 +66,14 @@ export default function Navbar() {
   }, [navbar.navItems]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white transition-colors dark:border-slate-800 dark:bg-slate-950/95 dark:backdrop-blur">
+    <header className="ds-header sticky top-0 z-40">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
         <a
           href="#hero"
           title={person.title}
-          className="flex items-center gap-3 leading-tight text-slate-900 dark:text-white"
+          className="ds-text flex items-center gap-3 leading-tight"
         >
-          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-sky-500/40">
+          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-[var(--ds-accent-border)]">
             <Image
               src={person.profilePhoto}
               alt={person.name}
@@ -85,11 +84,11 @@ export default function Navbar() {
             />
           </div>
           <span className="flex flex-col">
-            <span className="text-xl font-bold tracking-wide">{person.name}</span>
-            <span className="text-xs font-medium tracking-wide text-slate-500 dark:text-gray-400">{person.title}</span>
+            <span className="ds-display-font text-xl">{person.name}</span>
+            <span className="ds-soft text-xs font-medium tracking-wide">{person.title}</span>
           </span>
         </a>
-        <nav className="hidden items-center gap-4 text-[13px] font-medium text-slate-600 lg:gap-5 lg:text-sm md:flex dark:text-slate-200">
+        <nav className="hidden items-center gap-4 text-[13px] font-medium lg:gap-5 lg:text-sm md:flex">
           {navbar.navItems.map((item) => {
             const isActive = activeSection === item.href.slice(1);
 
@@ -98,11 +97,7 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`relative transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:origin-left after:rounded-full after:bg-sky-500 after:transition-transform after:duration-200 ${
-                  isActive
-                    ? "text-slate-900 after:scale-x-100 dark:text-white"
-                    : "hover:text-slate-900 after:scale-x-0 dark:hover:text-white"
-                }`}
+                className={`ds-nav-link ${isActive ? "is-active" : ""}`}
               >
                 {item.label}
               </a>
@@ -115,11 +110,7 @@ export default function Navbar() {
             aria-label="Career journey timeline"
             aria-current={isJourneyPage ? "page" : undefined}
             title="Career journey timeline"
-            className={`${iconButtonClassName} ${
-              isJourneyPage
-                ? "border-sky-500 bg-sky-500 text-white shadow-sky-500/35 dark:border-sky-400 dark:bg-sky-500"
-                : "border-slate-300 dark:border-slate-700"
-            }`}
+            className={`${iconButtonClassName} ${isJourneyPage ? "is-active" : ""}`}
           >
             <Milestone className="h-4 w-4" aria-hidden="true" />
           </Link>
@@ -128,11 +119,7 @@ export default function Navbar() {
             aria-label="Technical certifications"
             aria-current={isCertificationsPage ? "page" : undefined}
             title="Technical certifications"
-            className={`${iconButtonClassName} ${
-              isCertificationsPage
-                ? "border-sky-500 bg-sky-500 text-white shadow-sky-500/35 dark:border-sky-400 dark:bg-sky-500"
-                : "border-slate-300 dark:border-slate-700"
-            }`}
+            className={`${iconButtonClassName} ${isCertificationsPage ? "is-active" : ""}`}
           >
             <Award className="h-4 w-4" aria-hidden="true" />
           </Link>
@@ -145,7 +132,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className={`${iconButtonClassName} border-slate-300 dark:border-slate-700`}
+                className={iconButtonClassName}
               >
                 <Icon className="h-4 w-4" aria-hidden="true" />
               </a>
@@ -154,7 +141,7 @@ export default function Navbar() {
           <ThemeToggle />
           <a
             href={navbar.cta.href}
-            className="rounded-md bg-sky-700 px-3 py-1.5 text-xs font-medium text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-105 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-400/40 sm:px-4 sm:py-2 sm:text-sm dark:bg-sky-500 dark:hover:bg-sky-400"
+            className="ds-btn-primary px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm"
           >
             {navbar.cta.label}
           </a>

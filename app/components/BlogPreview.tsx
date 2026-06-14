@@ -6,26 +6,29 @@ export default function BlogPreview() {
   const posts = getPosts().slice(0, 3);
 
   return (
-    <section id="blog" className="section-ambient border-t border-slate-200 bg-slate-50/70 dark:border-gray-800 dark:bg-slate-900/20">
+    <section id="blog" className="ds-section ds-section-alt">
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="heading-gradient text-3xl font-bold tracking-tight sm:text-5xl">Blog preview</h2>
-          <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg sm:leading-9 dark:text-gray-400">
+        <div className="reveal mx-auto max-w-2xl text-center">
+          <h2 className="ds-section-title">Blog preview</h2>
+          <p className="ds-section-sub mt-4 text-base leading-8 sm:text-lg sm:leading-9">
             Thoughts on backend architecture, scaling systems, and practical engineering patterns.
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {posts.map((post) => (
-            <BlogCard key={post.slug} post={post} variant="compact" />
+          {posts.map((post, index) => (
+            <div
+              key={post.slug}
+              className="reveal"
+              style={{ "--reveal-delay": `${index * 110}ms` } as React.CSSProperties}
+            >
+              <BlogCard post={post} variant="compact" />
+            </div>
           ))}
         </div>
 
-        <div className="mt-8 text-center">
-          <Link
-            href="/blog"
-            className="inline-flex items-center rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm shadow-sky-500/30 transition-all duration-200 hover:scale-105 hover:bg-sky-500 hover:shadow-md hover:shadow-sky-400/40"
-          >
+        <div className="reveal mt-8 text-center" style={{ "--reveal-delay": "200ms" } as React.CSSProperties}>
+          <Link href="/blog" className="ds-btn-primary px-4 py-2 text-sm">
             View all blogs
           </Link>
         </div>

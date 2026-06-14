@@ -42,24 +42,28 @@ export default function TechStack() {
   ];
 
   return (
-    <section id="tech" className="section-ambient section-ambient-alt border-t border-slate-200 bg-slate-50/70 dark:border-gray-800 dark:bg-slate-950">
+    <section id="tech" className="ds-section">
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="heading-gradient text-3xl font-bold tracking-tight sm:text-5xl">Core technology stack</h2>
-          <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8 dark:text-gray-400">
+        <div className="reveal mx-auto max-w-2xl text-center">
+          <h2 className="ds-section-title">Core technology stack</h2>
+          <p className="ds-section-sub mt-4 text-base leading-7 sm:text-lg sm:leading-8">
             The tools and platforms I rely on to deliver proven backend systems and efficient developer workflows.
           </p>
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {stack.map((item) => (
-            <div key={item.name} className="glass-card glass-card-hover rounded-2xl p-6 shadow-sm hover:border-sky-300 dark:hover:border-sky-700">
+          {stack.map((item, index) => (
+            <div
+              key={item.name}
+              className="reveal ds-card ds-card-hover p-6"
+              style={{ "--reveal-delay": `${(index % 3) * 100}ms` } as React.CSSProperties}
+            >
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800">
-                  <item.icon className="h-5 w-5 text-slate-700 dark:text-slate-200" aria-hidden="true" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-[var(--ds-radius-btn)] bg-[var(--ds-accent-soft)]">
+                  <item.icon className="ds-accent-text h-5 w-5" aria-hidden="true" />
                 </div>
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{item.name}</h3>
+                <h3 className="ds-display-font ds-text text-lg">{item.name}</h3>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-gray-400">{item.description}</p>
+              <p className="ds-muted mt-3 text-sm leading-relaxed">{item.description}</p>
             </div>
           ))}
         </div>

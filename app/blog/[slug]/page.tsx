@@ -109,7 +109,7 @@ const MarkdownCode = ({
   return (
     <code
       {...rest}
-      className="rounded bg-indigo-50 px-1.5 py-0.5 font-mono text-[0.875em] text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300"
+      className="ds-accent-text rounded bg-[var(--ds-accent-soft)] px-1.5 py-0.5 font-mono text-[0.875em]"
     >
       {children}
     </code>
@@ -120,7 +120,7 @@ const MarkdownH2 = ({ children, ...rest }: React.HTMLAttributes<HTMLHeadingEleme
   <h2
     {...rest}
     className={
-      "mt-12 scroll-mt-24 text-2xl font-bold tracking-tight text-slate-900 dark:text-white " +
+      "ds-text mt-12 scroll-mt-24 text-2xl font-bold tracking-tight " +
       (rest.className ?? "")
     }
   >
@@ -132,7 +132,7 @@ const MarkdownH3 = ({ children, ...rest }: React.HTMLAttributes<HTMLHeadingEleme
   <h3
     {...rest}
     className={
-      "mt-8 scroll-mt-24 text-lg font-semibold text-slate-800 dark:text-slate-100 " +
+      "ds-text mt-8 scroll-mt-24 text-lg font-semibold " +
       (rest.className ?? "")
     }
   >
@@ -144,7 +144,7 @@ const MarkdownP = ({ children, ...rest }: React.HTMLAttributes<HTMLParagraphElem
   <p
     {...rest}
     className={
-      "mt-6 text-[1.0625rem] leading-[1.75] text-slate-700 dark:text-slate-300 " +
+      "ds-text mt-6 text-[1.0625rem] leading-[1.75] " +
       (rest.className ?? "")
     }
   >
@@ -156,7 +156,7 @@ const MarkdownUl = ({ children, ...rest }: React.HTMLAttributes<HTMLUListElement
   <ul
     {...rest}
     className={
-      "mt-6 space-y-3 pl-6 text-[1.0625rem] leading-[1.75] text-slate-700 marker:text-indigo-400 dark:text-slate-300 dark:marker:text-indigo-500 " +
+      "ds-text mt-6 space-y-3 pl-6 text-[1.0625rem] leading-[1.75] marker:text-[var(--ds-accent)] " +
       (rest.className ?? "")
     }
   >
@@ -168,7 +168,7 @@ const MarkdownOl = ({ children, ...rest }: React.OlHTMLAttributes<HTMLOListEleme
   <ol
     {...rest}
     className={
-      "mt-6 list-decimal space-y-3 pl-6 text-[1.0625rem] leading-[1.75] text-slate-700 marker:text-indigo-400 dark:text-slate-300 dark:marker:text-indigo-500 " +
+      "ds-text mt-6 list-decimal space-y-3 pl-6 text-[1.0625rem] leading-[1.75] marker:text-[var(--ds-accent)] " +
       (rest.className ?? "")
     }
   >
@@ -183,7 +183,7 @@ const MarkdownBlockquote = ({
   <blockquote
     {...rest}
     className={
-      "my-7 border-l-4 border-indigo-400 pl-5 text-slate-600 italic dark:border-indigo-600 dark:text-slate-400 " +
+      "ds-muted my-7 border-l-4 border-[var(--ds-accent-border)] pl-5 italic " +
       (rest.className ?? "")
     }
   >
@@ -196,7 +196,7 @@ const MarkdownA = ({ href, children, ...rest }: React.AnchorHTMLAttributes<HTMLA
     href={href ?? "#"}
     {...rest}
     className={
-      "font-medium text-indigo-700 underline decoration-indigo-400/50 underline-offset-4 transition hover:text-indigo-600 dark:text-indigo-300 dark:decoration-indigo-500/40 dark:hover:text-indigo-200 " +
+      "ds-link-accent font-medium underline underline-offset-4 transition " +
       (rest.className ?? "")
     }
   >
@@ -207,7 +207,7 @@ const MarkdownA = ({ href, children, ...rest }: React.AnchorHTMLAttributes<HTMLA
 const MarkdownHr = (props: React.HTMLAttributes<HTMLHRElement>) => (
   <hr
     {...props}
-    className={"my-10 border-slate-200 dark:border-slate-800 " + (props.className ?? "")}
+    className={"ds-rule my-10 " + (props.className ?? "")}
   />
 );
 
@@ -220,11 +220,11 @@ const MarkdownImg = ({ src, alt }: React.ImgHTMLAttributes<HTMLImageElement>) =>
       <img
         src={src ?? ""}
         alt={alt ?? ""}
-        className="w-full cursor-zoom-in rounded-xl border border-slate-200 shadow-sm transition-opacity hover:opacity-90 dark:border-slate-700"
+        className="ds-rule w-full cursor-zoom-in rounded-[var(--ds-radius-card)] border shadow-sm transition-opacity hover:opacity-90"
       />
     </a>
     {alt && (
-      <span className="mt-3 block text-center text-[0.8125rem] italic leading-relaxed text-slate-500 dark:text-slate-400">
+      <span className="ds-soft mt-3 block text-center text-[0.8125rem] italic leading-relaxed">
         {alt}
       </span>
     )}
@@ -233,7 +233,7 @@ const MarkdownImg = ({ src, alt }: React.ImgHTMLAttributes<HTMLImageElement>) =>
 };
 
 const MarkdownTable = ({ children, ...rest }: React.HTMLAttributes<HTMLTableElement>) => (
-  <div className="my-7 overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+  <div className="ds-rule my-7 overflow-x-auto rounded-[var(--ds-radius-card)] border">
     <table
       {...rest}
       className={"w-full border-collapse text-sm " + (rest.className ?? "")}
@@ -247,7 +247,7 @@ const MarkdownTh = ({ children, ...rest }: React.ThHTMLAttributes<HTMLTableCellE
   <th
     {...rest}
     className={
-      "border-b border-slate-200 bg-slate-50 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-400 " +
+      "ds-muted ds-rule border-b bg-[var(--ds-surface)] px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide " +
       (rest.className ?? "")
     }
   >
@@ -259,7 +259,7 @@ const MarkdownTd = ({ children, ...rest }: React.TdHTMLAttributes<HTMLTableCellE
   <td
     {...rest}
     className={
-      "border-b border-slate-100 px-4 py-3 text-slate-700 dark:border-slate-800 dark:text-slate-300 " +
+      "ds-text border-b border-[var(--ds-divider)] px-4 py-3 " +
       (rest.className ?? "")
     }
   >
@@ -325,7 +325,7 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
   const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 
   return (
-    <main className="min-h-screen bg-white text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
+    <main className="ds-page min-h-screen transition-colors">
       <SubpageTopBar leftLabel="← All blogs" leftHref="/blog" maxWidthClass="max-w-[1100px]" />
 
       <div className="mx-auto max-w-[1100px] px-6 py-16 sm:py-24">
@@ -335,9 +335,9 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
         <div className="min-w-0 lg:max-w-[680px] lg:flex-1">
 
         {/* ── Header ── */}
-        <header>
+        <header className="reveal">
           {/* Title */}
-          <h1 className="text-[2rem] font-extrabold leading-[1.15] tracking-tight text-slate-900 sm:text-[2.75rem] dark:text-white">
+          <h1 className="ds-display-font ds-text text-[2rem] leading-[1.15] tracking-tight sm:text-[2.75rem]">
             {post.title}
           </h1>
 
@@ -347,7 +347,7 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
               {post.tags.map((tag) => (
                 <span
                   key={`${post.slug}-tag-${tag}`}
-                  className="rounded-full border border-indigo-200/70 bg-indigo-50/80 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.07em] text-indigo-600 dark:border-indigo-800/50 dark:bg-indigo-950/40 dark:text-indigo-400"
+                  className="ds-chip text-[10px] font-semibold uppercase tracking-[0.07em]"
                 >
                   {tag}
                 </span>
@@ -356,13 +356,13 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
           )}
 
           {/* Excerpt */}
-          <p className="mt-6 max-w-[60ch] text-[1.125rem] leading-relaxed text-slate-500 dark:text-slate-400">
+          <p className="ds-muted mt-6 max-w-[60ch] text-[1.125rem] leading-relaxed">
             {post.excerpt}
           </p>
 
           {/* Meta row — indigo left-border accent */}
-          <div className="mt-7 border-l-2 border-indigo-400 pl-3 dark:border-indigo-600">
-            <div className="flex items-center justify-between gap-x-3 gap-y-1 text-sm text-slate-400 dark:text-slate-500">
+          <div className="mt-7 border-l-2 border-[var(--ds-accent-border)] pl-3">
+            <div className="ds-soft flex items-center justify-between gap-x-3 gap-y-1 text-sm">
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <span>{formatDate(post.date)}</span>
                 <span aria-hidden="true">·</span>
@@ -386,7 +386,7 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
                       href={post.source}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-medium text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                      className="ds-link-accent font-medium transition"
                     >
                       Source article ↗
                     </a>
@@ -395,14 +395,14 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
               </div>
               {(() => {
                 const postUrl = `${siteConfig.seo.url}/blog/${slug}`;
-                const pillCls = "flex shrink-0 items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1 text-xs transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-slate-700 dark:hover:border-indigo-500 dark:hover:text-indigo-400";
+                const pillCls = "ds-rule flex shrink-0 items-center gap-1.5 rounded-[var(--ds-radius-chip)] border px-3 py-1 text-xs transition-colors hover:border-[var(--ds-accent-border)] hover:text-[var(--ds-accent)]";
                 return (
                   <div className="flex shrink-0 items-center gap-2">
-                    <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn" className={`text-indigo-500 dark:text-indigo-400 ${pillCls}`}>
+                    <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn" className={`ds-accent-text ${pillCls}`}>
                       <Linkedin className="h-4 w-4" aria-hidden="true" />
                       <span>LinkedIn</span>
                     </a>
-                    <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on X" className={`text-slate-600 dark:text-slate-300 ${pillCls}`}>
+                    <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on X" className={`ds-muted ${pillCls}`}>
                       <span className="font-bold leading-none">𝕏</span>
                       <span>Twitter</span>
                     </a>
@@ -421,10 +421,11 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
         {/* ── Architecture context cards (specific post) ── */}
         {isArchitecturePost && (
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            {architectureNotes.map((note) => (
+            {architectureNotes.map((note, index) => (
               <div
                 key={note}
-                className="rounded-xl border border-indigo-100 bg-indigo-50/60 px-4 py-3 text-sm leading-relaxed text-indigo-900 dark:border-indigo-900/40 dark:bg-indigo-950/30 dark:text-indigo-200"
+                className="reveal ds-accent-text rounded-[var(--ds-radius-card)] border border-[var(--ds-accent-border)] bg-[var(--ds-accent-soft)] px-4 py-3 text-sm leading-relaxed"
+                style={{ "--reveal-delay": `${index * 110}ms` } as React.CSSProperties}
               >
                 {note}
               </div>
@@ -459,14 +460,14 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
         </article>
 
         {/* ── Footer ── */}
-        <footer className="mt-16 border-t border-slate-200 pt-10 dark:border-slate-800">
+        <footer className="ds-rule mt-16 border-t pt-10">
           {/* Tags reprise */}
           {post.tags && post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
                 <span
                   key={`${post.slug}-footer-${tag}`}
-                  className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-500 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400"
+                  className="ds-chip text-[11px] font-medium"
                 >
                   {tag}
                 </span>
@@ -483,12 +484,12 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
               {previousPost ? (
                 <Link
                   href={previousPost.href}
-                  className="group flex flex-col gap-1 rounded-xl border border-slate-200 bg-white p-5 transition hover:border-indigo-300 hover:bg-indigo-50/50 dark:border-slate-800 dark:bg-slate-900/40 dark:hover:border-indigo-700/60 dark:hover:bg-indigo-950/30"
+                  className="ds-card ds-card-hover group flex flex-col gap-1 p-5 transition"
                 >
-                  <span className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
+                  <span className="ds-soft text-xs font-semibold uppercase tracking-wide">
                     ← Previous
                   </span>
-                  <span className="mt-1 line-clamp-2 text-sm font-medium text-slate-700 group-hover:text-indigo-700 dark:text-slate-300 dark:group-hover:text-indigo-300">
+                  <span className="ds-text mt-1 line-clamp-2 text-sm font-medium group-hover:text-[var(--ds-accent)]">
                     {previousPost.title}
                   </span>
                 </Link>
@@ -499,12 +500,12 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
               {nextPost ? (
                 <Link
                   href={nextPost.href}
-                  className="group flex flex-col items-end gap-1 rounded-xl border border-slate-200 bg-white p-5 text-right transition hover:border-indigo-300 hover:bg-indigo-50/50 dark:border-slate-800 dark:bg-slate-900/40 dark:hover:border-indigo-700/60 dark:hover:bg-indigo-950/30"
+                  className="ds-card ds-card-hover group flex flex-col items-end gap-1 p-5 text-right transition"
                 >
-                  <span className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
+                  <span className="ds-soft text-xs font-semibold uppercase tracking-wide">
                     Next →
                   </span>
-                  <span className="mt-1 line-clamp-2 text-sm font-medium text-slate-700 group-hover:text-indigo-700 dark:text-slate-300 dark:group-hover:text-indigo-300">
+                  <span className="ds-text mt-1 line-clamp-2 text-sm font-medium group-hover:text-[var(--ds-accent)]">
                     {nextPost.title}
                   </span>
                 </Link>
@@ -518,7 +519,7 @@ export default async function BlogPostPage({ params }: Readonly<BlogPostPageProp
           <div className="mt-8 text-center">
             <Link
               href="/blog"
-              className="text-sm font-medium text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+              className="ds-link-accent text-sm font-medium transition"
             >
               ← Back to all posts
             </Link>

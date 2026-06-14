@@ -10,24 +10,24 @@ export default function Footer() {
   const { person, social, footer } = siteConfig;
 
   return (
-    <footer id="contact" className="section-ambient section-ambient-alt border-t border-slate-200 bg-slate-100 dark:border-gray-800 dark:bg-slate-950">
+    <footer id="contact" className="ds-section ds-section-alt">
       <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
         <div>
           <div>
-            <h3 className="heading-gradient text-xl font-bold sm:text-2xl">Quick links</h3>
+            <h3 className="ds-display-font ds-text text-xl sm:text-2xl">Quick links</h3>
             <div className="mt-6 grid grid-cols-2 gap-8 sm:grid-cols-3">
               {footer.quickLinks.map((group) => (
                 <div key={group.heading}>
-                  <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">{group.heading}</p>
-                  <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
+                  <p className="ds-text text-sm font-semibold">{group.heading}</p>
+                  <ul className="ds-muted mt-3 space-y-2 text-sm leading-relaxed">
                     {group.links.map((link) => (
                       <li key={link.href}>
                         {link.href.startsWith("#") ? (
-                          <a className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href={link.href}>
+                          <a className="text-link-subtle hover:text-[var(--ds-accent)]" href={link.href}>
                             {link.label}
                           </a>
                         ) : (
-                          <Link className="text-link-subtle hover:text-slate-900 dark:hover:text-slate-100" href={link.href}>
+                          <Link className="text-link-subtle hover:text-[var(--ds-accent)]" href={link.href}>
                             {link.label}
                           </Link>
                         )}
@@ -37,14 +37,14 @@ export default function Footer() {
                 </div>
               ))}
               <div>
-                <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Social</p>
-                <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-600 dark:text-gray-400">
+                <p className="ds-text text-sm font-semibold">Social</p>
+                <ul className="ds-muted mt-3 space-y-2 text-sm leading-relaxed">
                   {social.map((s) => {
                     const Icon = iconMap[s.icon as keyof typeof iconMap];
                     return (
                       <li key={s.label}>
                         <a
-                          className="inline-flex items-center gap-2 whitespace-nowrap transition-colors hover:text-slate-900 dark:hover:text-slate-100"
+                          className="inline-flex items-center gap-2 whitespace-nowrap transition-colors hover:text-[var(--ds-accent)]"
                           href={s.href}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -60,7 +60,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-12 border-t border-slate-300 pt-6 text-center text-sm text-slate-500 dark:border-slate-800">
+        <div className="ds-rule ds-soft mt-12 border-t pt-6 text-center text-sm">
           <p>© {new Date().getFullYear()} {person.name}. {footer.copyright}</p>
           <VisitorCounter />
           <p className="mt-1">
@@ -69,7 +69,7 @@ export default function Footer() {
               href={footer.templateRepo}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-indigo-500 hover:underline dark:text-indigo-400"
+              className="ds-link-accent"
             >
               Use the template
             </a>
