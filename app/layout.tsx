@@ -12,26 +12,43 @@ import { siteConfig } from "@/app/site.config";
 const { person, seo, social } = siteConfig;
 const pageTitle = `${person.name} | ${person.title}`;
 
+// Geist powers the default (bento) design and is the primary UI font —
+// preload it so first paint is fast.
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
+// Mono is used by code blocks and the terminal design (rarely above the fold),
+// so keep it out of the critical preload path.
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: false,
 });
 
+// Newsreader (editorial) and Archivo Black (brutalist) are only used once a
+// visitor opts into those designs via the switcher. Don't preload them — they
+// would otherwise block first paint on every page for fonts most visitors
+// never see. They load on demand (with a swap fallback) when the design changes.
 const newsreader = Newsreader({
   variable: "--font-newsreader",
   subsets: ["latin"],
   style: ["normal", "italic"],
+  display: "swap",
+  preload: false,
+  fallback: ["Georgia", "serif"],
 });
 
 const archivoBlack = Archivo_Black({
   variable: "--font-archivo",
   weight: "400",
   subsets: ["latin"],
+  display: "swap",
+  preload: false,
+  fallback: ["Arial Black", "sans-serif"],
 });
 
 const designInitScript = `(function(){try{var d=localStorage.getItem("portfolio-design");if(d==="bento"||d==="editorial"||d==="brutalist"||d==="terminal"){document.documentElement.dataset.design=d;}}catch(e){}})();`;
