@@ -9,16 +9,103 @@ export type Project = {
   outcomes: string[];
   preface?: string;
   githubUrl?: string;
+  liveUrl?: string;
 };
 
 export const projects: Project[] = [
+  {
+    slug: "testhoop",
+    title: "TestHoop — Exam Practice Platform",
+    preface: "Side project · Live product",
+    liveUrl: "https://testhoop.com",
+    description:
+      "A free practice-exam platform for IT certifications and entrance exams — timed mocks, topic drills, weak-topic diagnosis and a spaced review queue, built solo on a Java 21 hexagonal backend with a Next.js frontend.",
+    tags: [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "OpenAPI",
+      "REST API",
+      "Next.js",
+      "TypeScript",
+      "Docker",
+      "Hexagonal Architecture",
+      "Claude Code",
+    ],
+    role: "Founder, Architect and Solo Developer",
+    context:
+      "TestHoop (testhoop.com) is an exam-practice marketplace — think Udemy for practice tests — that started with Oracle Java OCP certification and has grown to cover Oracle SQL, OCI and AI, VMware Spring, AWS AI Practitioner and the MHT-CET entrance exam. The tagline says it plainly: make the mistakes here, not in the exam room. It is built and operated solo at roughly an hour a day, on a $0–50/month budget, with AI-assisted development as a deliberate part of the workflow rather than an afterthought.",
+    architecture: [
+      "Spec-first backend: every module is defined by its OpenAPI contract (question-api, exam-api, mock-api, topic-api) before any code is written, so the frontend, the content pipeline and the tests all share one source of truth for the API.",
+      "Hexagonal modules on Java 21 — the domain carries no framework dependencies; Spring Boot, PostgreSQL and the REST layer sit behind ports and adapters, mirroring the discipline used in the content pipeline (testhoop-qgen).",
+      "Exam engine that reproduces the real exam's length, time limit and pass line; supports flagging, skipping and review; shuffles options per attempt so answer-position bias can never be farmed.",
+      "Learning loop: per-topic scoring across attempts surfaces the weakest area with a one-click drill, and missed questions return on a spaced schedule (1, 3, 7, 16 and 35 days).",
+      "Readiness verdict (Likely ready / Borderline / Not yet) weighted by the official topic weights from the exam owner's published guide where available, derived from the mock's topic mix where not.",
+      "Content is never hand-typed into the database: it arrives only through the REST import contract from the separate testhoop-qgen pipeline, idempotently keyed by content-hash external IDs.",
+    ],
+    outcomes: [
+      "Live at testhoop.com with 17 exam packs across 7 tracks — Oracle Java (OCA 7/8, OCP 8/17/21/25), SQL, OCI, Oracle AI, Spring, AWS AI Practitioner and MHT-CET.",
+      "Every shipped question is verified before students see it — about half of the catalog by actual execution (compile-and-run, real Oracle DB), the rest by a second-model judge checked against vendor documentation.",
+      "Free to use with no paid tier; practice works without an account, sign-in unlocks timed mocks, custom tests, saved progress and the review queue.",
+      "Shipped and operated end to end by one engineer — product, backend, frontend, content pipeline and deployment.",
+    ],
+  },
+  {
+    slug: "testhoop-qgen",
+    title: "testhoop-qgen — Verified Question Generation Pipeline",
+    preface: "Side project · AI content pipeline",
+    description:
+      "LLM-assisted pipeline that drafts exam questions, mechanically verifies them with real oracles (javac, Oracle SQL, SymPy, Pint, chemistry rules), runs content lints and imports the survivors into TestHoop over REST.",
+    tags: [
+      "Java",
+      "Maven",
+      "Picocli",
+      "Claude API",
+      "Claude Code",
+      "Python",
+      "SymPy",
+      "OpenAPI",
+      "Oracle",
+      "Docker",
+      "GitHub Actions",
+      "Hexagonal Architecture",
+    ],
+    role: "Architect and Developer",
+    context:
+      "Content quality is the product behind the product: one bad question erodes a learner's trust in the whole platform. qgen is the build-time authoring pipeline that makes LLM-drafted questions safe to ship. The guiding principle is that verification is a gradient, not a boolean — code compiles and runs (confidence ≈ 1.0), maths is checked symbolically (~0.95), physics and chemistry numerics are checked with units (~0.85), and purely conceptual items go to a second-model judge (~0.7) and a human reviewer. The pipeline runs locally and fits a flat-rate Claude subscription by default, with metered API use as an opt-in.",
+    architecture: [
+      "Maven multi-module hexagonal design (qgen-core, -generation, -verification, -import, -coverage, -cli): cross-module calls go only through application ports; the domain has no framework dependencies.",
+      "Three interchangeable LLM backends behind one LlmClient port — manual paste-back (free), the Anthropic Messages API (metered) and headless Claude Code (flat-rate) — selected with a single --via flag.",
+      "Self-healing generation loop: generate → verify each question → feed failures back as a repair prompt → re-verify → drop the still-broken → gate the batch. Every round is logged as JSONL, which doubles as a prompt-tuning dataset.",
+      "Verifier port with pluggable oracles: javac compile-and-run for Java, JDBC against a real Oracle fixture for SQL, SymPy for symbolic maths, Pint for units-bearing physics and chemistry quantities, a Java chemistry verifier (oxidation numbers, equation balancing, IUPAC names via OPSIN/CDK), and an LLM judge for conceptual items.",
+      "Six content lints (key distribution, near-duplicate detection, duplicate options, positional references, letter references in explanations, per-batch key balance) with one definition in core, reported by coverage and enforced as hard gates by import.",
+      "Import talks to TestHoop only through its vendored OpenAPI contract — generated DTOs, a contract test and a WireMock harness — never its database; writes are idempotent via content-hash external IDs and guarded by a committed ids.lock that CI refuses to let drift.",
+    ],
+    outcomes: [
+      "Over 350 question batches across 7 tracks and 17 exam packs, from Java OCP through MHT-CET physics, chemistry and maths — every one gated by an oracle or a judge before import.",
+      "Grew from a Java-only tool into a domain-extensible framework by the rule of three: adding maths, physics and chemistry each required a new oracle adapter, not a rewrite of the core.",
+      "Catalog correctness is a CI gate — a pack with a key-position bias, a near-duplicate or an unanswerable question fails the build before it can reach students.",
+      "~900 commits since May 2026 with ~290 Java sources and 100+ test classes, developed with Claude Code sessions driven by phase-structured prompts and reviewed branch by branch.",
+    ],
+  },
   {
     slug: "secure-code-execution-engine",
     title: "Secure Code Execution Engine",
     preface: "Master's Thesis — FH Hagenberg, 2015",
     description:
       "Built a secure automated grading system for programming assignments in Moodle using isolated Oracle VirtualBox VMs per student.",
-    tags: ["Java", "J2EE", "REST API", "Oracle VirtualBox", "Moodle", "SSH", "Tomcat", "SliTaz Linux", "System Design", "Security"],
+    tags: [
+      "Java",
+      "J2EE",
+      "REST API",
+      "Oracle VirtualBox",
+      "Moodle",
+      "SSH",
+      "Tomcat",
+      "SliTaz Linux",
+      "System Design",
+      "Security",
+    ],
     role: "Researcher, Architect and Developer",
     context:
       "Master's thesis at University of Applied Sciences Hagenberg, Austria (FH OÖ), September 2015. Research identified two critical gaps in automated programming assessment tools: none were integrated with e-learning platforms, and none handled the security risk of executing untrusted student code — file deletion, memory overflow, infinite loops, denial-of-service via threads.",
@@ -107,7 +194,15 @@ export const projects: Project[] = [
     preface: "Side project · Open Source",
     description:
       "Production-grade portfolio with CI/CD, static analysis, security hardening and automated deployment verification.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "GitHub Actions", "SonarCloud", "Vercel", "Claude Code"],
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "GitHub Actions",
+      "SonarCloud",
+      "Vercel",
+      "Claude Code",
+    ],
     githubUrl: "https://github.com/shrikanthavale/shrikant-portfolio",
     role: "Designer and Engineer",
     context:

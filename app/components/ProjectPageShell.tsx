@@ -3,7 +3,7 @@ import ProjectTabs, { type ProjectTab } from "@/app/components/ProjectTabs";
 import { TECH_BADGE_META } from "@/app/components/ProjectCard";
 import { siteConfig } from "@/app/site.config";
 import type { Project } from "@/app/data/projects";
-import { Cpu, Github } from "lucide-react";
+import { Cpu, ExternalLink, Github } from "lucide-react";
 
 type ProjectPageShellProps = {
   project: Project;
@@ -57,6 +57,25 @@ export default function ProjectPageShell({ project, slug, tabs }: Readonly<Proje
           </div>
         )}
 
+        {project.liveUrl && (
+          <div className="mt-6 flex flex-col gap-3 rounded-[var(--ds-radius-card)] border border-[var(--ds-accent-border)] bg-[var(--ds-accent-soft)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3">
+              <ExternalLink className="ds-accent-text h-5 w-5 shrink-0" aria-hidden="true" />
+              <p className="ds-text text-sm font-medium">
+                This product is live — try it free at {project.liveUrl.replace(/^https?:\/\//, "")}
+              </p>
+            </div>
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ds-btn-secondary shrink-0 gap-1.5 self-start px-4 py-2 text-xs sm:self-auto"
+            >
+              Open {project.liveUrl.replace(/^https?:\/\//, "")} →
+            </a>
+          </div>
+        )}
+
         <div className="mt-8">
           <ProjectTabs tabs={tabs} />
         </div>
@@ -69,8 +88,18 @@ export default function ProjectPageShell({ project, slug, tabs }: Readonly<Proje
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.seo.url },
-              { "@type": "ListItem", position: 2, name: "Projects", item: `${siteConfig.seo.url}/projects` },
-              { "@type": "ListItem", position: 3, name: project.title, item: `${siteConfig.seo.url}/projects/${slug}` },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Projects",
+                item: `${siteConfig.seo.url}/projects`,
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: project.title,
+                item: `${siteConfig.seo.url}/projects/${slug}`,
+              },
             ],
           }),
         }}

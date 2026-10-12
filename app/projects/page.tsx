@@ -34,7 +34,9 @@ export default function ProjectsIndexPage() {
       <section className="section-ambient border-b ds-rule bg-[var(--ds-bg-alt)]">
         <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
           <div className="reveal mx-auto max-w-3xl text-center">
-            <h2 className="ds-section-title text-3xl tracking-tight sm:text-5xl">Project implementation stories</h2>
+            <h2 className="ds-section-title text-3xl tracking-tight sm:text-5xl">
+              Project implementation stories
+            </h2>
             <p className="ds-section-sub mt-4 text-base leading-7 sm:text-lg sm:leading-8">
               Detailed project pages with context, architecture decisions, and measurable outcomes.
             </p>
@@ -56,6 +58,7 @@ export default function ProjectsIndexPage() {
                   variant="compact"
                   preface={project.preface}
                   githubUrl={project.githubUrl}
+                  liveUrl={project.liveUrl}
                 />
               </div>
             ))}
@@ -70,7 +73,12 @@ export default function ProjectsIndexPage() {
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.seo.url },
-              { "@type": "ListItem", position: 2, name: "Projects", item: `${siteConfig.seo.url}/projects` },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Projects",
+                item: `${siteConfig.seo.url}/projects`,
+              },
             ],
           }),
         }}

@@ -67,6 +67,15 @@ const TAG_GROUPS: Record<string, string> = {
   "System Design": "Architecture",
   Security: "Architecture",
   "Claude Code": "Tools",
+  "Claude API": "Tools",
+  PostgreSQL: "Backend",
+  Maven: "Backend",
+  Picocli: "Backend",
+  Python: "Verification oracles",
+  SymPy: "Verification oracles",
+  OpenAPI: "API & Integration",
+  Docker: "DevOps",
+  "Hexagonal Architecture": "Architecture",
 };
 
 function TechChips({ tagList }: Readonly<{ tagList: string[] }>) {

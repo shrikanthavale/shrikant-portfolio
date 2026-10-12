@@ -18,7 +18,8 @@ export default function Projects() {
         <div className="reveal mx-auto max-w-2xl text-center">
           <h2 className="ds-section-title">Featured projects</h2>
           <p className="ds-section-sub mt-4 text-base leading-8 sm:text-lg sm:leading-9">
-            Selected work demonstrating backend design, system reliability, and engineering collaboration. Open each project for dedicated implementation and architecture details.
+            Selected work demonstrating backend design, system reliability, and engineering
+            collaboration. Open each project for dedicated implementation and architecture details.
           </p>
         </div>
         <div className="mt-12 grid gap-6 md:gap-7 lg:grid-cols-3">
@@ -38,11 +39,15 @@ export default function Projects() {
                 variant="compact"
                 preface={project!.preface}
                 githubUrl={project!.githubUrl}
+                liveUrl={project!.liveUrl}
               />
             </div>
           ))}
         </div>
-        <div className="reveal mt-8 text-center" style={{ "--reveal-delay": "200ms" } as React.CSSProperties}>
+        <div
+          className="reveal mt-8 text-center"
+          style={{ "--reveal-delay": "200ms" } as React.CSSProperties}
+        >
           <Link href="/projects" className="ds-btn-primary px-4 py-2 text-sm">
             View all projects →
           </Link>
